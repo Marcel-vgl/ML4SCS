@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Mac / OS
+.DS_Store
+
+# Data / outputs
+data/processed/*.csv
+results/plots/*.png
+results/plots/*.jpg
+results/metrics/*.csv
+
+# Misc
+.env
