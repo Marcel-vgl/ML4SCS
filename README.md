@@ -16,7 +16,7 @@ The goal of this repository is to document the full project workflow over the se
 ---
 
 ## Team Members
-- Florian Schneider
+- Florian Schneiderr
 - Marcel Vogeler
 - Member 3
 
