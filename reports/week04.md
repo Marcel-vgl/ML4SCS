@@ -19,7 +19,7 @@
 - No analysis or modeling performed yet this week — focus was on data collection
 
 ### 3. Repository / Documentation Work
-- Added the recorded sensor data as CSV files to the GitHub repository
+- Added the recorded sensor data as CSV files to the GitHub repository /Daten
 
 ## Results
 - 30 min of video material and 3 sensor recordings collected from 2 test subjects
