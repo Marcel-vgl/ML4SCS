@@ -41,3 +41,40 @@ Ziel: Ein Klassifizierungsmodell, das verschiedene Tennisbewegungen anhand von S
 - **Target variable:**  
 - **Important features:**  
 
+---
+
+## Offline Labeling
+
+For the KINGSTON test recording with video and Apple Watch SensorLog CSV:
+
+```bash
+python3 tools/offline_label_tool.py
+```
+
+Then open:
+
+```text
+http://127.0.0.1:8765
+```
+
+The tool uses the clap-based sync offset:
+
+```text
+CSV time = video time + 14.078 seconds
+```
+
+Keyboard shortcuts:
+
+- `1`: Vorhand
+- `2`: Rueckhand
+- `3`: Kein Schlag / Other
+- `n`: next IMU peak
+- `p`: previous IMU peak
+- arrow left/right: one frame backward/forward
+- space: play/pause
+
+Labels are saved as event annotations:
+
+```text
+labels/H_2_050526_events.csv
+```
