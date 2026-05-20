@@ -23,10 +23,14 @@ The goal of this repository is to document the full project workflow over the se
 ---
 
 ## Project Question
-Write your main research question here.
 
-**Example:**  
-Can wearable-device and self-tracking data be used to predict sleep quality, stress, activity level, or another quantified-self outcome?
+Inwiefern lassen sich Bewegungs- und IMU-Daten einer Smartwatch (Apple Watch SensorLog) nutzen, um Tennisbewegungen wie Vorhand, Rückhand und Topspin mittels Machine Learning automatisch zu erkennen und zu klassifizieren?
+
+Ziel: Ein Klassifizierungsmodell, das verschiedene Tennisbewegungen anhand von Sensordaten unterscheidet zwischen:
+
+* Klasse 1: Vorhand
+* Klasse 2: Rückhand
+* Klasse 3: Keine Schlagbewegung
 
 ---
 
