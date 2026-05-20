@@ -1,80 +1,58 @@
-# Machine Learning for smart and connected systems — Group Project
+# ML4SCS Tennis Stroke Classification
 
 ## Project Overview
-This repository contains our semester-long group project for **Machine Learning for Quantified Self**.
 
-The goal of this repository is to document the full project workflow over the semester:
-- problem definition
-- data understanding
-- preprocessing
-- feature engineering
-- modeling
-- evaluation
-- iteration
-- final conclusions
+This repository contains a semester project for **Machine Learning for Smart and Connected Systems**.
 
----
+The project investigates whether smartwatch sensor data can be used to recognize and classify tennis movements. The focus is on motion and IMU data recorded with an Apple Watch during tennis practice.
 
-## Team Members
+The repository documents the full project workflow from data collection and labeling to preprocessing, feature engineering, model training, and evaluation.
+
+## Research Question
+
+Can movement and IMU data from a smartwatch be used to automatically detect and classify tennis strokes such as forehand, backhand, serve, and slice?
+
+## Goal
+
+The goal is to build a machine learning pipeline that can distinguish between different tennis movements based on Apple Watch sensor data.
+
+At this stage, the main target classes are:
+
+- Forehand
+- Backhand
+- Serve
+- Slice
+- No stroke / other movement
+
+The classification setup may be extended later if the dataset supports more stroke types.
+
+## Data
+
+The data consists mainly of Apple Watch sensor recordings and matching video material from tennis sessions.
+
+The smartwatch data includes motion-related signals such as acceleration, rotation rate, attitude, and other sensor values. Video recordings are used as reference material to assign labels to the sensor data.
+
+The raw and collected data is stored in the `Daten/` directory.
+
+## Repository Structure
+
+```text
+Daten/       Raw collected data and video material
+labels/      Event-based labels for recorded sessions
+notebooks/   Exploratory notebooks
+reports/     Weekly project reports
+src/         Project source code for preprocessing, training, and evaluation
+tools/       Helper tools used during the project
+```
+
+## Current Status
+
+The project is currently in the data preparation phase. Initial sensor recordings and video material have been collected, and the first labels have been created.
+
+The next steps are to collect more data, transform the labeled events into usable training samples, extract features from the sensor windows, and train baseline classification models.
+
+## Team
+
 - Florian Schneider
 - Marcel Vogeler
 - Metehan Tetik
-
----
-
-## Project Question
-
-Inwiefern lassen sich Bewegungs- und IMU-Daten einer Smartwatch (Apple Watch SensorLog) nutzen, um Tennisbewegungen wie Vorhand, Rückhand und Topspin mittels Machine Learning automatisch zu erkennen und zu klassifizieren?
-
-Ziel: Ein Klassifizierungsmodell, das verschiedene Tennisbewegungen anhand von Sensordaten unterscheidet zwischen:
-
-* Klasse 1: Vorhand
-* Klasse 2: Rückhand
-* Klasse 3: Keine Schlagbewegung
-
----
-
-## Dataset
-- **Dataset name:**  
-- **Source:**  
-- **Type of data:**  
-- **Target variable:**  
-- **Important features:**  
-
----
-
-## Offline Labeling
-
-For the KINGSTON test recording with video and Apple Watch SensorLog CSV:
-
-```bash
-python3 tools/offline_label_tool.py
-```
-
-Then open:
-
-```text
-http://127.0.0.1:8765
-```
-
-The tool uses the clap-based sync offset:
-
-```text
-CSV time = video time + 14.078 seconds
-```
-
-Keyboard shortcuts:
-
-- `1`: Vorhand
-- `2`: Rueckhand
-- `3`: Kein Schlag / Other
-- `n`: next IMU peak
-- `p`: previous IMU peak
-- arrow left/right: one frame backward/forward
-- space: play/pause
-
-Labels are saved as event annotations:
-
-```text
-labels/H_2_050526_events.csv
-```
