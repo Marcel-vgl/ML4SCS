@@ -7,6 +7,7 @@ __pycache__/
 
 # Virtual environments
 .venv/
+.venv311/
 venv/
 env/
 
@@ -15,6 +16,20 @@ env/
 
 # Mac / OS
 .DS_Store
+.vscode/
+
+# Large media
+*.mp4
+*.mov
+*.avi
+*.mkv
+
+# Local notes / helper docs
+LABELER_MODEL_INTEGRATION.md
+MODELING.md
+OFFLINE_LABELER.md
+docs/csv_graph_modes.md
+tools/start_labeler.command
 
 # Data / outputs
 data/processed/*.csv
