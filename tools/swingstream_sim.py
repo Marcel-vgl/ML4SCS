@@ -59,17 +59,75 @@ def post_batch(url: str, batch: dict) -> None:
         resp.read()
 
 
+def replay_csv(url: str, path: str, batch_size: int, speed: float) -> None:
+    """Streamt eine vorhandene kanonische Apple-Watch-CSV in Echtzeit ans Dashboard
+    (zum Testen der Live-Erkennung mit echten Aufnahmen)."""
+    import csv
+
+    colmap = {
+        "watch_uptime_s": "motionTimestamp_sinceReboot(s)",
+        "user_acc_x_g": "motionUserAccelerationX(G)", "user_acc_y_g": "motionUserAccelerationY(G)", "user_acc_z_g": "motionUserAccelerationZ(G)",
+        "gyro_x_rad_s": "motionRotationRateX(rad/s)", "gyro_y_rad_s": "motionRotationRateY(rad/s)", "gyro_z_rad_s": "motionRotationRateZ(rad/s)",
+        "acc_x_g": "accelerometerAccelerationX(G)", "acc_y_g": "accelerometerAccelerationY(G)", "acc_z_g": "accelerometerAccelerationZ(G)",
+        "gravity_x_g": "motionGravityX(G)", "gravity_y_g": "motionGravityY(G)", "gravity_z_g": "motionGravityZ(G)",
+        "roll_rad": "motionRoll(rad)", "pitch_rad": "motionPitch(rad)", "yaw_rad": "motionYaw(rad)",
+        "quat_x": "motionQuaternionX(R)", "quat_y": "motionQuaternionY(R)", "quat_z": "motionQuaternionZ(R)", "quat_w": "motionQuaternionW(R)",
+    }
+    rows = list(csv.DictReader(open(path, encoding="utf-8-sig")))
+    session_id = datetime.now().strftime("%Y%m%d_%H%M%S")
+    print(f"Replaying {len(rows)} rows from {path} -> {url}")
+
+    def num(row, key):
+        try:
+            return float(row.get(key, 0.0) or 0.0)
+        except ValueError:
+            return 0.0
+
+    batch: list[dict] = []
+    prev_t = None
+    sent = 0
+    for i, row in enumerate(rows):
+        sample = {key: num(row, col) for key, col in colmap.items()}
+        try:
+            sample["sequence"] = int(float(row.get("sequence", i)))
+        except ValueError:
+            sample["sequence"] = i
+        sample["timestamp_unix_s"] = time.time()
+        t = sample["watch_uptime_s"]
+        if prev_t is not None and speed > 0:
+            dt = (t - prev_t) / speed
+            if 0 < dt < 1:
+                time.sleep(dt)
+        prev_t = t
+        batch.append(sample)
+        if len(batch) >= batch_size:
+            post_batch(url, {"type": "sensor_batch", "source": "replay", "session_id": session_id,
+                             "bridge_received_unix_s": time.time(), "samples": batch})
+            sent += len(batch)
+            batch = []
+    if batch:
+        post_batch(url, {"type": "sensor_batch", "source": "replay", "session_id": session_id,
+                         "bridge_received_unix_s": time.time(), "samples": batch})
+        sent += len(batch)
+    print(f"Done. Replayed {sent} samples.")
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Simulate an Apple Watch stream to the SwingStream dashboard.")
     parser.add_argument("--url", default="http://127.0.0.1:8788/api/ingest")
     parser.add_argument("--duration", type=float, default=60.0, help="Seconds to stream.")
     parser.add_argument("--rate", type=float, default=50.0, help="Samples per second.")
     parser.add_argument("--batch", type=int, default=5, help="Samples per batch.")
+    parser.add_argument("--replay", type=str, default="", help="Replay an existing canonical CSV in real time.")
+    parser.add_argument("--speed", type=float, default=1.0, help="Replay speed factor.")
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
+    if args.replay:
+        replay_csv(args.url, args.replay, args.batch, args.speed)
+        return
     session_id = datetime.now().strftime("%Y%m%d_%H%M%S")
     period = 1.0 / args.rate
     t0_uptime = round(random.uniform(1000.0, 5000.0), 3)

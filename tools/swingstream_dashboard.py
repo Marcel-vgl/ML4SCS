@@ -19,6 +19,7 @@ import argparse
 import csv
 import json
 import math
+import sys
 import threading
 import time
 from collections import deque
@@ -30,6 +31,29 @@ from urllib.parse import urlparse
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 RECORDINGS_DIR = REPO_ROOT / "recordings"
+
+# Optional: das trainierte Schlagmodell für den Predict-Modus laden. Benötigt
+# numpy/scikit-learn/joblib (.venv_vr). Ohne Modell läuft das Dashboard nur als
+# Empfänger/Recorder.
+SRC_DIR = REPO_ROOT / "src"
+if str(SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(SRC_DIR))
+
+try:
+    import numpy as np
+    from stroke_model import (
+        DEFAULT_MODEL_PATH,
+        SensorTable,
+        load_model,
+        offline_labeler_peaks,
+        predict_one,
+    )
+
+    _MODEL = load_model(DEFAULT_MODEL_PATH)
+    _MODEL_ERROR = ""
+except Exception as exc:  # noqa: BLE001 - model is optional
+    _MODEL = None
+    _MODEL_ERROR = str(exc)
 
 # Canonical Apple Watch CSV columns, kept identical to the files in uploads/ and
 # Daten/ so recordings load directly via src/stroke_model.load_sensor_table().
@@ -140,6 +164,8 @@ class StreamState:
                     self._csv_writer.writerow(sample_to_csv_row(sample))
                     self.recording_rows += 1
                 self._csv_handle.flush()
+        if ENGINE is not None:
+            ENGINE.add(samples)
         return len(samples)
 
     def _ingest_sample(self, sample: dict, now: float) -> None:
@@ -199,6 +225,11 @@ class StreamState:
                     {"t": round(p["t"], 4), "score": p["score"], "acc": p["acc"], "gyro": p["gyro"]}
                     for p in points
                 ],
+                "prediction": (
+                    ENGINE.snapshot()
+                    if ENGINE is not None
+                    else {"available": False, "error": _MODEL_ERROR}
+                ),
             }
 
     def start_recording(self) -> dict:
@@ -232,6 +263,116 @@ class StreamState:
 
 
 STATE = StreamState()
+
+
+def _fnum(sample: dict, key: str) -> float:
+    try:
+        return float(sample.get(key, 0.0))
+    except (TypeError, ValueError):
+        return 0.0
+
+
+class PredictionEngine:
+    """Live-Schlagerkennung: hält einen rollierenden Puffer der letzten Sekunden,
+    erkennt Peaks und klassifiziert gesetzte Schläge mit dem trainierten Modell."""
+
+    def __init__(self, model_payload: dict, buffer_samples: int = 800) -> None:
+        self.model = model_payload
+        self.window_after = float(model_payload["window_after_s"])
+        self.lock = threading.Lock()
+        self.buffer: deque[dict] = deque(maxlen=buffer_samples)
+        self.predictions: deque[dict] = deque(maxlen=80)
+        self.predicted_abs: list[float] = []
+
+    def add(self, samples: list[dict]) -> None:
+        with self.lock:
+            for sample in samples:
+                self.buffer.append(sample)
+
+    def _build_table(self, samples: list[dict]) -> tuple[SensorTable, float]:
+        t0 = _fnum(samples[0], "watch_uptime_s")
+        times = np.array([_fnum(s, "watch_uptime_s") - t0 for s in samples], dtype=float)
+        ua = np.array([[_fnum(s, "user_acc_x_g"), _fnum(s, "user_acc_y_g"), _fnum(s, "user_acc_z_g")] for s in samples])
+        gy = np.array([[_fnum(s, "gyro_x_rad_s"), _fnum(s, "gyro_y_rad_s"), _fnum(s, "gyro_z_rad_s")] for s in samples])
+        uam = np.sqrt((ua * ua).sum(axis=1))
+        rm = np.sqrt((gy * gy).sum(axis=1))
+        score = uam + 0.12 * rm
+        values = {
+            "accelerometerAccelerationX(G)": np.array([_fnum(s, "acc_x_g") for s in samples]),
+            "accelerometerAccelerationY(G)": np.array([_fnum(s, "acc_y_g") for s in samples]),
+            "accelerometerAccelerationZ(G)": np.array([_fnum(s, "acc_z_g") for s in samples]),
+            "motionUserAccelerationX(G)": ua[:, 0],
+            "motionUserAccelerationY(G)": ua[:, 1],
+            "motionUserAccelerationZ(G)": ua[:, 2],
+            "motionRotationRateX(rad/s)": gy[:, 0],
+            "motionRotationRateY(rad/s)": gy[:, 1],
+            "motionRotationRateZ(rad/s)": gy[:, 2],
+            "motionRoll(rad)": np.array([_fnum(s, "roll_rad") for s in samples]),
+            "motionPitch(rad)": np.array([_fnum(s, "pitch_rad") for s in samples]),
+            "motionYaw(rad)": np.array([_fnum(s, "yaw_rad") for s in samples]),
+            "user_acc_magnitude": uam,
+            "rotation_magnitude": rm,
+            "score": score,
+        }
+        peak_rows = [
+            {
+                "csv_time_s": round(float(times[i]), 4),
+                "acc": round(float(uam[i]), 5),
+                "gyro": round(float(rm[i]), 5),
+                "score": round(float(score[i]), 5),
+            }
+            for i in range(len(samples))
+        ]
+        return SensorTable(times=times, values=values, peak_rows=peak_rows), t0
+
+    def run_once(self) -> None:
+        with self.lock:
+            samples = list(self.buffer)
+        if len(samples) < 40:
+            return
+        table, t0 = self._build_table(samples)
+        latest = float(table.times[-1])
+        settle = self.window_after + 0.15
+        try:
+            peaks = offline_labeler_peaks(table)
+        except Exception:  # noqa: BLE001
+            return
+        for peak in peaks:
+            center = float(peak["csv_time_s"])
+            if center > latest - settle:
+                continue  # noch nicht genug Daten nach dem Schlag
+            abs_t = t0 + center
+            if any(abs(abs_t - done) < 0.4 for done in self.predicted_abs):
+                continue
+            try:
+                row = predict_one(self.model, table, center)
+            except Exception:  # noqa: BLE001
+                continue
+            self.predicted_abs.append(abs_t)
+            self.predictions.append(
+                {
+                    "t": round(abs_t, 3),
+                    "label": row["prediction"],
+                    "confidence": row["confidence"],
+                    "recv": time.time(),
+                }
+            )
+        if len(self.predicted_abs) > 300:
+            self.predicted_abs = self.predicted_abs[-300:]
+
+    def snapshot(self, limit: int = 12) -> dict:
+        with self.lock:
+            recent = list(self.predictions)[-limit:]
+        return {
+            "available": True,
+            "classes": list(self.model["classes"]),
+            "predictions": list(reversed(recent)),
+            "last": recent[-1] if recent else None,
+            "total": len(self.predicted_abs),
+        }
+
+
+ENGINE = PredictionEngine(_MODEL) if _MODEL is not None else None
 
 
 def app_html() -> str:
@@ -270,6 +411,14 @@ def app_html() -> str:
     .legend span::before { content:""; display:inline-block; width:12px; height:3px;
       margin-right:5px; vertical-align:middle; background:currentColor; }
     .recinfo { margin-top:12px; color:var(--muted); font-size:12px; line-height:1.4; word-break:break-all; }
+    .predict { margin-top:14px; }
+    .last-predict { font-size:20px; font-weight:700; padding:12px 14px; border-radius:8px;
+      background:#eef6f0; border:1px solid #cfe3d6; color:#157f4f; }
+    .predict-list { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+    .predict-list .chip { border:1px solid var(--line); border-radius:999px; padding:4px 9px;
+      background:#f9fafb; font-size:12px; color:var(--text); }
+    .chip .vh { color:#157f4f; font-weight:700; }
+    .chip .rh { color:#1769aa; font-weight:700; }
   </style>
 </head>
 <body>
@@ -290,6 +439,11 @@ def app_html() -> str:
       <div class="legend">
         <span style="color:#1769aa">User-Acceleration |a|</span>
         <span style="color:#b56b00">Rotation |ω|</span>
+        <span style="color:#157f4f">erkannte Schläge</span>
+      </div>
+      <div id="predictPanel" class="predict">
+        <div id="lastPredict" class="last-predict">Predict-Modus: warte auf Schläge…</div>
+        <div id="predictList" class="predict-list"></div>
       </div>
     </section>
   </main>
@@ -329,7 +483,32 @@ def app_html() -> str:
       } else {
         recinfo.textContent = 'Keine Aufnahme aktiv.';
       }
+      renderPredictions();
       draw();
+    }
+
+    function chipClass(label) { return label === 'Vorhand' ? 'vh' : 'rh'; }
+
+    function renderPredictions() {
+      const pred = (data && data.prediction) || { available: false };
+      const lastEl = document.getElementById('lastPredict');
+      const listEl = document.getElementById('predictList');
+      if (!pred.available) {
+        lastEl.textContent = 'Predict-Modus aus (Modell nicht geladen)';
+        lastEl.style.color = '#b63d3d';
+        listEl.innerHTML = '';
+        return;
+      }
+      if (pred.last) {
+        lastEl.style.color = '#157f4f';
+        lastEl.innerHTML = `Letzter Schlag: <b>${pred.last.label}</b> · ${Math.round(pred.last.confidence * 100)}%`;
+      } else {
+        lastEl.style.color = '#157f4f';
+        lastEl.textContent = 'Predict-Modus: warte auf Schläge…';
+      }
+      listEl.innerHTML = (pred.predictions || []).map(p =>
+        `<span class="chip"><span class="${chipClass(p.label)}">${p.label}</span> ${Math.round(p.confidence * 100)}%</span>`
+      ).join('');
     }
 
     function draw() {
@@ -363,6 +542,29 @@ def app_html() -> str:
       }
       line('acc', maxAcc, '#1769aa');
       line('gyro', maxGyro, '#b56b00');
+
+      // erkannte Schläge als Marker einzeichnen
+      const pred = (data && data.prediction) || {};
+      const preds = pred.predictions || [];
+      const tmin = pts[0].t, tmax = pts[n - 1].t;
+      if (tmax > tmin) {
+        preds.forEach(pr => {
+          if (pr.t < tmin || pr.t > tmax) return;
+          const x = pad.l + ((pr.t - tmin) / (tmax - tmin)) * pw;
+          ctx.strokeStyle = '#157f4f';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(x, pad.t);
+          ctx.lineTo(x, pad.t + ph);
+          ctx.stroke();
+          ctx.fillStyle = '#157f4f';
+          ctx.font = '11px -apple-system, sans-serif';
+          ctx.save();
+          ctx.translate(x + 3, pad.t + 12);
+          ctx.fillText(pr.label === 'Vorhand' ? 'VH' : 'RH', 0, 0);
+          ctx.restore();
+        });
+      }
     }
 
     async function tick() {
@@ -451,12 +653,26 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def prediction_loop(interval: float = 0.35) -> None:
+    while True:
+        try:
+            ENGINE.run_once()
+        except Exception as exc:  # noqa: BLE001
+            sys.stderr.write(f"[swingstream] prediction error: {exc}\n")
+        time.sleep(interval)
+
+
 def main() -> None:
     args = parse_args()
     server = ThreadingHTTPServer((args.host, args.port), DashboardHandler)
     shown = "127.0.0.1" if args.host in ("0.0.0.0", "") else args.host
     print(f"SwingStream dashboard running at http://{shown}:{args.port}")
     print(f"iPhone bridge should POST batches to http://<mac-ip>:{args.port}/api/ingest")
+    if ENGINE is not None:
+        print(f"Predict mode active (model: {Path(DEFAULT_MODEL_PATH).name}, classes: {ENGINE.model['classes']})")
+        threading.Thread(target=prediction_loop, daemon=True).start()
+    else:
+        print(f"Predict mode OFF (model not loaded: {_MODEL_ERROR})")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
