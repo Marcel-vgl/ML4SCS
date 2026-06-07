@@ -1,0 +1,4 @@
+csv_time_s,prediction,confidence,source_score,source,true_label,prob_Rueckhand,prob_Vorhand
+4.4834,Rueckhand,0.6125,1.0,offline_labeler_contrast_energy,,0.6125,0.3875
+7.4253,Vorhand,0.735,1.0,offline_labeler_contrast_energy,,0.265,0.735
+9.7124,Rueckhand,0.69,1.0,offline_labeler_contrast_energy,,0.69,0.31

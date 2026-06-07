@@ -8,6 +8,7 @@ __pycache__/
 # Virtual environments
 .venv/
 .venv311/
+.venv_vr/
 venv/
 env/
 
@@ -33,6 +34,7 @@ tools/start_labeler.command
 
 # Data / outputs
 data/processed/*.csv
+uploads/
 results/plots/*.png
 results/plots/*.jpg
 results/metrics/*.csv

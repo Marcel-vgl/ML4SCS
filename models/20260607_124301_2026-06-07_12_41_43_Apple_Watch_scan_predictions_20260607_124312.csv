@@ -1,0 +1,10 @@
+csv_time_s,prediction,confidence,source_score,source,true_label,prob_Rueckhand,prob_Vorhand
+0.3728,Rueckhand,0.625,0.13528,offline_labeler_peak,,0.625,0.375
+1.1789,Rueckhand,0.62,0.52599,offline_labeler_peak,,0.62,0.38
+2.6199,Rueckhand,0.66,0.33722,offline_labeler_peak,,0.66,0.34
+4.877,Rueckhand,0.7375,0.73696,offline_labeler_peak,,0.7375,0.2625
+5.9048,Vorhand,0.745,4.92506,offline_labeler_peak,,0.255,0.745
+7.517,Rueckhand,0.7575,0.76503,offline_labeler_peak,,0.7575,0.2425
+8.3232,Vorhand,0.7975,5.98352,offline_labeler_peak,,0.2025,0.7975
+10.8221,Rueckhand,0.7375,8.50952,offline_labeler_peak,,0.7375,0.2625
+13.3513,Rueckhand,0.61,0.15,offline_labeler_peak,,0.61,0.39
