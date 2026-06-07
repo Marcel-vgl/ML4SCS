@@ -19,8 +19,9 @@ final class WatchMotionSampler: ObservableObject {
     /// Wird für jeden fertigen Batch aufgerufen (auf der Motion-Queue).
     var onBatch: ((SensorBatch) -> Void)?
 
-    private let sampleRate = 50.0
-    private let batchSize = 5
+    private let sampleRate = 100.0
+    // Größere Batches (~0,5 s), damit transferUserInfo im Hintergrund effizient bleibt.
+    private let batchSize = 50
     private var sequence = 0
     private var sessionId = ""
     private var buffer: [SensorSample] = []

@@ -1,8 +1,7 @@
 import SwiftUI
 
 struct WatchContentView: View {
-    @StateObject private var sampler = WatchMotionSampler()
-    @StateObject private var sender = WatchConnectivitySender.shared
+    @StateObject private var controller = WatchSessionController()
 
     var body: some View {
         ScrollView {
@@ -10,47 +9,41 @@ struct WatchContentView: View {
                 Text("SwingStream")
                     .font(.headline)
 
-                statusRow("iPhone", ok: sender.phoneReachable,
-                          text: sender.phoneReachable ? "erreichbar" : "getrennt")
-                statusRow("Stream", ok: sampler.isRunning,
-                          text: sampler.isRunning ? "läuft" : "gestoppt")
+                statusRow("iPhone", ok: controller.link.phoneReachable,
+                          text: controller.link.phoneReachable ? "verbunden" : "Bluetooth")
+                statusRow("Aufnahme", ok: controller.isRunning,
+                          text: controller.isRunning ? "läuft" : "gestoppt")
+                statusRow("Hintergrund", ok: controller.workout.active,
+                          text: controller.workout.active ? "aktiv" : "aus")
 
                 VStack(spacing: 2) {
-                    Text("\(Int(sampler.rateHz.rounded())) Hz")
+                    Text("\(Int(controller.sampler.rateHz.rounded())) Hz")
                         .font(.system(size: 26, weight: .bold, design: .rounded))
-                    Text("\(sampler.sampleCount) Samples · \(sender.sentBatches) Batches")
+                    Text("\(controller.sampler.sampleCount) Samples")
                         .font(.caption2)
                         .foregroundStyle(.secondary)
-                    if sender.droppedBatches > 0 {
-                        Text("\(sender.droppedBatches) verworfen")
-                            .font(.caption2)
-                            .foregroundStyle(.orange)
+                    if !controller.sessionName.isEmpty {
+                        Text(controller.sessionName)
+                            .font(.system(size: 10))
+                            .foregroundStyle(.secondary)
+                            .lineLimit(1)
+                            .truncationMode(.middle)
                     }
                 }
                 .padding(.vertical, 4)
 
-                Button(action: toggle) {
-                    Text(sampler.isRunning ? "Stop" : "Start")
+                Button(action: controller.toggleManual) {
+                    Text(controller.isRunning ? "Stop" : "Start")
                         .frame(maxWidth: .infinity)
                         .fontWeight(.semibold)
                 }
-                .tint(sampler.isRunning ? .red : .green)
+                .tint(controller.isRunning ? .red : .green)
+
+                Text("Tipp: Auf dem iPhone Modus + Session-Name wählen und dort starten – die Uhr startet dann mit.")
+                    .font(.system(size: 10))
+                    .foregroundStyle(.secondary)
             }
             .padding(.horizontal, 6)
-        }
-        .onAppear {
-            // Batches der Watch direkt ans iPhone weiterreichen.
-            sampler.onBatch = { batch in
-                WatchConnectivitySender.shared.send(batch)
-            }
-        }
-    }
-
-    private func toggle() {
-        if sampler.isRunning {
-            sampler.stop()
-        } else {
-            sampler.start()
         }
     }
 

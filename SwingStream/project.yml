@@ -11,7 +11,7 @@ settings:
     MARKETING_VERSION: "1.0"
     CURRENT_PROJECT_VERSION: "1"
     SWIFT_VERSION: "5.0"
-    # DEVELOPMENT_TEAM bleibt leer – in Xcode unter "Signing & Capabilities" setzen.
+    DEVELOPMENT_TEAM: DEFYR9944A
     CODE_SIGN_STYLE: Automatic
 
 targets:
@@ -30,8 +30,12 @@ targets:
       path: SwingStream/Info.plist
       properties:
         NSLocalNetworkUsageDescription: "SwingStream sendet Sensordaten an dein Mac-Dashboard im lokalen Netzwerk."
+        NSCameraUsageDescription: "SwingStream nimmt im Label-Modus ein Video auf, das mit den Sensordaten synchronisiert wird."
+        NSMicrophoneUsageDescription: "SwingStream nimmt im Label-Modus Video mit Ton auf."
         NSAppTransportSecurity:
           NSAllowsLocalNetworking: true
+        UIFileSharingEnabled: true
+        LSSupportsOpeningDocumentsInPlace: true
         UILaunchScreen: {}
     dependencies:
       - target: SwingStream Watch App
@@ -43,6 +47,10 @@ targets:
     sources:
       - path: SwingStream Watch App
       - path: Shared
+    entitlements:
+      path: SwingStream Watch App/SwingStreamWatch.entitlements
+      properties:
+        com.apple.developer.healthkit: true
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.florianschneider.SwingStream.watchkitapp
@@ -50,5 +58,7 @@ targets:
       path: SwingStream Watch App/Info.plist
       properties:
         NSMotionUsageDescription: "SwingStream nutzt die Bewegungssensoren der Apple Watch zum Aufzeichnen der Schläge."
+        NSHealthShareUsageDescription: "SwingStream startet eine Trainingseinheit, damit die Sensoren auch bei ausgeschaltetem Display weiter aufzeichnen."
+        NSHealthUpdateUsageDescription: "SwingStream startet eine Trainingseinheit, damit die Sensoren auch bei ausgeschaltetem Display weiter aufzeichnen."
         WKApplication: true
         WKCompanionAppBundleIdentifier: com.florianschneider.SwingStream

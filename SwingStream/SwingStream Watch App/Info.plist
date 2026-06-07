@@ -18,6 +18,10 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>SwingStream startet eine Trainingseinheit, damit die Sensoren auch bei ausgeschaltetem Display weiter aufzeichnen.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>SwingStream startet eine Trainingseinheit, damit die Sensoren auch bei ausgeschaltetem Display weiter aufzeichnen.</string>
 	<key>NSMotionUsageDescription</key>
 	<string>SwingStream nutzt die Bewegungssensoren der Apple Watch zum Aufzeichnen der Schläge.</string>
 	<key>WKApplication</key>
