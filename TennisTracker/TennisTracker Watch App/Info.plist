@@ -33,6 +33,6 @@
 		<string>workout-processing</string>
 	</array>
 	<key>WKCompanionAppBundleIdentifier</key>
-	<string>com.florianschneider.SwingStream</string>
+	<string>com.florianschneider.TennisTracker</string>
 </dict>
 </plist>

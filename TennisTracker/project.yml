@@ -23,7 +23,7 @@ targets:
       - path: Shared
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.florianschneider.SwingStream
+        PRODUCT_BUNDLE_IDENTIFIER: com.florianschneider.TennisTracker
         INFOPLIST_KEY_UILaunchScreen_Generation: "YES"
         TARGETED_DEVICE_FAMILY: "1"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
@@ -56,7 +56,7 @@ targets:
         com.apple.developer.healthkit: true
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.florianschneider.SwingStream.watchkitapp
+        PRODUCT_BUNDLE_IDENTIFIER: com.florianschneider.TennisTracker.watchkitapp
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
     info:
       path: TennisTracker Watch App/Info.plist
@@ -69,4 +69,4 @@ targets:
         WKApplication: true
         WKBackgroundModes:
           - workout-processing
-        WKCompanionAppBundleIdentifier: com.florianschneider.SwingStream
+        WKCompanionAppBundleIdentifier: com.florianschneider.TennisTracker

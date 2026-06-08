@@ -292,7 +292,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.florianschneider.SwingStream;
+				PRODUCT_BUNDLE_IDENTIFIER = com.florianschneider.TennisTracker;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -364,7 +364,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "TennisTracker Watch App/TennisTrackerWatch.entitlements";
 				INFOPLIST_FILE = "TennisTracker Watch App/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = com.florianschneider.SwingStream.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.florianschneider.TennisTracker.watchkitapp;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -377,7 +377,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "TennisTracker Watch App/TennisTrackerWatch.entitlements";
 				INFOPLIST_FILE = "TennisTracker Watch App/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = com.florianschneider.SwingStream.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.florianschneider.TennisTracker.watchkitapp;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -462,7 +462,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.florianschneider.SwingStream;
+				PRODUCT_BUNDLE_IDENTIFIER = com.florianschneider.TennisTracker;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
