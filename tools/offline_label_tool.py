@@ -128,24 +128,38 @@ def parse_float(value: str) -> float:
         return 0.0
 
 
-def read_sensor_rows(csv_path: Path, offset_seconds: float) -> tuple[list[dict], list[dict], list[dict]]:
-    rows = apply_offset_to_rows(read_raw_sensor_rows(csv_path), offset_seconds)
+def read_sensor_rows(
+    csv_path: Path,
+    offset_seconds: float,
+    timeline_start_unix_s: float | None = None,
+) -> tuple[list[dict], list[dict], list[dict]]:
+    rows = apply_offset_to_rows(read_raw_sensor_rows(csv_path, timeline_start_unix_s), offset_seconds)
     points = smooth_rows(downsample_rows(rows, target_points=16000))
     peaks = detect_peaks(rows)
     return points, peaks, rows
 
 
-def read_raw_sensor_rows(csv_path: Path) -> list[dict]:
+def read_raw_sensor_rows(csv_path: Path, timeline_start_unix_s: float | None = None) -> list[dict]:
     rows: list[dict] = []
     with csv_path.open(newline="", encoding="utf-8-sig") as handle:
         reader = csv.DictReader(handle)
         first_time: datetime | None = None
+        first_motion_time: float | None = None
         for row in reader:
-            timestamp = datetime.fromisoformat(row["loggingTime(txt)"])
-            if first_time is None:
-                first_time = timestamp
-
-            csv_sec = (timestamp - first_time).total_seconds()
+            unix_time = row.get("locationTimestamp_since1970(s)")
+            motion_time = row.get("motionTimestamp_sinceReboot(s)")
+            if timeline_start_unix_s is not None and unix_time:
+                csv_sec = parse_float(unix_time) - timeline_start_unix_s
+            elif motion_time:
+                motion_seconds = parse_float(motion_time)
+                if first_motion_time is None:
+                    first_motion_time = motion_seconds
+                csv_sec = motion_seconds - first_motion_time
+            else:
+                timestamp = datetime.fromisoformat(row["loggingTime(txt)"])
+                if first_time is None:
+                    first_time = timestamp
+                csv_sec = (timestamp - first_time).total_seconds()
             acc_x, acc_y, acc_z, gyro_x, gyro_y, gyro_z = [
                 parse_float(row.get(column, "0")) for column in IMU_COLUMNS
             ]
@@ -160,6 +174,51 @@ def read_raw_sensor_rows(csv_path: Path) -> list[dict]:
                 }
             )
     return rows
+
+
+def metadata_candidates(csv_path: Path, video_path: Path) -> list[Path]:
+    candidates = [
+        video_path.with_name(f"{video_path.stem}_video_metadata.json"),
+        csv_path.with_name(f"{csv_path.stem}_video_metadata.json"),
+        video_path.with_suffix(".json"),
+        csv_path.with_suffix(".json"),
+    ]
+    seen: set[Path] = set()
+    unique: list[Path] = []
+    for path in candidates:
+        resolved = path.expanduser().resolve()
+        if resolved not in seen:
+            seen.add(resolved)
+            unique.append(resolved)
+    return unique
+
+
+def load_sync_metadata(csv_path: Path, video_path: Path) -> dict | None:
+    for path in metadata_candidates(csv_path, video_path):
+        if not path.exists() or not path.is_file():
+            continue
+        try:
+            with path.open(encoding="utf-8") as handle:
+                data = json.load(handle)
+        except (OSError, ValueError):
+            continue
+
+        video_start = parse_float(str(data.get("video_start_unix_s", "")))
+        if video_start <= 0:
+            continue
+
+        anchor_value = data.get("session_anchor_unix_s")
+        anchor = parse_float(str(anchor_value)) if anchor_value is not None else None
+        return {
+            "source": "metadata_anchor" if anchor else "metadata_video_start",
+            "metadata_path": str(path),
+            "video_start_unix_s": video_start,
+            "session_anchor_unix_s": anchor,
+            "video_anchor_time_s": parse_float(str(data.get("video_anchor_time_s", "0"))),
+            "confidence": 1.0,
+            "matches": 0,
+        }
+    return None
 
 
 def apply_offset_to_rows(rows: list[dict], offset_seconds: float) -> list[dict]:
@@ -576,9 +635,22 @@ def build_audio_based_suggestions(
 
 
 def analyze_media(csv_path: Path, video_path: Path, fallback_offset: float) -> tuple[list[dict], list[dict], list[dict], list[dict], float, dict]:
-    raw_sensor_rows = read_raw_sensor_rows(csv_path)
     audio_points = extract_audio_envelope(video_path)
     audio_peaks = detect_audio_peaks(audio_points)
+
+    sync_metadata = load_sync_metadata(csv_path, video_path)
+    if sync_metadata:
+        raw_sensor_rows = read_raw_sensor_rows(
+            csv_path,
+            timeline_start_unix_s=sync_metadata["video_start_unix_s"],
+        )
+        sensor_rows = apply_offset_to_rows(raw_sensor_rows, 0.0)
+        points = downsample_rows(sensor_rows, target_points=16000)
+        sensor_peaks = detect_peaks(sensor_rows)
+        suggestions = build_audio_based_suggestions(sensor_peaks, audio_peaks)
+        return points, suggestions, audio_points, audio_peaks, 0.0, sync_metadata
+
+    raw_sensor_rows = read_raw_sensor_rows(csv_path)
     estimated_offset, offset_info = estimate_offset_from_audio(raw_sensor_rows, audio_peaks, fallback_offset)
     sensor_rows = apply_offset_to_rows(raw_sensor_rows, estimated_offset)
     points = downsample_rows(sensor_rows, target_points=16000)

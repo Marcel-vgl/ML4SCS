@@ -38,12 +38,20 @@ The raw and collected data is stored in the `Daten/` directory.
 
 ```text
 Daten/       Raw collected data and video material
+docs/        Project documentation, grouped by topic
 labels/      Event-based labels for recorded sessions
 notebooks/   Exploratory notebooks
 reports/     Weekly project reports
 src/         Project source code for preprocessing, training, and evaluation
+TennisTracker/ Watch/iPhone Xcode project and TennisTracker documentation
 tools/       Helper tools used during the project
 ```
+
+Important documentation:
+
+- `docs/ml-pipeline/` - modeling, labeler, and CSV graph notes
+- `TennisTracker/docs/` - TennisTracker implementation plan and current status
+- `reports/` - weekly project reports
 
 ## Current Status
 
