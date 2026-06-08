@@ -11,8 +11,8 @@ final class WatchConnectivitySender: NSObject, ObservableObject, WCSessionDelega
     @Published var phoneReachable = false
     @Published var sentBatches = 0
 
-    /// Befehl vom iPhone: ("start"/"stop", sessionName).
-    var onCommand: ((String, String) -> Void)?
+    /// Befehl vom iPhone: ("start"/"stop", sessionName, geplanter Startzeitpunkt, Modus).
+    var onCommand: ((String, String, Double?, String?) -> Void)?
 
     private override init() {
         super.init()
@@ -40,14 +40,24 @@ final class WatchConnectivitySender: NSObject, ObservableObject, WCSessionDelega
     }
 
     /// Überträgt die fertige CSV-Datei ans iPhone (persistent, auch im Hintergrund).
-    func transferFile(_ url: URL, session: String) {
-        WCSession.default.transferFile(url, metadata: ["session": session])
+    func transferFile(_ url: URL, session: String, mode: String) {
+        WCSession.default.transferFile(url, metadata: ["session": session, "mode": mode])
     }
 
     private func handle(_ payload: [String: Any]) {
         guard let command = payload["command"] as? String else { return }
         let session = (payload["session"] as? String) ?? ""
-        DispatchQueue.main.async { self.onCommand?(command, session) }
+        let mode = payload["mode"] as? String
+        let startAtUnix = Self.doubleValue(payload["start_at_unix_s"])
+            ?? Self.doubleValue(payload["session_anchor_unix_s"])
+        DispatchQueue.main.async { self.onCommand?(command, session, startAtUnix, mode) }
+    }
+
+    private static func doubleValue(_ value: Any?) -> Double? {
+        if let value = value as? Double { return value }
+        if let value = value as? NSNumber { return value.doubleValue }
+        if let value = value as? String { return Double(value) }
+        return nil
     }
 
     // MARK: - WCSessionDelegate

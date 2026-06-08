@@ -7,7 +7,7 @@ import argparse
 import csv
 from pathlib import Path
 
-from stroke_model import DEFAULT_MODEL_PATH, load_model, load_sensor_table, offline_labeler_peaks, predict_one
+from stroke_model import DEFAULT_MODEL_PATH, detect_energy_peaks, load_model, load_sensor_table, predict_one
 
 
 def read_event_times(path: Path) -> list[tuple[float, dict]]:
@@ -79,11 +79,11 @@ def main() -> None:
             row["true_label"] = ""
             rows.append(row)
     elif args.scan:
-        for peak in offline_labeler_peaks(table, min_spacing_s=max(0.1, args.min_gap)):
+        for peak in detect_energy_peaks(table, min_spacing_s=max(0.1, args.min_gap)):
             row = predict_one(payload, table, float(peak["csv_time_s"]))
             if row["confidence"] < args.threshold:
                 continue
-            row["source"] = peak.get("source", "offline_labeler_peak")
+            row["source"] = peak.get("source", "detect_energy_peaks")
             row["source_score"] = peak.get("score", "")
             row["true_label"] = ""
             rows.append(row)

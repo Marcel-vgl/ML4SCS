@@ -1,7 +1,7 @@
 import Foundation
 import CoreMotion
 
-/// Liest Device-Motion mit 50 Hz, vergibt fortlaufende Sequenznummern und liefert
+/// Liest Device-Motion mit 100 Hz, vergibt fortlaufende Sequenznummern und liefert
 /// die Samples in kleinen Batches über `onBatch` aus.
 final class WatchMotionSampler: ObservableObject {
     private let motion = CMMotionManager()
@@ -25,16 +25,20 @@ final class WatchMotionSampler: ObservableObject {
     private var sequence = 0
     private var sessionId = ""
     private var buffer: [SensorSample] = []
+    private var unixOffsetForMotionTimestamp: Double?
+    private var anchorUnixForFirstSample: Double?
 
     // Ratenmessung
     private var rateWindowStart = Date()
     private var rateWindowCount = 0
 
-    func start() {
+    func start(anchorUnix: Double? = nil) {
         guard motion.isDeviceMotionAvailable, !isRunning else { return }
         sequence = 0
         sampleCount = 0
         buffer.removeAll(keepingCapacity: true)
+        unixOffsetForMotionTimestamp = nil
+        anchorUnixForFirstSample = anchorUnix
         rateWindowStart = Date()
         rateWindowCount = 0
 
@@ -68,10 +72,14 @@ final class WatchMotionSampler: ObservableObject {
         let rr = dm.rotationRate
         let att = dm.attitude
         let q = att.quaternion
+        let unixOffset = unixOffsetForMotionTimestamp
+            ?? anchorUnixForFirstSample.map { $0 - dm.timestamp }
+            ?? (Date().timeIntervalSince1970 - dm.timestamp)
+        unixOffsetForMotionTimestamp = unixOffset
 
         let sample = SensorSample(
             sequence: sequence,
-            timestamp_unix_s: Date().timeIntervalSince1970,
+            timestamp_unix_s: unixOffset + dm.timestamp,
             watch_uptime_s: dm.timestamp,            // Sekunden seit letztem Reboot
             user_acc_x_g: ua.x, user_acc_y_g: ua.y, user_acc_z_g: ua.z,
             gyro_x_rad_s: rr.x, gyro_y_rad_s: rr.y, gyro_z_rad_s: rr.z,

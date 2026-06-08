@@ -10,6 +10,8 @@ enum AppMode: String {
 /// die am Ende übertragene CSV-Datei. Im Predict-Modus werden die Live-Batches ans
 /// Mac-Dashboard weitergeleitet.
 final class PhoneWatchBridge: NSObject, ObservableObject, WCSessionDelegate {
+    private let labelStartLeadTime: TimeInterval = 1.25
+
     @Published var watchReachable = false
     @Published var receivedSamples = 0
     @Published var lastSampleRate = 0.0
@@ -18,14 +20,19 @@ final class PhoneWatchBridge: NSObject, ObservableObject, WCSessionDelegate {
 
     let mac: MacHTTPClient
     let store: RecordingStore
+    let video: LabelVideoRecorder
 
     private var rateWindowStart = Date()
     private var rateWindowCount = 0
 
-    init(mac: MacHTTPClient, store: RecordingStore) {
+    init(mac: MacHTTPClient, store: RecordingStore, video: LabelVideoRecorder) {
         self.mac = mac
         self.store = store
+        self.video = video
         super.init()
+        self.video.onRecordingFinished = { [weak store] in
+            store?.refresh()
+        }
         activate()
     }
 
@@ -39,14 +46,39 @@ final class PhoneWatchBridge: NSObject, ObservableObject, WCSessionDelegate {
     // MARK: - Steuerung
 
     func start(session: String) {
-        isRunning = true
         receivedSamples = 0
+        if mode == .label {
+            video.startRecording(sessionID: session) { [weak self] started in
+                guard let self else { return }
+                guard started else {
+                    self.isRunning = false
+                    return
+                }
+                let sessionAnchorUnix = Date().timeIntervalSince1970 + self.labelStartLeadTime
+                self.video.setSessionAnchor(sessionAnchorUnix)
+                self.isRunning = true
+                let payload: [String: Any] = [
+                    "command": "start",
+                    "session": session,
+                    "mode": self.mode.rawValue,
+                    "start_at_unix_s": sessionAnchorUnix,
+                    "session_anchor_unix_s": sessionAnchorUnix,
+                ]
+                self.sendToWatch(payload)
+            }
+            return
+        }
+
+        isRunning = true
         let payload: [String: Any] = ["command": "start", "session": session, "mode": mode.rawValue]
         sendToWatch(payload)
     }
 
     func stop() {
         isRunning = false
+        if mode == .label {
+            video.stopRecording()
+        }
         sendToWatch(["command": "stop"])
     }
 
@@ -105,7 +137,9 @@ final class PhoneWatchBridge: NSObject, ObservableObject, WCSessionDelegate {
     /// Empfängt die komplette CSV-Datei von der Uhr am Ende der Session.
     func session(_ session: WCSession, didReceive file: WCSessionFile) {
         let sessionName = file.metadata?["session"] as? String
-        store.saveReceived(file: file.fileURL, session: sessionName)
+        let modeName = file.metadata?["mode"] as? String
+        let fileMode = modeName.flatMap(AppMode.init(rawValue:)) ?? .label
+        store.saveReceived(file: file.fileURL, session: sessionName, mode: fileMode)
     }
 
     func sessionDidBecomeInactive(_ session: WCSession) {}

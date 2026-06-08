@@ -26,10 +26,10 @@ env/
 *.mkv
 
 # Local notes / helper docs
-LABELER_MODEL_INTEGRATION.md
-MODELING.md
-OFFLINE_LABELER.md
-docs/csv_graph_modes.md
+docs/ml-pipeline/LABELER_MODEL_INTEGRATION.md
+docs/ml-pipeline/MODELING.md
+docs/ml-pipeline/OFFLINE_LABELER.md
+docs/ml-pipeline/csv_graph_modes.md
 tools/start_labeler.command
 
 # Data / outputs

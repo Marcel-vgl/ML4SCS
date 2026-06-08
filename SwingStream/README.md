@@ -1,11 +1,15 @@
 # SwingStream (Watch + iPhone)
 
-Apple-Watch- und iPhone-Apps, die Motion-/IMU-Daten live an das Mac-Dashboard
-(`ML4SCS/tools/swingstream_dashboard.py`) streamen.
+Apple-Watch- und iPhone-Apps für Tennis-Aufnahmen: Label-Modus speichert
+verlustfreie Watch-CSV plus iPhone-Video, Predict-Modus streamt Motion-/IMU-Daten
+live an das Mac-Dashboard (`ML4SCS/tools/swingstream_dashboard.py`).
 
 ```text
-Apple Watch  ->  iPhone Bridge  ->  Mac Dashboard
- (CoreMotion)     (WatchConnectivity)   (HTTP /api/ingest)
+Label:   Apple Watch CSV  ->  iPhone-Dateien-App
+         iPhone Kamera    ->  MOV + Sync-JSON
+
+Predict: Apple Watch      ->  iPhone Bridge  ->  Mac Dashboard
+          (CoreMotion)        (WatchConnectivity)   (HTTP /api/ingest)
 ```
 
 ## Projekt erzeugen / öffnen
@@ -26,31 +30,37 @@ open SwingStream.xcodeproj
 2. iPhone als Run-Ziel wählen → **Run**. Die Watch-App wird mitinstalliert.
 3. Beim ersten Start:
    - iPhone fragt nach **lokalem Netzwerk** → erlauben.
+   - iPhone fragt nach **Kamera/Mikrofon** → erlauben.
    - Watch fragt nach **Bewegungsdaten** → erlauben.
 
 ## Benutzung
 
-1. Mac: `ML4SCS/tools/start_swingstream.command` starten (zeigt die Mac-IP an).
-2. iPhone-App: die angezeigte **Mac-IP** und **Port 8788** eintragen,
-   „Verbindung testen".
-3. Watch-App: **Start** drücken → der Stream läuft mit 50 Hz.
-4. Mac-Dashboard: „Recording starten" → schreibt eine ML4SCS-kompatible CSV nach
-   `ML4SCS/recordings/`.
+**Label:** Watch-App öffnen → iPhone: Modus „Label", Session-Name setzen,
+iPhone auf den Platz ausrichten → „Aufnahme starten" → „Stop". Danach liegen
+`<session>.csv`, `<session>.mov` und `<session>_video_metadata.json` in
+„Aufnahmen" / Dateien-App.
+
+**Predict:** Mac: `ML4SCS/tools/start_swingstream.command` starten → iPhone:
+Modus „Predict", Mac-IP + Port 8788 eintragen → „Vorhersage starten".
 
 ## Struktur
 
 ```text
 project.yml                         XcodeGen-Spec (iOS-App + Watch-App)
+SwingStream.xcodeproj/              generiertes Xcode-Projekt
+build/                              lokale Xcode-Build-Ausgaben
 Shared/SensorModels.swift           gemeinsames Sample-/Batch-Modell (beide Targets)
+docs/                               Status, Implementierungsplan, Onboarding
 SwingStream/                        iPhone-Bridge
   SwingStreamApp.swift
-  ContentView.swift                 UI: Mac-IP/Port, Status
+  ContentView.swift                 UI: Modus, Kamera, Mac-IP/Port, Status
   PhoneWatchBridge.swift            WCSession-Empfang + Weiterleitung
+  LabelVideoRecorder.swift          iPhone-Kameraaufnahme + Sync-Metadaten
   MacHTTPClient.swift               HTTP POST an das Mac-Dashboard
 SwingStream Watch App/              watchOS-App
   SwingStreamWatchApp.swift
   WatchContentView.swift            UI: Start/Stop, Rate
-  WatchMotionSampler.swift          CoreMotion 50 Hz, Batching
+  WatchMotionSampler.swift          CoreMotion 100 Hz, Batching
   WatchConnectivitySender.swift     WCSession-Versand ans iPhone
 ```
 
@@ -63,3 +73,4 @@ SwingStream Watch App/              watchOS-App
   bestehende ML4SCS-Pipeline (`src/stroke_model.py`, `src/predict.py`,
   Modell `v_r_v1.pkl`) laufen.
 - Watch und iPhone müssen im selben WLAN wie der Mac sein.
+- Aktueller Projektstand: `docs/SwingStream_STATUS.md`.

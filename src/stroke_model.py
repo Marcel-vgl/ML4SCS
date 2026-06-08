@@ -182,14 +182,14 @@ def robust_max(values: Iterable[float], fallback: float = 1.0) -> float:
     return max(sorted_values[index], fallback)
 
 
-def offline_labeler_energy_peaks(
+def _energy_peak_clusters(
     table: SensorTable,
     mode: str = "contrast",
     threshold: float | None = None,
     cluster_gap_s: float = 0.18,
     min_peak_gap_s: float = 0.40,
 ) -> list[dict]:
-    """Port of the Offline-Labeler computeEnergyPeaks() stroke detector."""
+    """Detect clustered motion-energy peaks in a sensor table."""
     rows = smooth_peak_rows(downsample_peak_rows(table.peak_rows))
     series: list[dict] = []
 
@@ -268,19 +268,19 @@ def offline_labeler_energy_peaks(
         {
             "csv_time_s": round(float(cluster["csv_time_s"]), 4),
             "score": round(float(cluster["score"]), 5),
-            "source": f"offline_labeler_{mode}_energy",
+            "source": f"detect_energy_peaks_{mode}",
         }
         for cluster in merged
     ]
 
 
-def offline_labeler_peaks(
+def detect_energy_peaks(
     table: SensorTable,
     limit: int = 220,
     min_spacing_s: float = 0.45,
 ) -> list[dict]:
-    """Use the Offline-Labeler's current energy-cluster stroke detector."""
-    peaks = offline_labeler_energy_peaks(table, mode="contrast", min_peak_gap_s=min_spacing_s)
+    """Detect candidate stroke times from clustered motion-energy peaks."""
+    peaks = _energy_peak_clusters(table, mode="contrast", min_peak_gap_s=min_spacing_s)
     return peaks[:limit]
 
 

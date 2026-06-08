@@ -44,7 +44,7 @@ bestehenden Offline-Pipeline:
 | CSV-Upload in `tools/prediction_dashboard.py` | Live-Stream in `tools/swingstream_dashboard.py` |
 | `uploads/…_Apple_Watch.csv`                 | `recordings/swingstream_…csv` (gleiche Spalten) |
 | `src/stroke_model.load_sensor_table()`      | identisch wiederverwendbar                     |
-| `offline_labeler_peaks()` + `predict_one()` | identisch für Live-Klassifikation              |
+| `detect_energy_peaks()` + `predict_one()` | identisch für Live-Klassifikation              |
 | Modell `models/v_r_v1.pkl`                  | dasselbe Modell, optional live                 |
 
 **Konsequenz:** Die aufgezeichneten CSVs müssen exakt die Spalten enthalten, die
@@ -239,7 +239,7 @@ Wiederverwendung des bestehenden Codes ohne Neuentwicklung:
 
 - rollierender Puffer der letzten ~3 s als `SensorTable`
   (`src/stroke_model.py` Datenstrukturen)
-- `offline_labeler_peaks()` auf dem Puffer → Peak-Zeiten
+- `detect_energy_peaks()` auf dem Puffer → Peak-Zeiten
 - pro neuem Peak `predict_one(load_model(), table, t)` → `Vorhand`/`Rueckhand`
 - Ergebnis als Marker im Live-Plot (Farben wie im Prediction-Dashboard)
 
@@ -316,7 +316,7 @@ mit der vorhandenen API direkt möglich, sobald `.venv_vr` genutzt wird.
 
 ### Phase 7: Optional Live-Schlagerkennung
 1. rollierenden `SensorTable`-Puffer aufbauen.
-2. `offline_labeler_peaks()` + `predict_one()` einbinden.
+2. `detect_energy_peaks()` + `predict_one()` einbinden.
 3. Schlag-Marker im Live-Plot.
 
 ### Phase 8: Integrationstest

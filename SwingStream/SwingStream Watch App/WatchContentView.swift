@@ -15,6 +15,8 @@ struct WatchContentView: View {
                           text: controller.isRunning ? "läuft" : "gestoppt")
                 statusRow("Hintergrund", ok: controller.workout.active,
                           text: controller.workout.active ? "aktiv" : "aus")
+                statusRow("Workout", ok: controller.workout.authorized,
+                          text: controller.workout.authorized ? "bereit" : "Berechtigung")
 
                 VStack(spacing: 2) {
                     Text("\(Int(controller.sampler.rateHz.rounded())) Hz")
@@ -42,6 +44,11 @@ struct WatchContentView: View {
                 Text("Tipp: Auf dem iPhone Modus + Session-Name wählen und dort starten – die Uhr startet dann mit.")
                     .font(.system(size: 10))
                     .foregroundStyle(.secondary)
+                if !controller.workout.lastError.isEmpty {
+                    Text(controller.workout.lastError)
+                        .font(.system(size: 10))
+                        .foregroundStyle(.red)
+                }
             }
             .padding(.horizontal, 6)
         }

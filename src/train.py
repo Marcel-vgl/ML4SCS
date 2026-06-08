@@ -19,11 +19,11 @@ from stroke_model import (
     REPO_ROOT,
     WINDOW_AFTER_S,
     WINDOW_BEFORE_S,
+    detect_energy_peaks,
     extract_features,
     load_sensor_table,
     nearest_peak_time,
     normalize_label,
-    offline_labeler_peaks,
 )
 
 
@@ -52,7 +52,7 @@ def build_dataset() -> tuple[np.ndarray, np.ndarray, list[str], list[dict], list
             continue
 
         table = load_sensor_table(sensor_path)
-        peaks = offline_labeler_peaks(table)
+        peaks = detect_energy_peaks(table)
         with events_path.open(newline="", encoding="utf-8-sig") as handle:
             for event in csv.DictReader(handle):
                 label = normalize_label(event.get("label_name"))

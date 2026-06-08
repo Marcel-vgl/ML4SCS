@@ -26,6 +26,10 @@
 	<string>SwingStream nutzt die Bewegungssensoren der Apple Watch zum Aufzeichnen der Schläge.</string>
 	<key>WKApplication</key>
 	<true/>
+	<key>WKBackgroundModes</key>
+	<array>
+		<string>workout-processing</string>
+	</array>
 	<key>WKCompanionAppBundleIdentifier</key>
 	<string>com.florianschneider.SwingStream</string>
 </dict>

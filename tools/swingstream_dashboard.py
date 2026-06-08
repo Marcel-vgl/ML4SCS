@@ -44,8 +44,8 @@ try:
     from stroke_model import (
         DEFAULT_MODEL_PATH,
         SensorTable,
+        detect_energy_peaks,
         load_model,
-        offline_labeler_peaks,
         predict_one,
     )
 
@@ -55,32 +55,61 @@ except Exception as exc:  # noqa: BLE001 - model is optional
     _MODEL = None
     _MODEL_ERROR = str(exc)
 
-# Canonical Apple Watch CSV columns, kept identical to the files in uploads/ and
-# Daten/ so recordings load directly via src/stroke_model.load_sensor_table().
+# SensorLog Apple Watch CSV columns, kept identical to the 53-column files in
+# Daten/fritz_*.csv so recordings load directly in the existing labeler/tools.
 CSV_COLUMNS = [
     "loggingTime(txt)",
-    "motionTimestamp_sinceReboot(s)",
+    "locationTimestamp_since1970(s)",
+    "locationLatitude(WGS84)",
+    "locationLongitude(WGS84)",
+    "locationAltitude(m)",
+    "locationSpeed(m/s)",
+    "locationSpeedAccuracy(m/s)",
+    "locationCourse(°)",
+    "locationCourseAccuracy(°)",
+    "locationVerticalAccuracy(m)",
+    "locationHorizontalAccuracy(m)",
+    "locationFloor(Z)",
     "accelerometerTimestamp_sinceReboot(s)",
     "accelerometerAccelerationX(G)",
     "accelerometerAccelerationY(G)",
     "accelerometerAccelerationZ(G)",
-    "motionUserAccelerationX(G)",
-    "motionUserAccelerationY(G)",
-    "motionUserAccelerationZ(G)",
+    "motionTimestamp_sinceReboot(s)",
+    "motionYaw(rad)",
+    "motionRoll(rad)",
+    "motionPitch(rad)",
     "motionRotationRateX(rad/s)",
     "motionRotationRateY(rad/s)",
     "motionRotationRateZ(rad/s)",
-    "motionGravityX(G)",
-    "motionGravityY(G)",
-    "motionGravityZ(G)",
-    "motionRoll(rad)",
-    "motionPitch(rad)",
-    "motionYaw(rad)",
+    "motionUserAccelerationX(G)",
+    "motionUserAccelerationY(G)",
+    "motionUserAccelerationZ(G)",
+    "motionAttitudeReferenceFrame(txt)",
     "motionQuaternionX(R)",
     "motionQuaternionY(R)",
     "motionQuaternionZ(R)",
     "motionQuaternionW(R)",
-    "sequence",
+    "motionGravityX(G)",
+    "motionGravityY(G)",
+    "motionGravityZ(G)",
+    "motionMagneticFieldX(µT)",
+    "motionMagneticFieldY(µT)",
+    "motionMagneticFieldZ(µT)",
+    "motionHeading(°)",
+    "motionMagneticFieldCalibrationAccuracy(Z)",
+    "pedometerStartDate(txt)",
+    "pedometerNumberofSteps(N)",
+    "pedometerAverageActivePace(s/m)",
+    "pedometerCurrentPace(s/m)",
+    "pedometerCurrentCadence(steps/s)",
+    "pedometerDistance(m)",
+    "pedometerFloorAscended(N)",
+    "pedometerFloorDescended(N)",
+    "pedometerEndDate(txt)",
+    "altimeterTimestamp_sinceReboot(s)",
+    "altimeterReset(bool)",
+    "altimeterRelativeAltitude(m)",
+    "altimeterPressure(kPa)",
     "label",
 ]
 
@@ -107,18 +136,34 @@ SAMPLE_TO_CSV = {
     "quat_y": ("motionQuaternionY(R)",),
     "quat_z": ("motionQuaternionZ(R)",),
     "quat_w": ("motionQuaternionW(R)",),
-    "sequence": ("sequence",),
 }
 
 
 def sample_to_csv_row(sample: dict) -> dict:
     """Translate a compact stream sample into a full canonical CSV row."""
-    row = {column: "0.0" for column in CSV_COLUMNS}
-    row["label"] = "0"
+    row = {column: "0" for column in CSV_COLUMNS}
+    row.update(
+        {
+            "locationSpeed(m/s)": "-1",
+            "locationSpeedAccuracy(m/s)": "-1",
+            "locationCourse(°)": "-1",
+            "locationCourseAccuracy(°)": "-1",
+            "locationVerticalAccuracy(m)": "-1",
+            "locationHorizontalAccuracy(m)": "-1",
+            "locationFloor(Z)": "-9999",
+            "motionAttitudeReferenceFrame(txt)": "XArbitraryZVertical",
+            "motionHeading(°)": "-1",
+            "motionMagneticFieldCalibrationAccuracy(Z)": "-1",
+            "pedometerStartDate(txt)": "",
+            "pedometerEndDate(txt)": "",
+            "label": "0",
+        }
+    )
     unix_s = sample.get("timestamp_unix_s")
     if isinstance(unix_s, (int, float)):
         iso = datetime.fromtimestamp(float(unix_s), tz=timezone.utc).astimezone()
         row["loggingTime(txt)"] = iso.isoformat()
+        row["locationTimestamp_since1970(s)"] = unix_s
     for key, columns in SAMPLE_TO_CSV.items():
         if key not in sample:
             continue
@@ -334,7 +379,7 @@ class PredictionEngine:
         latest = float(table.times[-1])
         settle = self.window_after + 0.15
         try:
-            peaks = offline_labeler_peaks(table)
+            peaks = detect_energy_peaks(table)
         except Exception:  # noqa: BLE001
             return
         for peak in peaks:
@@ -411,6 +456,14 @@ def app_html() -> str:
     .legend span::before { content:""; display:inline-block; width:12px; height:3px;
       margin-right:5px; vertical-align:middle; background:currentColor; }
     .recinfo { margin-top:12px; color:var(--muted); font-size:12px; line-height:1.4; word-break:break-all; }
+    .connect-guide { margin-top:14px; padding-top:12px; border-top:1px solid var(--line);
+      color:var(--muted); font-size:12px; line-height:1.45; }
+    .connect-guide h2 { margin:0 0 10px; color:var(--text); }
+    .connect-guide ol { margin:0; padding-left:18px; }
+    .connect-guide li + li { margin-top:6px; }
+    .connect-guide code { display:inline-block; max-width:100%; padding:1px 4px;
+      border:1px solid #dce2e8; border-radius:4px; background:#f7f9fb; color:#253244;
+      overflow-wrap:anywhere; }
     .predict { margin-top:14px; }
     .last-predict { font-size:20px; font-weight:700; padding:12px 14px; border-radius:8px;
       background:#eef6f0; border:1px solid #cfe3d6; color:#157f4f; }
@@ -432,6 +485,17 @@ def app_html() -> str:
       <button id="startBtn" class="rec" type="button">Recording starten</button>
       <button id="stopBtn" class="stop" type="button">Recording stoppen</button>
       <div id="recinfo" class="recinfo">Keine Aufnahme aktiv.</div>
+
+      <div class="connect-guide">
+        <h2>Verbinden</h2>
+        <ol>
+          <li>Dashboard starten: <code>.venv_vr/bin/python tools/swingstream_dashboard.py</code></li>
+          <li>Auf diesem Mac oeffnen: <code>http://127.0.0.1:8788</code></li>
+          <li>iPhone und Mac ins gleiche WLAN bringen.</li>
+          <li>In der SwingStream-Bridge als Ziel setzen: <code>http://&lt;mac-ip&gt;:8788/api/ingest</code></li>
+          <li>Die Mac-IP findest du in Systemeinstellungen &gt; Netzwerk. Das Terminal muss offen bleiben.</li>
+        </ol>
+      </div>
     </aside>
     <section>
       <div class="stats" id="stats"></div>
@@ -627,6 +691,8 @@ class DashboardHandler(BaseHTTPRequestHandler):
             body = self.rfile.read(length) if length else b""
             if route == "/api/ingest":
                 payload = json.loads(body or b"{}")
+                import sys as _sys
+                _sys.stderr.write(f"[swingstream] INGEST von {self.client_address[0]} source={payload.get('source')} samples={len(payload.get('samples') or [])}\n")
                 received = STATE.ingest(payload)
                 self.send_json({"ok": True, "received": received, "recording": STATE.snapshot()["recording"]})
             elif route == "/api/record/start":

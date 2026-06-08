@@ -28,7 +28,7 @@ SRC_DIR = REPO_ROOT / "src"
 if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
-from stroke_model import load_sensor_table, offline_labeler_peaks
+from stroke_model import detect_energy_peaks, load_sensor_table
 
 MODEL_DIR = REPO_ROOT / "models"
 UPLOAD_DIR = REPO_ROOT / "uploads"
@@ -137,7 +137,7 @@ def sensor_payload(csv_path: Path) -> dict:
         "duration": round(rows[-1]["csv_time_s"], 3),
         "row_count": len(rows),
         "points": downsample_rows(rows),
-        "peaks": offline_labeler_peaks(load_sensor_table(csv_path)),
+        "peaks": detect_energy_peaks(load_sensor_table(csv_path)),
     }
 
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		15F06963CED9397C5F3EDA58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64431282F9352C2C644E1B15 /* Assets.xcassets */; };
 		19BAB2C7BF2D5A1AA4E0EC9A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F379290D984367035CE93C2C /* ContentView.swift */; };
 		223998F2B7E8791BAD81898D /* CanonicalCSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659EF57D0785F20FC7AF5368 /* CanonicalCSV.swift */; };
 		3B5BDF05428FD42DD59F4B0B /* MacHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D557DD1E8D4F25B9D9C4E8 /* MacHTTPClient.swift */; };
@@ -15,6 +16,8 @@
 		4D7514A851D3A6085572B035 /* WatchContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE426DFA07C81D6649172FF /* WatchContentView.swift */; };
 		4DB903AEBB1E792924C9C08D /* SwingStreamWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A6262381CC5056A80879A7 /* SwingStreamWatchApp.swift */; };
 		5CA2F8536DB77EE28CFB683A /* CanonicalCSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659EF57D0785F20FC7AF5368 /* CanonicalCSV.swift */; };
+		6220FEE371A9D67E409A8CB3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D804EACC7C4C465B0D7444FE /* Assets.xcassets */; };
+		7433CE380AD76ED01D7F5430 /* LabelVideoRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3777AA5830A21B9F6B89620F /* LabelVideoRecorder.swift */; };
 		87BD1BB2723C8461690D9894 /* WatchConnectivitySender.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA539997026F7E9C2AD54874 /* WatchConnectivitySender.swift */; };
 		9E7B36C4C8EC32ABCA1EBF21 /* SensorModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5B669691CC96798D8314F9 /* SensorModels.swift */; };
 		A4AC7F405976BF02008773AD /* SwingStream Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 2A5E59053B353806737537E4 /* SwingStream Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -57,8 +60,10 @@
 		2A5E59053B353806737537E4 /* SwingStream Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SwingStream Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C617F437AC2DF1ADFF59832 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2DAD55156759921DF612EA69 /* SwingStreamApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwingStreamApp.swift; sourceTree = "<group>"; };
+		3777AA5830A21B9F6B89620F /* LabelVideoRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelVideoRecorder.swift; sourceTree = "<group>"; };
 		410602146937B4D91CC43C3E /* WatchMotionSampler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchMotionSampler.swift; sourceTree = "<group>"; };
 		4164E9F9F5B6D1592536ECDB /* PhoneWatchBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneWatchBridge.swift; sourceTree = "<group>"; };
+		64431282F9352C2C644E1B15 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		659EF57D0785F20FC7AF5368 /* CanonicalCSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanonicalCSV.swift; sourceTree = "<group>"; };
 		65A6262381CC5056A80879A7 /* SwingStreamWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwingStreamWatchApp.swift; sourceTree = "<group>"; };
 		8DE426DFA07C81D6649172FF /* WatchContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchContentView.swift; sourceTree = "<group>"; };
@@ -67,6 +72,7 @@
 		BA0EC65515A0AC869A1A8CEA /* WatchSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSessionController.swift; sourceTree = "<group>"; };
 		BA539997026F7E9C2AD54874 /* WatchConnectivitySender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivitySender.swift; sourceTree = "<group>"; };
 		BD5B669691CC96798D8314F9 /* SensorModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorModels.swift; sourceTree = "<group>"; };
+		D804EACC7C4C465B0D7444FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D8D557DD1E8D4F25B9D9C4E8 /* MacHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacHTTPClient.swift; sourceTree = "<group>"; };
 		DE361B197FA988134E90FE96 /* RecordingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingStore.swift; sourceTree = "<group>"; };
 		F379290D984367035CE93C2C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -76,8 +82,10 @@
 		72EA0C80032800E13F165760 /* SwingStream */ = {
 			isa = PBXGroup;
 			children = (
+				D804EACC7C4C465B0D7444FE /* Assets.xcassets */,
 				F379290D984367035CE93C2C /* ContentView.swift */,
 				0DCC806F257736240B14D2D9 /* Info.plist */,
+				3777AA5830A21B9F6B89620F /* LabelVideoRecorder.swift */,
 				D8D557DD1E8D4F25B9D9C4E8 /* MacHTTPClient.swift */,
 				4164E9F9F5B6D1592536ECDB /* PhoneWatchBridge.swift */,
 				DE361B197FA988134E90FE96 /* RecordingStore.swift */,
@@ -107,6 +115,7 @@
 		B1C786DB433CE03ED56EDE8E /* SwingStream Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				64431282F9352C2C644E1B15 /* Assets.xcassets */,
 				2C617F437AC2DF1ADFF59832 /* Info.plist */,
 				09E9F665EE769F0900069AC4 /* SwingStreamWatch.entitlements */,
 				65A6262381CC5056A80879A7 /* SwingStreamWatchApp.swift */,
@@ -138,6 +147,7 @@
 			buildConfigurationList = E428682BE2C84A9109043F22 /* Build configuration list for PBXNativeTarget "SwingStream Watch App" */;
 			buildPhases = (
 				0C1AB408022199C908AE5E1E /* Sources */,
+				E7598788E0910BEA1CFF0479 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -155,6 +165,7 @@
 			buildConfigurationList = FF62E3F3D8431DF0F8126B8D /* Build configuration list for PBXNativeTarget "SwingStream" */;
 			buildPhases = (
 				66434031C6850FC0E97B90CF /* Sources */,
+				6B55FC17F428DCCFF9C85CBC /* Resources */,
 				073538F088C41A91526453DC /* Embed Watch Content */,
 			);
 			buildRules = (
@@ -208,6 +219,25 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		6B55FC17F428DCCFF9C85CBC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6220FEE371A9D67E409A8CB3 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E7598788E0910BEA1CFF0479 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				15F06963CED9397C5F3EDA58 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		0C1AB408022199C908AE5E1E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -231,6 +261,7 @@
 			files = (
 				5CA2F8536DB77EE28CFB683A /* CanonicalCSV.swift in Sources */,
 				19BAB2C7BF2D5A1AA4E0EC9A /* ContentView.swift in Sources */,
+				7433CE380AD76ED01D7F5430 /* LabelVideoRecorder.swift in Sources */,
 				3B5BDF05428FD42DD59F4B0B /* MacHTTPClient.swift in Sources */,
 				B004EE145F397FEDEB9BFB94 /* PhoneWatchBridge.swift in Sources */,
 				B8265977CD6FD4EB4EF0628A /* RecordingStore.swift in Sources */,

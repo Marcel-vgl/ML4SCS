@@ -38,12 +38,20 @@ The raw and collected data is stored in the `Daten/` directory.
 
 ```text
 Daten/       Raw collected data and video material
+docs/        Project documentation, grouped by topic
 labels/      Event-based labels for recorded sessions
 notebooks/   Exploratory notebooks
 reports/     Weekly project reports
 src/         Project source code for preprocessing, training, and evaluation
+SwingStream/ Watch/iPhone Xcode project and SwingStream documentation
 tools/       Helper tools used during the project
 ```
+
+Important documentation:
+
+- `docs/ml-pipeline/` - modeling, labeler, and CSV graph notes
+- `SwingStream/docs/` - SwingStream implementation plan and current status
+- `reports/` - weekly project reports
 
 ## Current Status
 
