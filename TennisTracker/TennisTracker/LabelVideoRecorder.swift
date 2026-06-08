@@ -95,7 +95,7 @@ final class LabelVideoRecorder: NSObject, ObservableObject, AVCaptureFileOutputR
     let captureSession = AVCaptureSession()
     var onRecordingFinished: (() -> Void)?
 
-    private let sessionQueue = DispatchQueue(label: "com.florianschneider.SwingStream.labelVideo")
+    private let sessionQueue = DispatchQueue(label: "com.florianschneider.TennisTracker.labelVideo")
     private let movieOutput = AVCaptureMovieFileOutput()
     private var isConfigured = false
     private var videoInput: AVCaptureDeviceInput?
@@ -367,7 +367,7 @@ final class LabelVideoRecorder: NSObject, ObservableObject, AVCaptureFileOutputR
         let anchorUnix = activeSessionAnchorUnix
         let rotationAngle = activeRotationAngle ?? 90
         let metadata = LabelVideoMetadata(
-            type: "swingstream_label_video_metadata",
+            type: "tennistracker_label_video_metadata",
             session_id: sessionID,
             video_filename: videoURL.lastPathComponent,
             camera: activeCameraTitle ?? selectedCamera.title,

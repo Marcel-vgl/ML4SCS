@@ -1,7 +1,7 @@
 import Foundation
 
 /// Gemeinsames CSV-Format für Uhr und iPhone. Die Spalten folgen der vorhandenen
-/// SensorLog-Apple-Watch-Struktur aus `Daten/fritz_*.csv`. Nicht von SwingStream
+/// SensorLog-Apple-Watch-Struktur aus `Daten/fritz_*.csv`. Nicht von TennisTracker
 /// erfasste Sensorgruppen werden mit stabilen Platzhalterwerten geschrieben.
 enum CanonicalCSV {
     static let columns = [

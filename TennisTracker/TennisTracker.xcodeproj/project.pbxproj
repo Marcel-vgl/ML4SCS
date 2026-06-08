@@ -1,0 +1,504 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1B944EA47CF9CF293179340A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0640DECE4450ACF1D694F5B0 /* Assets.xcassets */; };
+		1C5969E08FE48F6B40ED53AC /* WatchLocalRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2F193373A7BDF3823F6871 /* WatchLocalRecorder.swift */; };
+		1F4DA57D31237098EEE165DC /* PhoneWatchBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FC037935693578EFA1965A /* PhoneWatchBridge.swift */; };
+		21ACA307E9DC59A4A4FC46F9 /* WatchConnectivitySender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C48BD4A4B0D7A0DA0A6E79 /* WatchConnectivitySender.swift */; };
+		22ECBCC9D5A8A6F89D321F88 /* CanonicalCSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3413A32146737EDA81CD2D5 /* CanonicalCSV.swift */; };
+		23C6E1FCF52B55A630D7E3B7 /* WatchContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529C98C58063DA991AE1B139 /* WatchContentView.swift */; };
+		24DC61680DC2A01C36DF7E64 /* WatchSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0810C5844AA71C86BAABDF /* WatchSessionController.swift */; };
+		2506ED19AFDDD53DFBBED6A9 /* TennisTrackerWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6234A9148A124ABD3227B86 /* TennisTrackerWatchApp.swift */; };
+		349C40454966F92138360CA6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A780C3539050BB6DBB8197A /* ContentView.swift */; };
+		3EFF29F64E82749968F034D0 /* TennisTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63ED978C9982686B27AECED3 /* TennisTrackerApp.swift */; };
+		66D6DE06817337B667140B31 /* LabelVideoRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7D5DE325911600BE6E7280 /* LabelVideoRecorder.swift */; };
+		68188D019512615E66F780B6 /* TennisTracker Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 642276AF3E14446C3271F231 /* TennisTracker Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6AA91A1197158EE7D801B4B6 /* WatchWorkoutKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6734CA625221B773B8EBE843 /* WatchWorkoutKeeper.swift */; };
+		997A8A6015A3ABC2A8FA6B1E /* MacHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584CD3CD8F45D0B13E9087BE /* MacHTTPClient.swift */; };
+		9C5136737BD56DD20DFB8B3E /* WatchMotionSampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D0FEF7E556B8C4024855EE /* WatchMotionSampler.swift */; };
+		B987E863A05A99F93B7D3DC4 /* SensorModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B548EA4F0C1E5265CD07BAF /* SensorModels.swift */; };
+		BF9F6EE49AD9DDF57E15CA21 /* SensorModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B548EA4F0C1E5265CD07BAF /* SensorModels.swift */; };
+		D78872487D30419933D1D8B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5C83C41FCFD0533402B5980 /* Assets.xcassets */; };
+		D86AE7C07F34EB1F6F749B39 /* RecordingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011F08E6132A554232CC9EAA /* RecordingStore.swift */; };
+		DFA77941B5085ED399988F95 /* CanonicalCSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3413A32146737EDA81CD2D5 /* CanonicalCSV.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BADF72054C4DA249C14A31A2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C78CE0EC57063E1941028EEC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 966B7C1B80A7CD87A6B7627D;
+			remoteInfo = "TennisTracker Watch App";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		406FB37D2CF5F18401BA7890 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				68188D019512615E66F780B6 /* TennisTracker Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		011F08E6132A554232CC9EAA /* RecordingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingStore.swift; sourceTree = "<group>"; };
+		0640DECE4450ACF1D694F5B0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1A7D5DE325911600BE6E7280 /* LabelVideoRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelVideoRecorder.swift; sourceTree = "<group>"; };
+		3B548EA4F0C1E5265CD07BAF /* SensorModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorModels.swift; sourceTree = "<group>"; };
+		45BE289D6A162FC919BE2461 /* TennisTracker.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = TennisTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A780C3539050BB6DBB8197A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		529C98C58063DA991AE1B139 /* WatchContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchContentView.swift; sourceTree = "<group>"; };
+		5610EB2C9C9A596CF7EE3A21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		584CD3CD8F45D0B13E9087BE /* MacHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacHTTPClient.swift; sourceTree = "<group>"; };
+		63ED978C9982686B27AECED3 /* TennisTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TennisTrackerApp.swift; sourceTree = "<group>"; };
+		642276AF3E14446C3271F231 /* TennisTracker Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TennisTracker Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6734CA625221B773B8EBE843 /* WatchWorkoutKeeper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchWorkoutKeeper.swift; sourceTree = "<group>"; };
+		6B768174940B8CD77907900D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		7C0810C5844AA71C86BAABDF /* WatchSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSessionController.swift; sourceTree = "<group>"; };
+		87D0FEF7E556B8C4024855EE /* WatchMotionSampler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchMotionSampler.swift; sourceTree = "<group>"; };
+		90C48BD4A4B0D7A0DA0A6E79 /* WatchConnectivitySender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivitySender.swift; sourceTree = "<group>"; };
+		A6234A9148A124ABD3227B86 /* TennisTrackerWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TennisTrackerWatchApp.swift; sourceTree = "<group>"; };
+		AFB3CFC05DBCF4455C02D195 /* TennisTrackerWatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TennisTrackerWatch.entitlements; sourceTree = "<group>"; };
+		CA2F193373A7BDF3823F6871 /* WatchLocalRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchLocalRecorder.swift; sourceTree = "<group>"; };
+		D3413A32146737EDA81CD2D5 /* CanonicalCSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanonicalCSV.swift; sourceTree = "<group>"; };
+		E1FC037935693578EFA1965A /* PhoneWatchBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneWatchBridge.swift; sourceTree = "<group>"; };
+		E5C83C41FCFD0533402B5980 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		36F80AB4523FBFF2DFCFCE0C = {
+			isa = PBXGroup;
+			children = (
+				FBEA0CF6F319FFD1FD66BCB7 /* Shared */,
+				AF3055F4E60E6EB888209EE4 /* TennisTracker */,
+				E47FE8ECC15AE7A70327D9A8 /* TennisTracker Watch App */,
+				7727B586301D3EA2AF80F846 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7727B586301D3EA2AF80F846 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				642276AF3E14446C3271F231 /* TennisTracker Watch App.app */,
+				45BE289D6A162FC919BE2461 /* TennisTracker.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AF3055F4E60E6EB888209EE4 /* TennisTracker */ = {
+			isa = PBXGroup;
+			children = (
+				E5C83C41FCFD0533402B5980 /* Assets.xcassets */,
+				4A780C3539050BB6DBB8197A /* ContentView.swift */,
+				5610EB2C9C9A596CF7EE3A21 /* Info.plist */,
+				1A7D5DE325911600BE6E7280 /* LabelVideoRecorder.swift */,
+				584CD3CD8F45D0B13E9087BE /* MacHTTPClient.swift */,
+				E1FC037935693578EFA1965A /* PhoneWatchBridge.swift */,
+				011F08E6132A554232CC9EAA /* RecordingStore.swift */,
+				63ED978C9982686B27AECED3 /* TennisTrackerApp.swift */,
+			);
+			path = TennisTracker;
+			sourceTree = "<group>";
+		};
+		E47FE8ECC15AE7A70327D9A8 /* TennisTracker Watch App */ = {
+			isa = PBXGroup;
+			children = (
+				0640DECE4450ACF1D694F5B0 /* Assets.xcassets */,
+				6B768174940B8CD77907900D /* Info.plist */,
+				AFB3CFC05DBCF4455C02D195 /* TennisTrackerWatch.entitlements */,
+				A6234A9148A124ABD3227B86 /* TennisTrackerWatchApp.swift */,
+				90C48BD4A4B0D7A0DA0A6E79 /* WatchConnectivitySender.swift */,
+				529C98C58063DA991AE1B139 /* WatchContentView.swift */,
+				CA2F193373A7BDF3823F6871 /* WatchLocalRecorder.swift */,
+				87D0FEF7E556B8C4024855EE /* WatchMotionSampler.swift */,
+				7C0810C5844AA71C86BAABDF /* WatchSessionController.swift */,
+				6734CA625221B773B8EBE843 /* WatchWorkoutKeeper.swift */,
+			);
+			path = "TennisTracker Watch App";
+			sourceTree = "<group>";
+		};
+		FBEA0CF6F319FFD1FD66BCB7 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				D3413A32146737EDA81CD2D5 /* CanonicalCSV.swift */,
+				3B548EA4F0C1E5265CD07BAF /* SensorModels.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		63B89086A1A46B8FCB5186A8 /* TennisTracker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F6D72E16833A58F33D37AC68 /* Build configuration list for PBXNativeTarget "TennisTracker" */;
+			buildPhases = (
+				01E853560D8B079756A9C35F /* Sources */,
+				FD311A66083018224E2EE5BF /* Resources */,
+				406FB37D2CF5F18401BA7890 /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				10AC8BB3D180360CD9CF2A5D /* PBXTargetDependency */,
+			);
+			name = TennisTracker;
+			packageProductDependencies = (
+			);
+			productName = TennisTracker;
+			productReference = 45BE289D6A162FC919BE2461 /* TennisTracker.app */;
+			productType = "com.apple.product-type.application";
+		};
+		966B7C1B80A7CD87A6B7627D /* TennisTracker Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B53EB3CFE1E8ADE133982686 /* Build configuration list for PBXNativeTarget "TennisTracker Watch App" */;
+			buildPhases = (
+				BDE63C1B3082F5E6A0614C68 /* Sources */,
+				C87CF7D1E6E1D680BC68A865 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "TennisTracker Watch App";
+			packageProductDependencies = (
+			);
+			productName = "TennisTracker Watch App";
+			productReference = 642276AF3E14446C3271F231 /* TennisTracker Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C78CE0EC57063E1941028EEC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					63B89086A1A46B8FCB5186A8 = {
+						DevelopmentTeam = DEFYR9944A;
+						ProvisioningStyle = Automatic;
+					};
+					966B7C1B80A7CD87A6B7627D = {
+						DevelopmentTeam = DEFYR9944A;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 18A49BDE0EEF7E7164642F35 /* Build configuration list for PBXProject "TennisTracker" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 36F80AB4523FBFF2DFCFCE0C;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 7727B586301D3EA2AF80F846 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				63B89086A1A46B8FCB5186A8 /* TennisTracker */,
+				966B7C1B80A7CD87A6B7627D /* TennisTracker Watch App */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C87CF7D1E6E1D680BC68A865 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B944EA47CF9CF293179340A /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FD311A66083018224E2EE5BF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D78872487D30419933D1D8B5 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		01E853560D8B079756A9C35F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22ECBCC9D5A8A6F89D321F88 /* CanonicalCSV.swift in Sources */,
+				349C40454966F92138360CA6 /* ContentView.swift in Sources */,
+				66D6DE06817337B667140B31 /* LabelVideoRecorder.swift in Sources */,
+				997A8A6015A3ABC2A8FA6B1E /* MacHTTPClient.swift in Sources */,
+				1F4DA57D31237098EEE165DC /* PhoneWatchBridge.swift in Sources */,
+				D86AE7C07F34EB1F6F749B39 /* RecordingStore.swift in Sources */,
+				BF9F6EE49AD9DDF57E15CA21 /* SensorModels.swift in Sources */,
+				3EFF29F64E82749968F034D0 /* TennisTrackerApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BDE63C1B3082F5E6A0614C68 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFA77941B5085ED399988F95 /* CanonicalCSV.swift in Sources */,
+				B987E863A05A99F93B7D3DC4 /* SensorModels.swift in Sources */,
+				2506ED19AFDDD53DFBBED6A9 /* TennisTrackerWatchApp.swift in Sources */,
+				21ACA307E9DC59A4A4FC46F9 /* WatchConnectivitySender.swift in Sources */,
+				23C6E1FCF52B55A630D7E3B7 /* WatchContentView.swift in Sources */,
+				1C5969E08FE48F6B40ED53AC /* WatchLocalRecorder.swift in Sources */,
+				9C5136737BD56DD20DFB8B3E /* WatchMotionSampler.swift in Sources */,
+				24DC61680DC2A01C36DF7E64 /* WatchSessionController.swift in Sources */,
+				6AA91A1197158EE7D801B4B6 /* WatchWorkoutKeeper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		10AC8BB3D180360CD9CF2A5D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 966B7C1B80A7CD87A6B7627D /* TennisTracker Watch App */;
+			targetProxy = BADF72054C4DA249C14A31A2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		5227777F1D3A43457D7E2EA6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = TennisTracker/Info.plist;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.florianschneider.SwingStream;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		7252228A6F62776949F607A9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = DEFYR9944A;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
+		7D3BE2921DBBFD368E6FA364 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "TennisTracker Watch App/TennisTrackerWatch.entitlements";
+				INFOPLIST_FILE = "TennisTracker Watch App/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.florianschneider.SwingStream.watchkitapp;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+			};
+			name = Debug;
+		};
+		9A861AD5D8FDAC49163ECE5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "TennisTracker Watch App/TennisTrackerWatch.entitlements";
+				INFOPLIST_FILE = "TennisTracker Watch App/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.florianschneider.SwingStream.watchkitapp;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+			};
+			name = Release;
+		};
+		A1991957204B6BEC13FD7F30 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = DEFYR9944A;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		E04126E240876C5A193485B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = TennisTracker/Info.plist;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.florianschneider.SwingStream;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		18A49BDE0EEF7E7164642F35 /* Build configuration list for PBXProject "TennisTracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1991957204B6BEC13FD7F30 /* Debug */,
+				7252228A6F62776949F607A9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		B53EB3CFE1E8ADE133982686 /* Build configuration list for PBXNativeTarget "TennisTracker Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7D3BE2921DBBFD368E6FA364 /* Debug */,
+				9A861AD5D8FDAC49163ECE5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F6D72E16833A58F33D37AC68 /* Build configuration list for PBXNativeTarget "TennisTracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E04126E240876C5A193485B9 /* Debug */,
+				5227777F1D3A43457D7E2EA6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C78CE0EC57063E1941028EEC /* Project object */;
+}

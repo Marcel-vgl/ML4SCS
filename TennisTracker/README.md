@@ -1,8 +1,8 @@
-# SwingStream (Watch + iPhone)
+# TennisTracker (Watch + iPhone)
 
 Apple-Watch- und iPhone-Apps für Tennis-Aufnahmen: Label-Modus speichert
 verlustfreie Watch-CSV plus iPhone-Video, Predict-Modus streamt Motion-/IMU-Daten
-live an das Mac-Dashboard (`ML4SCS/tools/swingstream_dashboard.py`).
+live an das Mac-Dashboard (`ML4SCS/tools/tennistracker_dashboard.py`).
 
 ```text
 Label:   Apple Watch CSV  ->  iPhone-Dateien-App
@@ -18,15 +18,15 @@ Das Xcode-Projekt wird mit [XcodeGen](https://github.com/yonaskolb/XcodeGen) aus
 `project.yml` erzeugt (XcodeGen ist via Homebrew installiert):
 
 ```bash
-cd ML4SCS/SwingStream
+cd ML4SCS/TennisTracker
 xcodegen generate
-open SwingStream.xcodeproj
+open TennisTracker.xcodeproj
 ```
 
 ## In Xcode einrichten
 
-1. Target **SwingStream** → *Signing & Capabilities* → eigenes **Team** wählen.
-   Das Watch-Target **SwingStream Watch App** übernimmt das Team automatisch.
+1. Target **TennisTracker** → *Signing & Capabilities* → eigenes **Team** wählen.
+   Das Watch-Target **TennisTracker Watch App** übernimmt das Team automatisch.
 2. iPhone als Run-Ziel wählen → **Run**. Die Watch-App wird mitinstalliert.
 3. Beim ersten Start:
    - iPhone fragt nach **lokalem Netzwerk** → erlauben.
@@ -40,25 +40,25 @@ iPhone auf den Platz ausrichten → „Aufnahme starten" → „Stop". Danach li
 `<session>.csv`, `<session>.mov` und `<session>_video_metadata.json` in
 „Aufnahmen" / Dateien-App.
 
-**Predict:** Mac: `ML4SCS/tools/start_swingstream.command` starten → iPhone:
+**Predict:** Mac: `ML4SCS/tools/start_tennistracker.command` starten → iPhone:
 Modus „Predict", Mac-IP + Port 8788 eintragen → „Vorhersage starten".
 
 ## Struktur
 
 ```text
 project.yml                         XcodeGen-Spec (iOS-App + Watch-App)
-SwingStream.xcodeproj/              generiertes Xcode-Projekt
+TennisTracker.xcodeproj/              generiertes Xcode-Projekt
 build/                              lokale Xcode-Build-Ausgaben
 Shared/SensorModels.swift           gemeinsames Sample-/Batch-Modell (beide Targets)
 docs/                               Status, Implementierungsplan, Onboarding
-SwingStream/                        iPhone-Bridge
-  SwingStreamApp.swift
+TennisTracker/                        iPhone-Bridge
+  TennisTrackerApp.swift
   ContentView.swift                 UI: Modus, Kamera, Mac-IP/Port, Status
   PhoneWatchBridge.swift            WCSession-Empfang + Weiterleitung
   LabelVideoRecorder.swift          iPhone-Kameraaufnahme + Sync-Metadaten
   MacHTTPClient.swift               HTTP POST an das Mac-Dashboard
-SwingStream Watch App/              watchOS-App
-  SwingStreamWatchApp.swift
+TennisTracker Watch App/              watchOS-App
+  TennisTrackerWatchApp.swift
   WatchContentView.swift            UI: Start/Stop, Rate
   WatchMotionSampler.swift          CoreMotion 100 Hz, Batching
   WatchConnectivitySender.swift     WCSession-Versand ans iPhone
@@ -73,4 +73,4 @@ SwingStream Watch App/              watchOS-App
   bestehende ML4SCS-Pipeline (`src/stroke_model.py`, `src/predict.py`,
   Modell `v_r_v1.pkl`) laufen.
 - Watch und iPhone müssen im selben WLAN wie der Mac sein.
-- Aktueller Projektstand: `docs/SwingStream_STATUS.md`.
+- Aktueller Projektstand: `docs/TennisTracker_STATUS.md`.

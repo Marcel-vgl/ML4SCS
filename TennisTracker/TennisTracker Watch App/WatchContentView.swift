@@ -6,7 +6,7 @@ struct WatchContentView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 10) {
-                Text("SwingStream")
+                Text("TennisTracker")
                     .font(.headline)
 
                 statusRow("iPhone", ok: controller.link.phoneReachable,

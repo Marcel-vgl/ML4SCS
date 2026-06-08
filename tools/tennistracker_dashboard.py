@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""SwingStream live dashboard: receives Apple Watch sensor batches over HTTP and
+"""TennisTracker live dashboard: receives Apple Watch sensor batches over HTTP and
 records them as ML4SCS-compatible CSV files.
 
 Run from the repository root:
 
-    .venv_vr/bin/python tools/swingstream_dashboard.py
+    .venv_vr/bin/python tools/tennistracker_dashboard.py
 
 Then open http://127.0.0.1:8788 in a browser. The iPhone bridge POSTs sensor
 batches to http://<mac-ip>:8788/api/ingest (same machine, LAN-reachable).
@@ -283,7 +283,7 @@ class StreamState:
                 return {"recording": True, "recording_path": str(self.recording_path.relative_to(REPO_ROOT))}
             RECORDINGS_DIR.mkdir(parents=True, exist_ok=True)
             stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            self.recording_path = RECORDINGS_DIR / f"swingstream_{stamp}.csv"
+            self.recording_path = RECORDINGS_DIR / f"tennistracker_{stamp}.csv"
             self._csv_handle = self.recording_path.open("w", newline="", encoding="utf-8")
             self._csv_writer = csv.DictWriter(self._csv_handle, fieldnames=CSV_COLUMNS)
             self._csv_writer.writeheader()
@@ -426,7 +426,7 @@ def app_html() -> str:
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SwingStream Live Dashboard</title>
+  <title>TennisTracker Live Dashboard</title>
   <style>
     :root { --bg:#f4f6f8; --panel:#fff; --line:#cfd6df; --text:#17202a; --muted:#607082;
       --accent:#1769aa; --green:#157f4f; --red:#b63d3d; }
@@ -476,7 +476,7 @@ def app_html() -> str:
 </head>
 <body>
   <header>
-    <h1>SwingStream Live Dashboard</h1>
+    <h1>TennisTracker Live Dashboard</h1>
     <div id="conn">…</div>
   </header>
   <main>
@@ -489,10 +489,10 @@ def app_html() -> str:
       <div class="connect-guide">
         <h2>Verbinden</h2>
         <ol>
-          <li>Dashboard starten: <code>.venv_vr/bin/python tools/swingstream_dashboard.py</code></li>
+          <li>Dashboard starten: <code>.venv_vr/bin/python tools/tennistracker_dashboard.py</code></li>
           <li>Auf diesem Mac oeffnen: <code>http://127.0.0.1:8788</code></li>
           <li>iPhone und Mac ins gleiche WLAN bringen.</li>
-          <li>In der SwingStream-Bridge als Ziel setzen: <code>http://&lt;mac-ip&gt;:8788/api/ingest</code></li>
+          <li>In der TennisTracker-Bridge als Ziel setzen: <code>http://&lt;mac-ip&gt;:8788/api/ingest</code></li>
           <li>Die Mac-IP findest du in Systemeinstellungen &gt; Netzwerk. Das Terminal muss offen bleiben.</li>
         </ol>
       </div>
@@ -692,7 +692,7 @@ class DashboardHandler(BaseHTTPRequestHandler):
             if route == "/api/ingest":
                 payload = json.loads(body or b"{}")
                 import sys as _sys
-                _sys.stderr.write(f"[swingstream] INGEST von {self.client_address[0]} source={payload.get('source')} samples={len(payload.get('samples') or [])}\n")
+                _sys.stderr.write(f"[tennistracker] INGEST von {self.client_address[0]} source={payload.get('source')} samples={len(payload.get('samples') or [])}\n")
                 received = STATE.ingest(payload)
                 self.send_json({"ok": True, "received": received, "recording": STATE.snapshot()["recording"]})
             elif route == "/api/record/start":
@@ -709,11 +709,11 @@ class DashboardHandler(BaseHTTPRequestHandler):
         if "/api/ingest" in (self.path or "") or "/api/live" in (self.path or ""):
             return
         import sys
-        sys.stderr.write(f"[swingstream] {format % args}\n")
+        sys.stderr.write(f"[tennistracker] {format % args}\n")
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="SwingStream live dashboard.")
+    parser = argparse.ArgumentParser(description="TennisTracker live dashboard.")
     parser.add_argument("--host", default="0.0.0.0", help="Bind address (0.0.0.0 = LAN-reachable for the iPhone).")
     parser.add_argument("--port", type=int, default=8788)
     return parser.parse_args()
@@ -724,7 +724,7 @@ def prediction_loop(interval: float = 0.35) -> None:
         try:
             ENGINE.run_once()
         except Exception as exc:  # noqa: BLE001
-            sys.stderr.write(f"[swingstream] prediction error: {exc}\n")
+            sys.stderr.write(f"[tennistracker] prediction error: {exc}\n")
         time.sleep(interval)
 
 
@@ -732,7 +732,7 @@ def main() -> None:
     args = parse_args()
     server = ThreadingHTTPServer((args.host, args.port), DashboardHandler)
     shown = "127.0.0.1" if args.host in ("0.0.0.0", "") else args.host
-    print(f"SwingStream dashboard running at http://{shown}:{args.port}")
+    print(f"TennisTracker dashboard running at http://{shown}:{args.port}")
     print(f"iPhone bridge should POST batches to http://<mac-ip>:{args.port}/api/ingest")
     if ENGINE is not None:
         print(f"Predict mode active (model: {Path(DEFAULT_MODEL_PATH).name}, classes: {ENGINE.model['classes']})")
@@ -742,7 +742,7 @@ def main() -> None:
     try:
         server.serve_forever()
     except KeyboardInterrupt:
-        print("\nStopping SwingStream dashboard.")
+        print("\nStopping TennisTracker dashboard.")
     finally:
         server.server_close()
 

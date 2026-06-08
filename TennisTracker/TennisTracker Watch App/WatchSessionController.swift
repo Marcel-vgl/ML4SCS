@@ -9,7 +9,7 @@ final class WatchSessionController: ObservableObject {
     let workout = WatchWorkoutKeeper()
     let recorder = WatchLocalRecorder()
     let link = WatchConnectivitySender.shared
-    private let outputQueue = DispatchQueue(label: "com.florianschneider.SwingStream.watchOutput")
+    private let outputQueue = DispatchQueue(label: "com.florianschneider.TennisTracker.watchOutput")
     private var pendingStart: DispatchWorkItem?
     private var sessionMode = "label"
 

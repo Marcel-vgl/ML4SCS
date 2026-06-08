@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct SwingStreamWatchApp: App {
+struct TennisTrackerWatchApp: App {
     var body: some Scene {
         WindowGroup {
             WatchContentView()

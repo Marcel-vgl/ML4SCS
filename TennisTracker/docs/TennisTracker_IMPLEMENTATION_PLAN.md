@@ -1,4 +1,4 @@
-# SwingStream Implementierungsplan
+# TennisTracker Implementierungsplan
 
 > **Überarbeitet** für die Integration in das bestehende ML4SCS-Repo. Wesentliche
 > Korrekturen gegenüber der ersten Fassung:
@@ -10,11 +10,11 @@
 >    können. Kein paralleles `acc_x_g`/`gyro_x_rad_s`-Format mehr.
 > 2. **Keine neuen Python-Abhängigkeiten.** Das vorhandene Dashboard
 >    (`tools/prediction_dashboard.py`) nutzt ausschließlich die Standardbibliothek
->    (`http.server`). SwingStream übernimmt dieses Muster: **HTTP-POST-Ingest +
+>    (`http.server`). TennisTracker übernimmt dieses Muster: **HTTP-POST-Ingest +
 >    Browser-Polling** statt `websockets`/`aiohttp`. Für 50 Hz über LAN ist das mehr
 >    als ausreichend und auf der Swift-Seite (`URLSession`) deutlich einfacher.
 > 3. **Simulator-first.** Die Mac-Seite wird zuerst gebaut und mit einem
->    Stream-Simulator (`tools/swingstream_sim.py`) end-to-end getestet – ohne dass
+>    Stream-Simulator (`tools/tennistracker_sim.py`) end-to-end getestet – ohne dass
 >    Xcode, iPhone oder Watch nötig sind.
 > 4. **Ausführung über `.venv_vr`**, dasselbe venv, in dem Modell/Prediction laufen,
 >    damit die optionale Live-Schlagerkennung das bestehende Modell wiederverwenden
@@ -22,7 +22,7 @@
 
 ## Ziel
 
-SwingStream streamt Apple-Watch-Sensordaten live mit mindestens `50 Hz` auf ein
+TennisTracker streamt Apple-Watch-Sensordaten live mit mindestens `50 Hz` auf ein
 Mac-Dashboard. Das iPhone dient als Bridge zwischen Apple Watch und Mac.
 
 ```text
@@ -36,13 +36,13 @@ Aufnahme sofort durch Offline-Labeler und Schlagmodell laufen kann.
 
 ## Integration in ML4SCS (Leitprinzip)
 
-SwingStream ist kein isoliertes Projekt, sondern der **Live-/Online-Pfad** zur
+TennisTracker ist kein isoliertes Projekt, sondern der **Live-/Online-Pfad** zur
 bestehenden Offline-Pipeline:
 
-| Bestehend (offline)                         | SwingStream (online)                           |
+| Bestehend (offline)                         | TennisTracker (online)                           |
 | ------------------------------------------- | ---------------------------------------------- |
-| CSV-Upload in `tools/prediction_dashboard.py` | Live-Stream in `tools/swingstream_dashboard.py` |
-| `uploads/…_Apple_Watch.csv`                 | `recordings/swingstream_…csv` (gleiche Spalten) |
+| CSV-Upload in `tools/prediction_dashboard.py` | Live-Stream in `tools/tennistracker_dashboard.py` |
+| `uploads/…_Apple_Watch.csv`                 | `recordings/tennistracker_…csv` (gleiche Spalten) |
 | `src/stroke_model.load_sensor_table()`      | identisch wiederverwendbar                     |
 | `detect_energy_peaks()` + `predict_one()` | identisch für Live-Klassifikation              |
 | Modell `models/v_r_v1.pkl`                  | dasselbe Modell, optional live                 |
@@ -61,18 +61,18 @@ vorhandenen Spaltenstruktur (`Daten/`, `uploads/`) kompatibel zu bleiben.
 
 ## Zielarchitektur
 
-1. **SwingStream Watch App** (watchOS)
+1. **TennisTracker Watch App** (watchOS)
    - liest Motion-/IMU-Daten über `CoreMotion`
    - sammelt Samples in einem Ringbuffer, vergibt fortlaufende `sequence`
    - sendet in kleinen Batches an das iPhone über `WatchConnectivity`
 
-2. **SwingStream iPhone Bridge** (iOS)
+2. **TennisTracker iPhone Bridge** (iOS)
    - empfängt Watch-Batches über `WCSession`
    - puffert kurz, ergänzt Bridge-Metadaten
    - sendet Batches per **HTTP POST** an das Mac-Dashboard
    - Reconnect/Retry mit lokaler Queue
 
-3. **SwingStream Mac Dashboard** (`tools/swingstream_dashboard.py`)
+3. **TennisTracker Mac Dashboard** (`tools/tennistracker_dashboard.py`)
    - stdlib-HTTP-Server, nimmt Batches entgegen
    - Live-Status, Sample-Rate, Gap-/Drop-Erkennung
    - Live-Plot im Browser (Canvas, Polling)
@@ -139,7 +139,7 @@ Anforderungen:
 - `label` wird mit `0` vorbelegt (kompatibel zu vorhandenen CSVs; Labeling
   passiert weiterhin offline im Labeler).
 - Fehlende Werte werden als `0.0` geschrieben.
-- Gespeicherte Dateien liegen unter `recordings/swingstream_YYYYMMDD_HHMMSS.csv`.
+- Gespeicherte Dateien liegen unter `recordings/tennistracker_YYYYMMDD_HHMMSS.csv`.
 
 ### Mapping Stream-JSON → CSV-Spalte
 
@@ -207,7 +207,7 @@ Im MVP wird Start/Stop direkt auf Watch und iPhone bedient.
 
 ## Mac-Dashboard Design
 
-### Server (`tools/swingstream_dashboard.py`)
+### Server (`tools/tennistracker_dashboard.py`)
 
 Aufbau analog zu `tools/prediction_dashboard.py` (gleicher Stil, gleiche
 stdlib-Bausteine `BaseHTTPRequestHandler`/`HTTPServer`):
@@ -275,18 +275,18 @@ mit der vorhandenen API direkt möglich, sobald `.venv_vr` genutzt wird.
 > testbar (Simulator). Erst danach Swift/Xcode.
 
 ### Phase 0: Mac-Dashboard + Simulator (zuerst, ohne Hardware)
-1. `tools/swingstream_dashboard.py` bauen (Server, Endpunkte, Ringbuffer).
+1. `tools/tennistracker_dashboard.py` bauen (Server, Endpunkte, Ringbuffer).
 2. CSV-Writer mit kanonischen Spalten implementieren.
-3. `tools/swingstream_sim.py` bauen: erzeugt 50-Hz-Batches mit synthetischer
+3. `tools/tennistracker_sim.py` bauen: erzeugt 50-Hz-Batches mit synthetischer
    Bewegung und POSTet sie an `/api/ingest`.
 4. End-to-End testen: Simulator → Dashboard → Recording.
 5. Aufgezeichnete CSV mit `load_sensor_table()` + `predict.py --scan` prüfen.
-6. `tools/start_swingstream.command` Launcher anlegen (analog `start_labeler.command`).
+6. `tools/start_tennistracker.command` Launcher anlegen (analog `start_labeler.command`).
 
 ### Phase 1: Xcode-Projekt
-1. Xcode-Projekt `SwingStream` (iOS App + Watch App Target).
-2. Bundle IDs: `com.florianschneider.SwingStream`,
-   `com.florianschneider.SwingStream.watchkitapp`.
+1. Xcode-Projekt `TennisTracker` (iOS App + Watch App Target).
+2. Bundle IDs: `com.florianschneider.TennisTracker`,
+   `com.florianschneider.TennisTracker.watchkitapp`.
 3. Signing Team setzen, Testlauf auf iPhone und Watch.
 
 ### Phase 2: Gemeinsames Sample-Modell
@@ -338,8 +338,8 @@ mit der vorhandenen API direkt möglich, sobald `.venv_vr` genutzt wird.
 
 ## Minimal Viable Product
 
-1. **Mac:** `swingstream_dashboard.py` empfängt Batches per HTTP, plottet live,
-   schreibt ML4SCS-kompatibles CSV. Verifiziert mit `swingstream_sim.py`.
+1. **Mac:** `tennistracker_dashboard.py` empfängt Batches per HTTP, plottet live,
+   schreibt ML4SCS-kompatibles CSV. Verifiziert mit `tennistracker_sim.py`.
 2. **Watch:** sammelt `userAcceleration` + `rotationRate` bei `50 Hz`, sendet
    Batches an iPhone.
 3. **iPhone:** leitet Batches per HTTP-POST an den Mac weiter.
@@ -352,26 +352,26 @@ Modell) ist sekundär.
 ```text
 ML4SCS/
   tools/
-    swingstream_dashboard.py     # Mac-Empfänger + Browser-Dashboard (stdlib)
-    swingstream_sim.py           # Stream-Simulator zum Testen ohne Hardware
-    start_swingstream.command    # Launcher (venv wählen + Safari öffnen)
+    tennistracker_dashboard.py     # Mac-Empfänger + Browser-Dashboard (stdlib)
+    tennistracker_sim.py           # Stream-Simulator zum Testen ohne Hardware
+    start_tennistracker.command    # Launcher (venv wählen + Safari öffnen)
   recordings/
-    swingstream_YYYYMMDD_HHMMSS.csv
+    tennistracker_YYYYMMDD_HHMMSS.csv
 
-SwingStream/                     # Xcode-Projekt im Repo (mit xcodegen aus project.yml)
+TennisTracker/                     # Xcode-Projekt im Repo (mit xcodegen aus project.yml)
   project.yml                    # XcodeGen-Spec
-  SwingStream.xcodeproj
+  TennisTracker.xcodeproj
   Shared/
     SensorModels.swift           # gemeinsames Sample-/Batch-Modell (beide Targets)
-  SwingStream/                   # iPhone-Bridge
-    SwingStreamApp.swift
+  TennisTracker/                   # iPhone-Bridge
+    TennisTrackerApp.swift
     iPhoneBridgeView.swift
     PhoneWatchBridge.swift
     MacHTTPClient.swift
     SensorSample.swift
     StreamStats.swift
-  SwingStream Watch App/
-    SwingStreamWatchApp.swift
+  TennisTracker Watch App/
+    TennisTrackerWatchApp.swift
     WatchStreamView.swift
     WatchMotionSampler.swift
     WatchConnectivitySender.swift
@@ -382,20 +382,20 @@ SwingStream/                     # Xcode-Projekt im Repo (mit xcodegen aus proje
 
 ```bash
 # Mac-Dashboard starten (im Repo-Root)
-.venv_vr/bin/python tools/swingstream_dashboard.py        # http://127.0.0.1:8788
+.venv_vr/bin/python tools/tennistracker_dashboard.py        # http://127.0.0.1:8788
 
 # In zweitem Terminal: Stream simulieren (60 s bei 50 Hz)
-.venv_vr/bin/python tools/swingstream_sim.py --duration 60 --rate 50
+.venv_vr/bin/python tools/tennistracker_sim.py --duration 60 --rate 50
 ```
 
 `.venv_vr` wird genutzt, damit die optionale Live-Schlagerkennung dasselbe
 `numpy/scikit-learn/joblib` wie die Offline-Pipeline verwenden kann. Das reine
 Empfangen/Recorden funktioniert auch mit System-Python (nur stdlib).
 
-Die Watch-/iPhone-Apps liegen unter `SwingStream/` und werden mit XcodeGen erzeugt:
+Die Watch-/iPhone-Apps liegen unter `TennisTracker/` und werden mit XcodeGen erzeugt:
 
 ```bash
-cd SwingStream && xcodegen generate && open SwingStream.xcodeproj
+cd TennisTracker && xcodegen generate && open TennisTracker.xcodeproj
 # In Xcode: Signing-Team setzen, iPhone als Ziel wählen, Run (Watch-App wird mitinstalliert)
 ```
 

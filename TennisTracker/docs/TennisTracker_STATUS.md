@@ -1,8 +1,8 @@
-# SwingStream – Status & nächste Schritte
+# TennisTracker – Status & nächste Schritte
 
-Stand: 2026-06-07 · Branch: `SwingStream-implementierung`
+Stand: 2026-06-07 · Branch: `TennisTracker-implementierung`
 
-SwingStream = Apple-Watch-/iPhone-Apps + Mac-Dashboard, um Tennis-Schläge mit der
+TennisTracker = Apple-Watch-/iPhone-Apps + Mac-Dashboard, um Tennis-Schläge mit der
 Apple Watch aufzuzeichnen und (live oder offline) auszuwerten. Teil des
 ML4SCS-Projekts (gleiche CSV-Spalten, gleiches Modell `models/v_r_v1.pkl`).
 
@@ -51,7 +51,7 @@ leicht bleiben und die Watch-App per Workout-Background-Mode weiterlaufen.
   „Aufnahmen" gebündelt angezeigt.
 - ✅ **Gemeinsamer Sync-Anker**: iPhone startet zuerst Video, plant dann
   `session_anchor_unix_s` ca. 1,25 s in die Zukunft und schickt ihn an die Watch.
-  Neue SwingStream-Aufnahmen sollen im Labeler ohne manuellen Offset laufen
+  Neue TennisTracker-Aufnahmen sollen im Labeler ohne manuellen Offset laufen
   (`offset = 0`).
 - ✅ **Offline-Labeler angepasst**: `tools/offline_label_tool.py` erkennt passende
   `*_video_metadata.json` automatisch. Ohne Metadaten bleibt die alte
@@ -93,9 +93,9 @@ Implementiert und geprüft am 2026-06-07:
 - Beide Asset-Kataloge (`Assets.xcassets/AppIcon.appiconset`) wurden in den Projektverzeichnissen angelegt und die Compiler-Einstellung `ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon` in `project.yml` eingetragen.
 - **Fix für Querformat-Freeze & Vorschau-Rotation:** Alle Aufrufe von UIKit und `UIDevice` zur Ermittlung der Displayausrichtung werden nun strikt auf dem Main Thread ausgeführt (mittels `DispatchQueue.main.async` in `refreshVideoOrientation()` und vorab aufgelösten Parametern beim Starten/Vorbereiten der Aufnahme). Zudem wurde eine Race Condition behoben, bei der das Setzen des `videoRotationAngle` auf der Preview-Verbindung fehlschlug, weil die Kamera-Session beim Erstellen der SwiftUI-View noch nicht aktiv war. Die Rotation wird nun dynamisch in `layoutSubviews()` der Preview-View angewendet, was sicherstellt, dass das Livebild immer korrekt ausgerichtet (nicht seitlich gedreht) dargestellt wird.
 - Build- und Install-Status dieser Session:
-  - `xcodebuild -project SwingStream.xcodeproj -target "SwingStream" -destination 'generic/platform=iOS' -allowProvisioningUpdates build` → **BUILD SUCCEEDED**
-  - iPhone installiert: `com.florianschneider.SwingStream`
-  - Watch installiert: `com.florianschneider.SwingStream.watchkitapp`
+  - `xcodebuild -project TennisTracker.xcodeproj -target "TennisTracker" -destination 'generic/platform=iOS' -allowProvisioningUpdates build` → **BUILD SUCCEEDED**
+  - iPhone installiert: `com.florianschneider.TennisTracker`
+  - Watch installiert: `com.florianschneider.TennisTracker.watchkitapp`
 
 ## Analyse wichtiger Testdateien aus dieser Session
 
@@ -164,7 +164,7 @@ Problem war eine echte Watch-Datenlücke:
 
 Wahrscheinliche Ursache: Watch-App wurde beim Display-Senken/Background trotz
 Workout-Session zeitweise suspendiert. Gefundener Unterschied zu SensorLog:
-`SwingStream Watch App/Info.plist` hatte zwar HealthKit-Usage/Entitlement, aber
+`TennisTracker Watch App/Info.plist` hatte zwar HealthKit-Usage/Entitlement, aber
 keinen `WKBackgroundModes`-Eintrag. Fix: `WKBackgroundModes` mit
 `workout-processing` ergänzt und Watch-App neu installiert. Dieser Fix muss mit
 einer neuen Testaufnahme validiert werden.
@@ -173,36 +173,36 @@ einer neuen Testaufnahme validiert werden.
 
 ```text
 ML4SCS/
-  SwingStream/                         Xcode-Projekt (via XcodeGen)
+  TennisTracker/                         Xcode-Projekt (via XcodeGen)
     project.yml                        XcodeGen-Spec (Team DEFYR9944A, HealthKit, Infos)
-    SwingStream.xcodeproj/             generiertes Xcode-Projekt
+    TennisTracker.xcodeproj/             generiertes Xcode-Projekt
     build/                             lokale Xcode-Build-Ausgaben
     docs/
-      SwingStream_IMPLEMENTATION_PLAN.md Gesamtplan
-      SwingStream_STATUS.md              dieses Dokument
+      TennisTracker_IMPLEMENTATION_PLAN.md Gesamtplan
+      TennisTracker_STATUS.md              dieses Dokument
     Shared/
       SensorModels.swift               SensorSample / SensorBatch (Codable)
       CanonicalCSV.swift               kanonisches CSV-Format (Uhr + iPhone)
-    SwingStream Watch App/
+    TennisTracker Watch App/
       Info.plist                       Watch-Background: WKBackgroundModes/workout-processing
-      SwingStreamWatch.entitlements    HealthKit-Entitlement
+      TennisTrackerWatch.entitlements    HealthKit-Entitlement
       WatchSessionController.swift      koordiniert Sampler+Workout+Datei+Link
       WatchMotionSampler.swift         CoreMotion 100 Hz, Batching
       WatchLocalRecorder.swift         verlustfreie lokale CSV
       WatchWorkoutKeeper.swift         HKWorkoutSession (Hintergrund)
       WatchConnectivitySender.swift    Befehle empfangen, transferUserInfo, transferFile
       WatchContentView.swift           Watch-UI
-    SwingStream/                       iPhone-Bridge
+    TennisTracker/                       iPhone-Bridge
       ContentView.swift                Moduswahl, Session-Name, Start/Stop, Aufnahmen
       PhoneWatchBridge.swift           Steuerung Uhr + Empfang (UserInfo/File) + Predict-Forward
       LabelVideoRecorder.swift         iPhone-Kameraaufnahme + Sync-Metadaten
       RecordingStore.swift             empfangene Dateien verwalten/teilen
       MacHTTPClient.swift              POST ans Mac-Dashboard (Predict)
   tools/
-    swingstream_dashboard.py           Empfänger + Live-Plot + Recording + Predict-Engine
-    swingstream_sim.py                 Simulator (synthetisch) + --replay (echte CSV)
+    tennistracker_dashboard.py           Empfänger + Live-Plot + Recording + Predict-Engine
+    tennistracker_sim.py                 Simulator (synthetisch) + --replay (echte CSV)
     offline_label_tool.py              Offline-Video/CSV-Labeler, erkennt Sync-JSON
-    start_swingstream.command          Launcher (.venv_vr, zeigt LAN-IP)
+    start_tennistracker.command          Launcher (.venv_vr, zeigt LAN-IP)
   docs/
     ml-pipeline/                       Modell-/Labeler-/CSV-Dokumentation
   recordings/                          aufgenommene/empfangene CSVs
@@ -215,18 +215,18 @@ Geräte-IDs:
 - Apple Watch von Florian: `11713F8F-7D75-50B9-8FE9-06372EB4B9E3`
 
 ```bash
-cd ML4SCS/SwingStream
+cd ML4SCS/TennisTracker
 xcodegen generate            # nur nach project.yml-Änderungen nötig
 
 # Bauen (jeweils -destination, NICHT -sdk, sonst bricht die Watch-Abhängigkeit)
-xcodebuild -project SwingStream.xcodeproj -target "SwingStream" \
+xcodebuild -project TennisTracker.xcodeproj -target "TennisTracker" \
   -destination 'generic/platform=iOS' -allowProvisioningUpdates build
-xcodebuild -project SwingStream.xcodeproj -target "SwingStream Watch App" \
+xcodebuild -project TennisTracker.xcodeproj -target "TennisTracker Watch App" \
   -destination 'generic/platform=watchOS' -allowProvisioningUpdates build
 
 # Installieren (Uhr muss wach/entsperrt/nah sein)
-xcrun devicectl device install app --device <iPhone-ID> build/Debug-iphoneos/SwingStream.app
-xcrun devicectl device install app --device <Watch-ID>  "build/Debug-watchos/SwingStream Watch App.app"
+xcrun devicectl device install app --device <iPhone-ID> build/Debug-iphoneos/TennisTracker.app
+xcrun devicectl device install app --device <Watch-ID>  "build/Debug-watchos/TennisTracker Watch App.app"
 ```
 
 **Wichtige Lehren / Stolpersteine:**
@@ -240,8 +240,8 @@ xcrun devicectl device install app --device <Watch-ID>  "build/Debug-watchos/Swi
 - HealthKit funktioniert mit dem **kostenlosen** Account (App läuft 7 Tage, dann neu
   installieren).
 - Watch-Background ist zweiteilig:
-  - `SwingStreamWatch.entitlements`: `com.apple.developer.healthkit = true`
-  - `SwingStream Watch App/Info.plist`: `WKBackgroundModes = workout-processing`
+  - `TennisTrackerWatch.entitlements`: `com.apple.developer.healthkit = true`
+  - `TennisTracker Watch App/Info.plist`: `WKBackgroundModes = workout-processing`
   Beides ist nötig, damit `HKWorkoutSession` auch bei gesenktem Arm zuverlässig
   Background-Runtime bekommt.
 
@@ -264,13 +264,13 @@ automatisch genutzt und der Sensor-Offset auf `0.0` gesetzt. Bei fremden
 Video/CSV-Paaren ohne Metadaten bleibt die Audio-/Peak-basierte Offset-Schätzung
 aktiv.
 
-**Predict (live):** Mac `start_swingstream.command` → iPhone: Modus „Predict",
+**Predict (live):** Mac `start_tennistracker.command` → iPhone: Modus „Predict",
 Mac-IP + Port 8788, „Vorhersage starten" → Watch starten → Dashboard zeigt Schläge.
 
 **Testen ohne Geräte:**
 ```bash
-.venv_vr/bin/python tools/swingstream_dashboard.py
-.venv_vr/bin/python tools/swingstream_sim.py --replay recordings/<datei>.csv --speed 5
+.venv_vr/bin/python tools/tennistracker_dashboard.py
+.venv_vr/bin/python tools/tennistracker_sim.py --replay recordings/<datei>.csv --speed 5
 ```
 
 ## Nächste Schritte
@@ -315,13 +315,13 @@ Alles, was nötig ist, um hier ohne Vorwissen weiterzuarbeiten.
   - `.venv311` ← Jupyter/Notebooks.
 - Datumskontext der Entwicklung: 2026-06-07.
 
-## ML4SCS-Kontext (die bestehende Pipeline, die SwingStream bedient)
+## ML4SCS-Kontext (die bestehende Pipeline, die TennisTracker bedient)
 
 - **Forschung**: Tennis-Schlagklassifikation aus Apple-Watch-IMU-Daten.
 - **CSV-Format**: „SensorLog"-Stil mit Spalten wie `motionUserAccelerationX(G)`,
   `motionRotationRateX(rad/s)`, `motionTimestamp_sinceReboot(s)`, `loggingTime(txt)` …
-  (siehe `Daten/`, `uploads/`). SwingStream schreibt **exakt** dieses Format
-  (`Shared/CanonicalCSV.swift` ↔ `tools/swingstream_dashboard.py CSV_COLUMNS`).
+  (siehe `Daten/`, `uploads/`). TennisTracker schreibt **exakt** dieses Format
+  (`Shared/CanonicalCSV.swift` ↔ `tools/tennistracker_dashboard.py CSV_COLUMNS`).
   Nicht direkt aufgezeichnete Sensorgruppen (Location, Magnetometer, Pedometer,
   Altimeter) werden mit stabilen Platzhaltern geschrieben, damit die Spaltenstruktur
   zu `Daten/fritz_*.csv` passt.
@@ -340,7 +340,7 @@ Alles, was nötig ist, um hier ohne Vorwissen weiterzuarbeiten.
 - Andere Tools: `tools/prediction_dashboard.py` (Offline-Upload-Dashboard, Port 8770),
   `tools/offline_label_tool.py` (Labeler, Port 8765, `start_labeler.command`).
 - `.gitignore` ignoriert u. a. `uploads/`, venvs, `*.mp4/*.mov`, `docs/ml-pipeline/csv_graph_modes.md`,
-  einige lokale `.md` (NICHT die SwingStream-Docs).
+  einige lokale `.md` (NICHT die TennisTracker-Docs).
 
 ## Netzwerk-/Steuerprotokoll (Watch ↔ iPhone ↔ Mac)
 
@@ -381,19 +381,19 @@ Auf der Uhr: `acc_*` = userAcceleration + gravity (Rohbeschleunigung in G),
   `florianschneider2003@gmail.com`). **Kostenlos → Apps laufen 7 Tage**, dann neu
   installieren. Team steht in `project.yml` (`DEVELOPMENT_TEAM`), Style Automatic.
 - HealthKit-Entitlement funktioniert mit diesem Free-Account
-  (`SwingStream Watch App/SwingStreamWatch.entitlements`, von XcodeGen erzeugt).
+  (`TennisTracker Watch App/TennisTrackerWatch.entitlements`, von XcodeGen erzeugt).
 - Geräte (Developer Mode an, Zertifikat vertraut):
   - iPhone 13 Pro, iOS 26.5 — devicectl-ID `F013C954-F9D6-590E-A12C-703C89287258`
   - Apple Watch Series 7, watchOS 26.5 — devicectl-ID `11713F8F-7D75-50B9-8FE9-06372EB4B9E3`
-- Bundle-IDs: `com.florianschneider.SwingStream` (iOS),
-  `com.florianschneider.SwingStream.watchkitapp` (watchOS,
+- Bundle-IDs: `com.florianschneider.TennisTracker` (iOS),
+  `com.florianschneider.TennisTracker.watchkitapp` (watchOS,
   `WKCompanionAppBundleIdentifier` = iOS-ID).
 - iOS-Orientierungen: Portrait, Landscape Left, Landscape Right; iPad zusätzlich
   Portrait Upside Down.
 - Watch-Background-Keys:
-  - `SwingStream Watch App/SwingStreamWatch.entitlements`:
+  - `TennisTracker Watch App/TennisTrackerWatch.entitlements`:
     `com.apple.developer.healthkit = true`
-  - `SwingStream Watch App/Info.plist`: `WKBackgroundModes = workout-processing`
+  - `TennisTracker Watch App/Info.plist`: `WKBackgroundModes = workout-processing`
 
 ## Xcode-/Build-Nutzung (Details & Fallen)
 
@@ -430,11 +430,11 @@ Auf der Uhr: `acc_*` = userAcceleration + gravity (Rohbeschleunigung in G),
 
 ```bash
 cd /Users/florianschneider/ML4SCS
-.venv_vr/bin/python tools/swingstream_dashboard.py            # http://127.0.0.1:8788
+.venv_vr/bin/python tools/tennistracker_dashboard.py            # http://127.0.0.1:8788
 # echte Aufnahme abspielen (Predict-Engine triggern):
-.venv_vr/bin/python tools/swingstream_sim.py --replay recordings/<datei>.csv --speed 5
+.venv_vr/bin/python tools/tennistracker_sim.py --replay recordings/<datei>.csv --speed 5
 # synthetischer Stream:
-.venv_vr/bin/python tools/swingstream_sim.py --duration 30 --rate 100
+.venv_vr/bin/python tools/tennistracker_sim.py --duration 30 --rate 100
 ```
 CSV-Lücken prüfen: `dt` aus `motionTimestamp_sinceReboot(s)` (10 ms ⇒ 100 Hz).
 Nach aktueller Spaltenangleichung gibt es keine `sequence`-Spalte mehr in der CSV;
@@ -444,8 +444,8 @@ Lücken und müssen untersucht werden. Live-Erkennung gegen `src/predict.py --sc
 
 ## Git
 
-- Branch **`SwingStream-implementierung`** (von `main` abgezweigt; `main` unberührt,
-  nichts gepusht). Enthält neben SwingStream auch ältere, vorher offene Repo-Änderungen
+- Branch **`TennisTracker-implementierung`** (von `main` abgezweigt; `main` unberührt,
+  nichts gepusht). Enthält neben TennisTracker auch ältere, vorher offene Repo-Änderungen
   (mit committet auf Wunsch des Nutzers).
 - Commit-Trailer: `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`.
 - Nur committen/pushen, wenn der Nutzer es verlangt.
@@ -453,7 +453,7 @@ Lücken und müssen untersucht werden. Live-Erkennung gegen `src/predict.py --sc
 ## Wichtigste Designprinzipien (nicht brechen)
 
 1. **CSV bleibt im kanonischen ML4SCS-Format** (sonst funktioniert das Modell nicht).
-   Keine zusätzlichen Spalten für SwingStream-Metadaten einfügen; Sync gehört in
+   Keine zusätzlichen Spalten für TennisTracker-Metadaten einfügen; Sync gehört in
    die JSON-Datei.
 2. **Uhr-Datei = Quelle der Wahrheit**; Stream ist nur Vorschau/Predict.
 3. **Hintergrundbetrieb hängt an der `HKWorkoutSession`** (mit LiveWorkoutBuilder +

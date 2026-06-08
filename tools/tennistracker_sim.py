@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stream simulator for the SwingStream dashboard.
+"""Stream simulator for the TennisTracker dashboard.
 
 Generates synthetic 50 Hz Apple Watch motion samples (idle baseline plus periodic
 "strokes") and POSTs them in small batches to the dashboard's /api/ingest endpoint,
@@ -8,7 +8,7 @@ without Xcode, an iPhone, or an Apple Watch.
 
 Run the dashboard in one terminal, then:
 
-    .venv_vr/bin/python tools/swingstream_sim.py --duration 60 --rate 50
+    .venv_vr/bin/python tools/tennistracker_sim.py --duration 60 --rate 50
 """
 
 from __future__ import annotations
@@ -113,7 +113,7 @@ def replay_csv(url: str, path: str, batch_size: int, speed: float) -> None:
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Simulate an Apple Watch stream to the SwingStream dashboard.")
+    parser = argparse.ArgumentParser(description="Simulate an Apple Watch stream to the TennisTracker dashboard.")
     parser.add_argument("--url", default="http://127.0.0.1:8788/api/ingest")
     parser.add_argument("--duration", type=float, default=60.0, help="Seconds to stream.")
     parser.add_argument("--rate", type=float, default=50.0, help="Samples per second.")

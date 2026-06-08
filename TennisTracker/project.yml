@@ -1,4 +1,4 @@
-name: SwingStream
+name: TennisTracker
 options:
   bundleIdPrefix: com.florianschneider
   deploymentTarget:
@@ -15,11 +15,11 @@ settings:
     CODE_SIGN_STYLE: Automatic
 
 targets:
-  SwingStream:
+  TennisTracker:
     type: application
     platform: iOS
     sources:
-      - path: SwingStream
+      - path: TennisTracker
       - path: Shared
     settings:
       base:
@@ -28,28 +28,30 @@ targets:
         TARGETED_DEVICE_FAMILY: "1"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
     info:
-      path: SwingStream/Info.plist
+      path: TennisTracker/Info.plist
       properties:
-        NSLocalNetworkUsageDescription: "SwingStream sendet Sensordaten an dein Mac-Dashboard im lokalen Netzwerk."
-        NSCameraUsageDescription: "SwingStream nimmt im Label-Modus ein Video auf, das mit den Sensordaten synchronisiert wird."
-        NSMicrophoneUsageDescription: "SwingStream nimmt im Label-Modus Video mit Ton auf."
+        CFBundleDisplayName: TennisTracker
+        CFBundleName: TennisTracker
+        NSLocalNetworkUsageDescription: "TennisTracker sendet Sensordaten an dein Mac-Dashboard im lokalen Netzwerk."
+        NSCameraUsageDescription: "TennisTracker nimmt im Label-Modus ein Video auf, das mit den Sensordaten synchronisiert wird."
+        NSMicrophoneUsageDescription: "TennisTracker nimmt im Label-Modus Video mit Ton auf."
         NSAppTransportSecurity:
           NSAllowsArbitraryLoads: true
         UIFileSharingEnabled: true
         LSSupportsOpeningDocumentsInPlace: true
         UILaunchScreen: {}
     dependencies:
-      - target: SwingStream Watch App
+      - target: TennisTracker Watch App
         embed: true
 
-  SwingStream Watch App:
+  TennisTracker Watch App:
     type: application
     platform: watchOS
     sources:
-      - path: SwingStream Watch App
+      - path: TennisTracker Watch App
       - path: Shared
     entitlements:
-      path: SwingStream Watch App/SwingStreamWatch.entitlements
+      path: TennisTracker Watch App/TennisTrackerWatch.entitlements
       properties:
         com.apple.developer.healthkit: true
     settings:
@@ -57,11 +59,13 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.florianschneider.SwingStream.watchkitapp
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
     info:
-      path: SwingStream Watch App/Info.plist
+      path: TennisTracker Watch App/Info.plist
       properties:
-        NSMotionUsageDescription: "SwingStream nutzt die Bewegungssensoren der Apple Watch zum Aufzeichnen der Schläge."
-        NSHealthShareUsageDescription: "SwingStream startet eine Trainingseinheit, damit die Sensoren auch bei ausgeschaltetem Display weiter aufzeichnen."
-        NSHealthUpdateUsageDescription: "SwingStream startet eine Trainingseinheit, damit die Sensoren auch bei ausgeschaltetem Display weiter aufzeichnen."
+        CFBundleDisplayName: TennisTracker
+        CFBundleName: TennisTracker
+        NSMotionUsageDescription: "TennisTracker nutzt die Bewegungssensoren der Apple Watch zum Aufzeichnen der Schläge."
+        NSHealthShareUsageDescription: "TennisTracker startet eine Trainingseinheit, damit die Sensoren auch bei ausgeschaltetem Display weiter aufzeichnen."
+        NSHealthUpdateUsageDescription: "TennisTracker startet eine Trainingseinheit, damit die Sensoren auch bei ausgeschaltetem Display weiter aufzeichnen."
         WKApplication: true
         WKBackgroundModes:
           - workout-processing

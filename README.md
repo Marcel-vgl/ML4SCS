@@ -43,14 +43,14 @@ labels/      Event-based labels for recorded sessions
 notebooks/   Exploratory notebooks
 reports/     Weekly project reports
 src/         Project source code for preprocessing, training, and evaluation
-SwingStream/ Watch/iPhone Xcode project and SwingStream documentation
+TennisTracker/ Watch/iPhone Xcode project and TennisTracker documentation
 tools/       Helper tools used during the project
 ```
 
 Important documentation:
 
 - `docs/ml-pipeline/` - modeling, labeler, and CSV graph notes
-- `SwingStream/docs/` - SwingStream implementation plan and current status
+- `TennisTracker/docs/` - TennisTracker implementation plan and current status
 - `reports/` - weekly project reports
 
 ## Current Status

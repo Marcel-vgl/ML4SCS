@@ -48,7 +48,7 @@ struct ContentView: View {
                                 width: isLandscape ? proxy.size.width * 0.64 : proxy.size.width,
                                 height: isLandscape ? proxy.size.height : min(max(proxy.size.height * 0.45, 320), 400)
                             )
-                            .id("swingstream.camera.preview")
+                            .id("tennistracker.camera.preview")
                         
                         if isLandscape {
                             Divider()
@@ -59,7 +59,7 @@ struct ContentView: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
-            .navigationTitle("SwingStream")
+            .navigationTitle("TennisTracker")
             .toolbar(.hidden, for: .navigationBar)
         }
         .onAppear {

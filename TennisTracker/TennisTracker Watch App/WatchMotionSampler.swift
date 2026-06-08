@@ -8,7 +8,7 @@ final class WatchMotionSampler: ObservableObject {
     private let queue: OperationQueue = {
         let q = OperationQueue()
         q.maxConcurrentOperationCount = 1
-        q.name = "swingstream.motion"
+        q.name = "tennistracker.motion"
         return q
     }()
 
