@@ -3,7 +3,7 @@
 
 Run from the repository root:
 
-    .venv311/bin/python tools/prediction_dashboard.py
+    .venv_vr/bin/python tools/prediction_dashboard.py
 
 Then open http://127.0.0.1:8770 in a browser.
 """
@@ -14,6 +14,7 @@ import argparse
 import csv
 import json
 import math
+import re
 import subprocess
 import sys
 from datetime import datetime
@@ -24,10 +25,13 @@ from urllib.parse import urlparse
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SRC_DIR = REPO_ROOT / "src"
+if str(SRC_DIR) not in sys.path:
+    sys.path.insert(0, str(SRC_DIR))
 
-DATA_DIR = REPO_ROOT / "Daten"
-LABEL_DIR = REPO_ROOT / "labels"
+from stroke_model import detect_energy_peaks, load_sensor_table
+
 MODEL_DIR = REPO_ROOT / "models"
+UPLOAD_DIR = REPO_ROOT / "uploads"
 IMU_COLUMNS = [
     "motionUserAccelerationX(G)",
     "motionUserAccelerationY(G)",
@@ -45,16 +49,6 @@ def parse_float(value: str | None) -> float:
         return 0.0
 
 
-def relative_files(directory: Path, pattern: str) -> list[dict[str, str]]:
-    if not directory.exists():
-        return []
-    files = []
-    for path in sorted(directory.glob(pattern)):
-        if path.is_file():
-            files.append({"name": path.name, "path": str(path.relative_to(REPO_ROOT))})
-    return files
-
-
 def resolve_existing_csv(value: str) -> Path:
     if not value.strip():
         raise ValueError("No CSV file selected")
@@ -67,23 +61,6 @@ def resolve_existing_csv(value: str) -> Path:
     if path.suffix.lower() != ".csv":
         raise ValueError(f"{path} is not a CSV file")
     return path
-
-
-def choose_csv_file() -> Path | None:
-    if sys.platform == "darwin":
-        script = (
-            'POSIX path of (choose file with prompt "CSV auswaehlen" '
-            'of type {"public.comma-separated-values-text", "public.text"})'
-        )
-        result = subprocess.run(
-            ["osascript", "-e", script],
-            capture_output=True,
-            text=True,
-            check=False,
-        )
-        selected = result.stdout.strip()
-        return Path(selected).expanduser().resolve() if result.returncode == 0 and selected else None
-    return None
 
 
 def downsample_rows(rows: list[dict], target_points: int = 3000) -> list[dict]:
@@ -160,7 +137,7 @@ def sensor_payload(csv_path: Path) -> dict:
         "duration": round(rows[-1]["csv_time_s"], 3),
         "row_count": len(rows),
         "points": downsample_rows(rows),
-        "peaks": detect_peaks(rows),
+        "peaks": detect_energy_peaks(load_sensor_table(csv_path)),
     }
 
 
@@ -194,6 +171,34 @@ def prediction_payload(output_path: Path) -> dict:
         "output_path": str(output_path.relative_to(REPO_ROOT)),
         "prediction_counts": prediction_counts,
     }
+
+
+def save_uploaded_csv(content_type: str, body: bytes) -> Path:
+    match = re.search(r"boundary=([^;]+)", content_type)
+    if not match:
+        raise ValueError("Upload boundary missing")
+
+    boundary = match.group(1).strip().strip('"').encode("utf-8")
+    for part in body.split(b"--" + boundary):
+        if b"filename=" not in part:
+            continue
+        header_bytes, separator, file_bytes = part.partition(b"\r\n\r\n")
+        if not separator:
+            continue
+        headers = header_bytes.decode("utf-8", errors="replace")
+        filename_match = re.search(r'filename="([^"]+)"', headers)
+        if not filename_match:
+            continue
+        original_name = Path(filename_match.group(1)).name
+        if not original_name.lower().endswith(".csv"):
+            raise ValueError("Only CSV uploads are supported")
+        safe_name = re.sub(r"[^A-Za-z0-9_.-]+", "_", original_name)
+        target = UPLOAD_DIR / f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_{safe_name}"
+        UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(file_bytes.rstrip(b"\r\n"))
+        return target
+
+    raise ValueError("No CSV file found in upload")
 
 
 def run_prediction(payload: dict) -> dict:
@@ -489,34 +494,15 @@ def app_html() -> str:
 <body>
   <header>
     <h1>Tennis Prediction Dashboard</h1>
-    <div id="modelState">Model: models/tennis_stroke_baseline.pkl</div>
+    <div id="modelState">Model: models/v_r_v1.pkl</div>
   </header>
   <main>
     <aside>
       <h2>Prediction</h2>
-      <label for="csvSelect">Apple-Watch-CSV</label>
-      <select id="csvSelect"></select>
-      <div class="path-row">
-        <input id="csvPath" type="text" placeholder="/Pfad/zur/apple_watch.csv">
-        <button id="pickCsv" class="pick" type="button">Auswaehlen</button>
-      </div>
+      <label for="csvUpload">CSV hochladen</label>
+      <input id="csvUpload" type="file" accept=".csv,text/csv">
 
-      <label>Modus</label>
-      <div class="mode">
-        <button id="modeLabels" class="active" type="button">Schlag-Labels</button>
-        <button id="modeScan" type="button">Scan</button>
-      </div>
-
-      <div id="labelControls">
-        <label for="labelSelect">Label-CSV mit csv_time_s</label>
-        <select id="labelSelect"></select>
-        <div class="path-row">
-          <input id="labelPath" type="text" placeholder="/Pfad/zur/events.csv">
-          <button id="pickLabel" class="pick" type="button">Auswaehlen</button>
-        </div>
-      </div>
-
-      <div id="scanControls" class="hidden">
+      <div id="scanControls">
         <div class="scan-grid">
           <div>
             <label for="thresholdInput">Threshold</label>
@@ -554,7 +540,7 @@ def app_html() -> str:
         </div>
       </div>
       <div class="table-wrap">
-        <div id="empty" class="empty">Waehle eine CSV und starte eine Prediction.</div>
+        <div id="empty" class="empty">Lade eine CSV hoch und starte eine Prediction.</div>
         <table id="resultTable" class="hidden">
           <thead></thead>
           <tbody></tbody>
@@ -564,16 +550,7 @@ def app_html() -> str:
   </main>
 
   <script>
-    const csvSelect = document.getElementById('csvSelect');
-    const labelSelect = document.getElementById('labelSelect');
-    const csvPath = document.getElementById('csvPath');
-    const labelPath = document.getElementById('labelPath');
-    const pickCsv = document.getElementById('pickCsv');
-    const pickLabel = document.getElementById('pickLabel');
-    const modeLabels = document.getElementById('modeLabels');
-    const modeScan = document.getElementById('modeScan');
-    const labelControls = document.getElementById('labelControls');
-    const scanControls = document.getElementById('scanControls');
+    const csvUpload = document.getElementById('csvUpload');
     const runButton = document.getElementById('runButton');
     const statusEl = document.getElementById('status');
     const summaryEl = document.getElementById('summary');
@@ -583,17 +560,9 @@ def app_html() -> str:
     const chartTitle = document.getElementById('chartTitle');
     const chartMeta = document.getElementById('chartMeta');
     const ctx = canvas.getContext('2d');
-    let mode = 'labels';
+    let uploadedCsvPath = '';
     let sensorData = null;
     let predictionRows = [];
-
-    function setMode(nextMode) {
-      mode = nextMode;
-      modeLabels.classList.toggle('active', mode === 'labels');
-      modeScan.classList.toggle('active', mode === 'scan');
-      labelControls.classList.toggle('hidden', mode !== 'labels');
-      scanControls.classList.toggle('hidden', mode !== 'scan');
-    }
 
     function setStatus(text, isError = false) {
       statusEl.textContent = text;
@@ -609,49 +578,33 @@ def app_html() -> str:
       drawChart();
     }
 
-    function option(select, item) {
-      const opt = document.createElement('option');
-      opt.value = item.path;
-      opt.textContent = item.name;
-      select.appendChild(opt);
-    }
-
-    async function loadFiles() {
-      const res = await fetch('/api/files');
-      const data = await res.json();
-      csvSelect.innerHTML = '';
-      labelSelect.innerHTML = '';
-      data.csv_files.forEach(item => option(csvSelect, item));
-      data.label_files.forEach(item => option(labelSelect, item));
-      if (csvSelect.options.length) csvPath.value = csvSelect.value;
-      if (labelSelect.options.length) labelPath.value = labelSelect.value;
-      if (!data.csv_files.length) setStatus('Keine CSV-Dateien in Daten/ gefunden.', true);
-      if (!data.label_files.length) setStatus('Keine Label-Dateien in labels/ gefunden.', true);
-      if (csvPath.value) loadSensor();
-    }
-
-    async function chooseCsv(targetInput) {
-      setStatus('Dateiauswahl geoeffnet...');
-      const res = await fetch('/api/choose-csv');
-      const data = await res.json();
-      if (!res.ok) {
-        setStatus(data.error || 'Keine Datei ausgewaehlt.', true);
-        return;
+    async function uploadCsv() {
+      if (!csvUpload.files || !csvUpload.files.length) return;
+      setStatus('CSV wird hochgeladen...');
+      const form = new FormData();
+      form.append('file', csvUpload.files[0]);
+      try {
+        const res = await fetch('/api/upload-csv', { method: 'POST', body: form });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Upload fehlgeschlagen');
+        uploadedCsvPath = data.path;
+        setStatus(`Hochgeladen: ${data.name}`);
+        await loadSensor();
+        await runPrediction();
+      } catch (error) {
+        setStatus(error.message, true);
       }
-      targetInput.value = data.path;
-      setStatus(`Ausgewaehlt: ${data.name}`);
-      if (targetInput === csvPath) loadSensor();
     }
 
     async function loadSensor() {
-      if (!csvPath.value.trim()) return;
+      if (!uploadedCsvPath) return;
       setStatus('Sensor-Peaks werden geladen...');
       predictionRows = [];
       try {
         const res = await fetch('/api/sensor', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ csv_path: csvPath.value }),
+          body: JSON.stringify({ csv_path: uploadedCsvPath }),
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Sensor-CSV konnte nicht geladen werden');
@@ -686,7 +639,7 @@ def app_html() -> str:
       if (!sensorData || !sensorData.points.length) {
         ctx.fillStyle = '#607082';
         ctx.font = '13px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';
-        ctx.fillText('Waehle eine Apple-Watch-CSV.', 14, 28);
+        ctx.fillText('Lade eine Apple-Watch-CSV hoch.', 14, 28);
         return;
       }
 
@@ -821,13 +774,16 @@ def app_html() -> str:
     }
 
     async function runPrediction() {
+      if (!uploadedCsvPath) {
+        setStatus('Bitte zuerst eine CSV hochladen.', true);
+        return;
+      }
       runButton.disabled = true;
       setStatus('Prediction laeuft...');
       try {
         const payload = {
-          csv_path: csvPath.value,
-          mode,
-          events_csv: labelPath.value,
+          csv_path: uploadedCsvPath,
+          mode: 'scan',
           threshold: Number(document.getElementById('thresholdInput').value),
           step: Number(document.getElementById('stepInput').value),
           min_gap: Number(document.getElementById('gapInput').value),
@@ -851,17 +807,10 @@ def app_html() -> str:
       }
     }
 
-    modeLabels.addEventListener('click', () => setMode('labels'));
-    modeScan.addEventListener('click', () => setMode('scan'));
-    csvSelect.addEventListener('change', () => { csvPath.value = csvSelect.value; loadSensor(); });
-    labelSelect.addEventListener('change', () => { labelPath.value = labelSelect.value; });
-    csvPath.addEventListener('change', loadSensor);
-    pickCsv.addEventListener('click', () => chooseCsv(csvPath));
-    pickLabel.addEventListener('click', () => chooseCsv(labelPath));
+    csvUpload.addEventListener('change', uploadCsv);
     runButton.addEventListener('click', runPrediction);
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
-    loadFiles();
   </script>
 </body>
 </html>
@@ -886,19 +835,6 @@ class DashboardHandler(BaseHTTPRequestHandler):
             self.send_header("Content-Length", str(len(encoded)))
             self.end_headers()
             self.wfile.write(encoded)
-        elif route == "/api/files":
-            self.send_json(
-                {
-                    "csv_files": relative_files(DATA_DIR, "*.csv"),
-                    "label_files": relative_files(LABEL_DIR, "*.csv"),
-                }
-            )
-        elif route == "/api/choose-csv":
-            selected = choose_csv_file()
-            if selected is None:
-                self.send_json({"error": "Keine Datei ausgewaehlt"}, HTTPStatus.BAD_REQUEST)
-            else:
-                self.send_json({"name": selected.name, "path": str(selected)})
         elif route == "/favicon.ico":
             self.send_response(HTTPStatus.NO_CONTENT)
             self.end_headers()
@@ -907,13 +843,19 @@ class DashboardHandler(BaseHTTPRequestHandler):
 
     def do_POST(self) -> None:
         route = urlparse(self.path).path
-        if route not in {"/api/predict", "/api/sensor"}:
+        if route not in {"/api/predict", "/api/sensor", "/api/upload-csv"}:
             self.send_error(HTTPStatus.NOT_FOUND, "Not found")
             return
 
         try:
             length = int(self.headers.get("Content-Length", "0"))
-            payload = json.loads(self.rfile.read(length) or b"{}")
+            body = self.rfile.read(length)
+            if route == "/api/upload-csv":
+                uploaded = save_uploaded_csv(self.headers.get("Content-Type", ""), body)
+                self.send_json({"name": uploaded.name, "path": str(uploaded)})
+                return
+
+            payload = json.loads(body or b"{}")
             if route == "/api/predict":
                 self.send_json(run_prediction(payload))
             else:

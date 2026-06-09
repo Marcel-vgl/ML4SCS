@@ -1,55 +1,59 @@
 # ML4SCS Tennis Stroke Classification
 
-## Project Overview
+Semester project for **Machine Learning for Smart and Connected Systems**.
 
-This repository contains a semester project for **Machine Learning for Smart and Connected Systems**.
+The project explores whether Apple Watch motion data can be used to detect and
+classify tennis strokes. It combines smartwatch sensor recordings, video-based
+labeling, feature extraction, baseline machine-learning models, and a companion
+Watch/iPhone app for collecting and streaming new sessions.
 
-The project investigates whether smartwatch sensor data can be used to recognize and classify tennis movements. The focus is on motion and IMU data recorded with an Apple Watch during tennis practice.
+<img src="docs/assets/team.jpg" alt="ML4SCS project team on the tennis court" width="420">
 
-The repository documents the full project workflow from data collection and labeling to preprocessing, feature engineering, model training, and evaluation.
+## Project Goal
 
-## Research Question
+The central research question is:
 
-Can movement and IMU data from a smartwatch be used to automatically detect and classify tennis strokes such as forehand, backhand, serve, and slice?
+> Can movement and IMU data from a smartwatch be used to automatically detect
+> and classify tennis strokes?
 
-## Goal
+The current target classes include forehand, backhand, serve, slice, and
+non-stroke movement. The project focuses on a practical end-to-end workflow:
+recording sensor data, aligning it with video labels, training models, and using
+the results in a live tennis-tracking setup.
 
-The goal is to build a machine learning pipeline that can distinguish between different tennis movements based on Apple Watch sensor data.
-
-At this stage, the main target classes are:
-
-- Forehand
-- Backhand
-- Serve
-- Slice
-- No stroke / other movement
-
-The classification setup may be extended later if the dataset supports more stroke types.
-
-## Data
-
-The data consists mainly of Apple Watch sensor recordings and matching video material from tennis sessions.
-
-The smartwatch data includes motion-related signals such as acceleration, rotation rate, attitude, and other sensor values. Video recordings are used as reference material to assign labels to the sensor data.
-
-The raw and collected data is stored in the `Daten/` directory.
-
-## Repository Structure
+## What This Repository Contains
 
 ```text
-Daten/       Raw collected data and video material
-labels/      Event-based labels for recorded sessions
-notebooks/   Exploratory notebooks
-reports/     Weekly project reports
-src/         Project source code for preprocessing, training, and evaluation
-tools/       Helper tools used during the project
+Daten/             Raw and labeled tennis recordings
+labels/            Event labels created from video review
+src/               Shared preprocessing, prediction, and model code
+tools/             Labeling, prediction, dashboard, and simulator tools
+baseline_models/   Random-Forest baseline model and evaluation artifacts
+TennisTracker/     iPhone + Apple Watch Xcode project
+docs/              Project notes and supporting documentation
+reports/           Weekly project reports
 ```
 
-## Current Status
+## Main Components
 
-The project is currently in the data preparation phase. Initial sensor recordings and video material have been collected, and the first labels have been created.
+**Data collection and labeling**  
+Apple Watch motion recordings are paired with video footage. The video is used
+to mark stroke events, which are then used to create training and evaluation
+data.
 
-The next steps are to collect more data, transform the labeled events into usable training samples, extract features from the sensor windows, and train baseline classification models.
+**Modeling pipeline**  
+The Python pipeline supports preprocessing, feature extraction, training, and
+prediction. A Random-Forest baseline is included as a reference model for
+evaluating stroke classification performance.
+
+**TennisTracker app**  
+`TennisTracker/` contains the iPhone and Apple Watch app. The app supports
+recording sessions and streaming motion data to a local dashboard for live
+inspection and prediction.
+
+**Dashboards and helper tools**  
+The `tools/` directory contains utilities for offline labeling, prediction
+review, live dashboarding, and simulated sensor streams.
 
 ## Team
 
