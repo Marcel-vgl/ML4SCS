@@ -6,7 +6,7 @@
 > 1. **CSV-Format = kanonisches Apple-Watch-Format** (`motionUserAccelerationX(G)`,
 >    `motionRotationRateX(rad/s)`, `motionTimestamp_sinceReboot(s)` …), damit die
 >    aufgezeichneten Streams **direkt** vom bestehenden Code (`src/stroke_model.py`,
->    `src/predict.py`, Offline-Labeler, Modell `models/v_r_v1.pkl`) gelesen werden
+>    `src/predict.py`, Offline-Labeler, Modell `models/v_r_v1_eval/output/v_r_v1.pkl`) gelesen werden
 >    können. Kein paralleles `acc_x_g`/`gyro_x_rad_s`-Format mehr.
 > 2. **Keine neuen Python-Abhängigkeiten.** Das vorhandene Dashboard
 >    (`tools/prediction_dashboard.py`) nutzt ausschließlich die Standardbibliothek
@@ -45,7 +45,7 @@ bestehenden Offline-Pipeline:
 | `uploads/…_Apple_Watch.csv`                 | `recordings/tennistracker_…csv` (gleiche Spalten) |
 | `src/stroke_model.load_sensor_table()`      | identisch wiederverwendbar                     |
 | `detect_energy_peaks()` + `predict_one()` | identisch für Live-Klassifikation              |
-| Modell `models/v_r_v1.pkl`                  | dasselbe Modell, optional live                 |
+| Modell `models/v_r_v1_eval/output/v_r_v1.pkl` | dasselbe Modell, optional live              |
 
 **Konsequenz:** Die aufgezeichneten CSVs müssen exakt die Spalten enthalten, die
 `load_sensor_table()` erwartet. Minimal benötigt das Modell:
@@ -77,7 +77,7 @@ vorhandenen Spaltenstruktur (`Daten/`, `uploads/`) kompatibel zu bleiben.
    - Live-Status, Sample-Rate, Gap-/Drop-Erkennung
    - Live-Plot im Browser (Canvas, Polling)
    - Recording in ML4SCS-kompatibles CSV
-   - optional: Live-Schlagerkennung über `v_r_v1.pkl`
+   - optional: Live-Schlagerkennung über `models/v_r_v1_eval/output/v_r_v1.pkl`
 
 ## Technische Entscheidungen
 

@@ -1,4 +1,4 @@
-"""Configuration handling for the Random-Forest baseline."""
+"""Configuration handling for the SVM baseline."""
 
 from __future__ import annotations
 
@@ -12,12 +12,12 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 
 
 @dataclass
-class BaselineConfig:
-    """Editable configuration for the event-window Random-Forest baseline."""
+class SVMBaselineConfig:
+    """Editable configuration for the event-window SVM baseline."""
 
     data_dir: str = "Daten/Daten_Labeled"
-    output_dir: str = "baseline_models/random_forest/output"
-    model_output_path: str = "baseline_models/random_forest/output/random_forest_model.pkl"
+    output_dir: str = "baseline_models/svm/output"
+    model_output_path: str = "baseline_models/svm/output/svm_model.pkl"
     window_before_s: float = 0.5
     window_after_s: float = 0.5
     min_window_rows: int = 25
@@ -26,17 +26,17 @@ class BaselineConfig:
     min_samples_per_label: int = 10
     min_sessions_per_label: int = 2
     random_state: int = 42
-    n_estimators: int = 400
-    max_depth: int | None = None
-    min_samples_split: int = 2
-    min_samples_leaf: int = 2
-    max_features: str | float | int | None = "sqrt"
-    criterion: str = "gini"
-    class_weight: str | None = "balanced_subsample"
+    kernel: str = "rbf"
+    c_value: float = 2.0
+    gamma: str | float = "scale"
+    degree: int = 3
+    coef0: float = 0.0
+    class_weight: str | None = "balanced"
+    probability: bool = True
 
     @classmethod
-    def from_json(cls, path: str | Path) -> "BaselineConfig":
-        """Load the baseline configuration from a JSON file."""
+    def from_json(cls, path: str | Path) -> "SVMBaselineConfig":
+        """Load the SVM configuration from a JSON file."""
         config_path = cls.resolve_path(path)
         with config_path.open(encoding="utf-8") as handle:
             payload = json.load(handle)
@@ -65,17 +65,16 @@ class BaselineConfig:
         return self.resolve_path(self.model_output_path)
 
     @property
-    def random_forest_params(self) -> dict[str, Any]:
+    def svm_params(self) -> dict[str, Any]:
         return {
-            "n_estimators": self.n_estimators,
-            "max_depth": self.max_depth,
-            "min_samples_split": self.min_samples_split,
-            "min_samples_leaf": self.min_samples_leaf,
-            "max_features": self.max_features,
-            "criterion": self.criterion,
+            "kernel": self.kernel,
+            "C": self.c_value,
+            "gamma": self.gamma,
+            "degree": self.degree,
+            "coef0": self.coef0,
             "class_weight": self.class_weight,
+            "probability": self.probability,
             "random_state": self.random_state,
-            "n_jobs": -1,
         }
 
     def to_dict(self) -> dict[str, Any]:

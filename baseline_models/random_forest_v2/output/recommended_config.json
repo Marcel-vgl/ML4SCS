@@ -1,0 +1,28 @@
+{
+  "data_dir": "Daten/Daten_Labeled",
+  "output_dir": "baseline_models/random_forest/output",
+  "model_output_path": "baseline_models/random_forest/output/random_forest_model.pkl",
+  "window_before_s": 0.5,
+  "window_after_s": 0.5,
+  "min_window_rows": 25,
+  "labels": [
+    "Vorhand",
+    "Rueckhand",
+    "Schlaeger drehen",
+    "Aufschlag von unten",
+    "Kein Schlag / Other"
+  ],
+  "excluded_labels": [
+    "Unsicher"
+  ],
+  "min_samples_per_label": 10,
+  "min_sessions_per_label": 2,
+  "random_state": 42,
+  "n_estimators": 600,
+  "max_depth": 12,
+  "min_samples_split": 6,
+  "min_samples_leaf": 2,
+  "max_features": 0.5,
+  "criterion": "entropy",
+  "class_weight": "balanced"
+}

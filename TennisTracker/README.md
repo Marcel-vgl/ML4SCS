@@ -71,6 +71,6 @@ TennisTracker Watch App/              watchOS-App
 - **CSV-Kompatibilität:** Das Mac-Dashboard mappt die kompakten JSON-Felder auf
   die kanonischen Apple-Watch-Spalten, sodass Aufnahmen direkt durch die
   bestehende ML4SCS-Pipeline (`src/stroke_model.py`, `src/predict.py`,
-  Modell `v_r_v1.pkl`) laufen.
+  Modell `models/v_r_v1_eval/output/v_r_v1.pkl`) laufen.
 - Watch und iPhone müssen im selben WLAN wie der Mac sein.
 - Aktueller Projektstand: `docs/TennisTracker_STATUS.md`.

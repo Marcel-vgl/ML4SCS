@@ -1,0 +1,48 @@
+{
+  "config": {
+    "data_dir": "Daten/Daten_Labeled",
+    "output_dir": "baseline_models/svm/output",
+    "model_output_path": "baseline_models/svm/output/svm_model.pkl",
+    "window_before_s": 0.5,
+    "window_after_s": 0.5,
+    "min_window_rows": 25,
+    "labels": [
+      "Vorhand",
+      "Rueckhand",
+      "Schlaeger drehen",
+      "Aufschlag von unten",
+      "Kein Schlag / Other"
+    ],
+    "excluded_labels": [
+      "Unsicher"
+    ],
+    "min_samples_per_label": 10,
+    "min_sessions_per_label": 2,
+    "random_state": 42,
+    "kernel": "linear",
+    "c_value": 0.5,
+    "gamma": "scale",
+    "degree": 3,
+    "coef0": 0.0,
+    "class_weight": "balanced",
+    "probability": true
+  },
+  "selected_labels": [
+    "Vorhand",
+    "Rueckhand",
+    "Schlaeger drehen",
+    "Aufschlag von unten",
+    "Kein Schlag / Other"
+  ],
+  "overall_metrics": {
+    "event_count": 377.0,
+    "feature_count": 164.0,
+    "session_count": 3.0,
+    "accuracy": 0.883289124668435,
+    "balanced_accuracy": 0.7415756928392013,
+    "macro_precision": 0.7471247451042847,
+    "macro_recall": 0.7415756928392013,
+    "macro_f1": 0.7436605551311434,
+    "weighted_f1": 0.8884478435695474
+  }
+}

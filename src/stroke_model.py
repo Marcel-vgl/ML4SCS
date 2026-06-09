@@ -15,7 +15,7 @@ import numpy as np
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_MODEL_PATH = REPO_ROOT / "models" / "v_r_v1.pkl"
+DEFAULT_MODEL_PATH = REPO_ROOT / "models" / "v_r_v1_eval" / "output" / "v_r_v1.pkl"
 
 IMU_COLUMNS = [
     "motionUserAccelerationX(G)",

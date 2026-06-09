@@ -1,0 +1,45 @@
+{
+  "config": {
+    "data_dir": "Daten/Daten_Labeled",
+    "output_dir": "models/v_r_v2/output",
+    "model_output_path": "models/v_r_v2/output/v_r_v2.pkl",
+    "window_before_s": 0.5,
+    "window_after_s": 0.5,
+    "min_window_rows": 25,
+    "labels": [
+      "Vorhand",
+      "Rueckhand",
+      "Schlaeger drehen",
+      "Aufschlag von unten",
+      "Kein Schlag / Other"
+    ],
+    "excluded_labels": [
+      "Unsicher"
+    ],
+    "min_samples_per_label": 10,
+    "min_sessions_per_label": 2,
+    "random_state": 42,
+    "n_estimators": 400,
+    "max_depth": null,
+    "min_samples_leaf": 2,
+    "class_weight": "balanced_subsample"
+  },
+  "selected_labels": [
+    "Vorhand",
+    "Rueckhand",
+    "Schlaeger drehen",
+    "Aufschlag von unten",
+    "Kein Schlag / Other"
+  ],
+  "overall_metrics": {
+    "event_count": 377.0,
+    "feature_count": 164.0,
+    "session_count": 3.0,
+    "accuracy": 0.8859416445623343,
+    "balanced_accuracy": 0.7410736608446755,
+    "macro_precision": 0.7375714164976335,
+    "macro_recall": 0.7410736608446755,
+    "macro_f1": 0.7373856597386009,
+    "weighted_f1": 0.8867120246430591
+  }
+}

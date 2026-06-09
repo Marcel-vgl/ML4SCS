@@ -1,17 +1,17 @@
-"""Shared CLI helpers for the Random-Forest baseline scripts."""
+"""Shared CLI helpers for the SVM baseline scripts."""
 
 from __future__ import annotations
 
 import argparse
 
-from .config import BaselineConfig
+from .config import SVMBaselineConfig
 
 
-DEFAULT_CONFIG_PATH = "baseline_models/random_forest/config.json"
+DEFAULT_CONFIG_PATH = "baseline_models/svm/config.json"
 
 
 def add_common_arguments(parser: argparse.ArgumentParser) -> None:
-    """Attach shared configuration overrides to a CLI parser."""
+    """Attach shared configuration overrides to an SVM CLI parser."""
     parser.add_argument("--config", default=DEFAULT_CONFIG_PATH, help="Path to the JSON config file.")
     parser.add_argument("--data-dir", help="Override the labeled CSV directory.")
     parser.add_argument("--output-dir", help="Override the artifact output directory.")
@@ -22,25 +22,18 @@ def add_common_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--excluded-labels", nargs="+", help="Labels to exclude in auto mode.")
     parser.add_argument("--min-samples-per-label", type=int, help="Minimum event count for auto selection.")
     parser.add_argument("--min-sessions-per-label", type=int, help="Minimum session count for auto selection.")
-    parser.add_argument("--n-estimators", type=int, help="Number of Random-Forest trees.")
-    parser.add_argument("--max-depth", type=int, help="Optional maximum tree depth.")
-    parser.add_argument("--min-samples-split", type=int, help="Minimum samples required to split a node.")
-    parser.add_argument("--min-samples-leaf", type=int, help="Minimum samples per leaf node.")
-    parser.add_argument(
-        "--max-features",
-        help="Random-Forest max_features value. Use sqrt, log2, none, or a numeric value such as 0.5.",
-    )
-    parser.add_argument("--criterion", help="Split criterion, for example gini or entropy.")
-    parser.add_argument(
-        "--class-weight",
-        help="Class weight setting. Use balanced, balanced_subsample, or none.",
-    )
+    parser.add_argument("--kernel", help="SVM kernel such as rbf, linear, poly, or sigmoid.")
+    parser.add_argument("--c-value", type=float, help="Regularization parameter C.")
+    parser.add_argument("--gamma", help="Kernel coefficient gamma. Use scale, auto, or a numeric value.")
+    parser.add_argument("--degree", type=int, help="Degree for the polynomial kernel.")
+    parser.add_argument("--coef0", type=float, help="Independent term in poly/sigmoid kernels.")
+    parser.add_argument("--class-weight", help="Class weight setting, for example balanced or none.")
     parser.add_argument("--random-state", type=int, help="Random seed.")
 
 
-def config_from_args(args: argparse.Namespace) -> BaselineConfig:
+def config_from_args(args: argparse.Namespace) -> SVMBaselineConfig:
     """Load the JSON config and apply CLI overrides."""
-    config = BaselineConfig.from_json(args.config)
+    config = SVMBaselineConfig.from_json(args.config)
     overrides = {
         "data_dir": args.data_dir,
         "output_dir": args.output_dir,
@@ -51,13 +44,12 @@ def config_from_args(args: argparse.Namespace) -> BaselineConfig:
         "excluded_labels": args.excluded_labels,
         "min_samples_per_label": args.min_samples_per_label,
         "min_sessions_per_label": args.min_sessions_per_label,
-        "n_estimators": args.n_estimators,
-        "max_depth": args.max_depth,
-        "min_samples_split": args.min_samples_split,
-        "min_samples_leaf": args.min_samples_leaf,
-        "max_features": _parse_maybe_numeric(getattr(args, "max_features", None)),
-        "criterion": getattr(args, "criterion", None),
-        "class_weight": _parse_optional_string(getattr(args, "class_weight", None)),
+        "kernel": args.kernel,
+        "c_value": args.c_value,
+        "gamma": _parse_maybe_numeric(args.gamma),
+        "degree": args.degree,
+        "coef0": args.coef0,
+        "class_weight": _parse_optional_string(args.class_weight),
         "random_state": args.random_state,
     }
     for key, value in overrides.items():
@@ -76,14 +68,12 @@ def _parse_optional_string(value: str | None) -> str | None:
     return value
 
 
-def _parse_maybe_numeric(value: str | None) -> str | float | int | None:
-    """Parse CLI strings into floats/ints when appropriate."""
+def _parse_maybe_numeric(value: str | None) -> str | float | None:
+    """Parse CLI strings into floats when appropriate."""
     parsed = _parse_optional_string(value)
     if parsed is None:
         return None
     try:
-        if "." in parsed:
-            return float(parsed)
-        return int(parsed)
+        return float(parsed)
     except ValueError:
         return parsed
