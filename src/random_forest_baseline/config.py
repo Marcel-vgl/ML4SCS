@@ -22,6 +22,7 @@ class BaselineConfig:
     window_after_s: float = 0.5
     min_window_rows: int = 25
     labels: list[str] | None = None
+    label_aliases: dict[str, str] = field(default_factory=dict)
     excluded_labels: list[str] = field(default_factory=lambda: ["Unsicher"])
     min_samples_per_label: int = 10
     min_sessions_per_label: int = 2
