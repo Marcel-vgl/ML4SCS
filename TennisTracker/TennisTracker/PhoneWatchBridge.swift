@@ -17,18 +17,24 @@ final class PhoneWatchBridge: NSObject, ObservableObject, WCSessionDelegate {
     @Published var lastSampleRate = 0.0
     @Published var isRunning = false
     @Published var mode: AppMode = .label
+    @Published var lastTransport = "wartet"
+    /// Optional: im Predict-Modus zusätzlich ans Mac-Dashboard senden (Standard aus,
+    /// da die Erkennung jetzt on-device läuft).
+    @Published var alsoSendToMac = false
 
     let mac: MacHTTPClient
     let store: RecordingStore
     let video: LabelVideoRecorder
+    let predictor: StrokePredictor
 
     private var rateWindowStart = Date()
     private var rateWindowCount = 0
 
-    init(mac: MacHTTPClient, store: RecordingStore, video: LabelVideoRecorder) {
+    init(mac: MacHTTPClient, store: RecordingStore, video: LabelVideoRecorder, predictor: StrokePredictor) {
         self.mac = mac
         self.store = store
         self.video = video
+        self.predictor = predictor
         super.init()
         self.video.onRecordingFinished = { [weak store] in
             store?.refresh()
@@ -70,6 +76,7 @@ final class PhoneWatchBridge: NSObject, ObservableObject, WCSessionDelegate {
         }
 
         isRunning = true
+        predictor.start()
         let payload: [String: Any] = ["command": "start", "session": session, "mode": mode.rawValue]
         sendToWatch(payload)
     }
@@ -78,6 +85,8 @@ final class PhoneWatchBridge: NSObject, ObservableObject, WCSessionDelegate {
         isRunning = false
         if mode == .label {
             video.stopRecording()
+        } else {
+            predictor.stop()
         }
         sendToWatch(["command": "stop"])
     }
@@ -95,17 +104,23 @@ final class PhoneWatchBridge: NSObject, ObservableObject, WCSessionDelegate {
 
     // MARK: - Datenempfang
 
-    private func handle(batch: SensorBatch) {
+    private func handle(batch: SensorBatch, transport: String) {
         let count = batch.samples.count
         if mode == .predict {
-            var forwarded = batch
-            forwarded.source = "iphone_bridge"
-            forwarded.bridge_received_unix_s = Date().timeIntervalSince1970
-            mac.send(forwarded)
+            // On-device Erkennung (ersetzt das Mac-Dashboard).
+            predictor.add(batch.samples)
+            // Optional zusätzlich ans Mac senden (Vergleich/Backup).
+            if alsoSendToMac {
+                var forwarded = batch
+                forwarded.source = "iphone_bridge"
+                forwarded.bridge_received_unix_s = Date().timeIntervalSince1970
+                mac.send(forwarded)
+            }
         }
         DispatchQueue.main.async {
             self.receivedSamples += count
             self.rateWindowCount += count
+            self.lastTransport = transport
             let elapsed = Date().timeIntervalSince(self.rateWindowStart)
             if elapsed >= 1.0 {
                 self.lastSampleRate = Double(self.rateWindowCount) / elapsed
@@ -130,7 +145,13 @@ final class PhoneWatchBridge: NSObject, ObservableObject, WCSessionDelegate {
     func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any] = [:]) {
         if let data = userInfo["batch"] as? Data,
            let batch = try? JSONDecoder().decode(SensorBatch.self, from: data) {
-            handle(batch: batch)
+            handle(batch: batch, transport: "Hintergrund")
+        }
+    }
+
+    func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
+        if let batch = try? JSONDecoder().decode(SensorBatch.self, from: messageData) {
+            handle(batch: batch, transport: "live")
         }
     }
 

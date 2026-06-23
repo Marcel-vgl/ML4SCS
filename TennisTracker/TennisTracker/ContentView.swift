@@ -5,6 +5,7 @@ struct ContentView: View {
     @StateObject private var mac: MacHTTPClient
     @StateObject private var store: RecordingStore
     @StateObject private var video: LabelVideoRecorder
+    @StateObject private var predictor: StrokePredictor
     @StateObject private var bridge: PhoneWatchBridge
     @State private var sessionNameInput = ""
     @State private var portText = ""
@@ -13,10 +14,12 @@ struct ContentView: View {
         let mac = MacHTTPClient()
         let store = RecordingStore()
         let video = LabelVideoRecorder()
+        let predictor = StrokePredictor()
         _mac = StateObject(wrappedValue: mac)
         _store = StateObject(wrappedValue: store)
         _video = StateObject(wrappedValue: video)
-        _bridge = StateObject(wrappedValue: PhoneWatchBridge(mac: mac, store: store, video: video))
+        _predictor = StateObject(wrappedValue: predictor)
+        _bridge = StateObject(wrappedValue: PhoneWatchBridge(mac: mac, store: store, video: video, predictor: predictor))
     }
 
     private static let stampFormatter: DateFormatter = {
@@ -116,9 +119,10 @@ struct ContentView: View {
 
             Section("Status") {
                 statusRow("Watch", ok: bridge.watchReachable,
-                          text: bridge.watchReachable ? "verbunden" : "Bluetooth/Hintergrund")
+                          text: bridge.watchReachable ? "live erreichbar" : "Hintergrund")
                 LabeledContent("Empfangen", value: "\(bridge.receivedSamples) Samples")
                 LabeledContent("Rate", value: "\(Int(bridge.lastSampleRate.rounded())) Hz")
+                LabeledContent("Transport", value: bridge.lastTransport)
             }
 
             Section(bridge.mode == .label ? "Aufnahme" : "Live-Vorhersage") {
@@ -157,39 +161,53 @@ struct ContentView: View {
                 }
                 Text(bridge.mode == .label
                      ? "Die Uhr startet eine Workout-Session fuer den Hintergrundbetrieb und nimmt 100 Hz verlustfrei auf. Das iPhone speichert parallel ein Video und eine Sync-JSON."
-                     : "Die Live-Daten werden ans Mac-Dashboard gesendet, das die Schläge erkennt.")
+                     : "Die Uhr streamt Live-Daten ans iPhone, das Vorhand/Rückhand direkt on-device erkennt – kein Mac nötig.")
                     .font(.footnote)
                     .foregroundStyle(.secondary)
             }
 
             if bridge.mode == .predict {
-                Section("Mac-Dashboard (WLAN)") {
-                    HStack {
-                        Text("IP")
-                        Spacer()
-                        TextField("192.168.0.105", text: $mac.host)
-                            .multilineTextAlignment(.trailing)
-                            .keyboardType(.numbersAndPunctuation)
-                            .autocorrectionDisabled()
+                Section("Live-Erkennung (on-device)") {
+                    PredictDashboardView(predictor: predictor)
+                        .listRowInsets(EdgeInsets(top: 10, leading: 14, bottom: 12, trailing: 14))
+                    LabeledContent("Schläge erkannt", value: "\(predictor.totalStrokes)")
+                }
+
+                Section {
+                    Toggle("Auch ans Mac-Dashboard senden", isOn: $bridge.alsoSendToMac)
+                } footer: {
+                    Text("Optional: zusätzlich die Rohdaten ans Mac senden (Vergleich/Backup). Die Schlagerkennung läuft unabhängig davon direkt auf dem iPhone.")
+                }
+
+                if bridge.alsoSendToMac {
+                    Section("Mac-Dashboard (WLAN)") {
+                        HStack {
+                            Text("IP")
+                            Spacer()
+                            TextField("192.168.0.105", text: $mac.host)
+                                .multilineTextAlignment(.trailing)
+                                .keyboardType(.numbersAndPunctuation)
+                                .autocorrectionDisabled()
+                        }
+                        HStack {
+                            Text("Port")
+                            Spacer()
+                            TextField("8788", text: $portText)
+                                .multilineTextAlignment(.trailing)
+                                .keyboardType(.numberPad)
+                                .onChange(of: portText) { _, new in
+                                    if let v = Int(new) { mac.port = v }
+                                }
+                        }
+                        LabeledContent("Mac", value: mac.reachable ? "verbunden" : "getrennt")
+                        LabeledContent("Gesendet", value: "\(mac.sentBatches) ok · \(mac.failedBatches) Fehler")
+                        if !mac.lastError.isEmpty {
+                            Text(mac.lastError)
+                                .font(.footnote)
+                                .foregroundStyle(.red)
+                        }
+                        Button("Verbindung testen") { mac.ping() }
                     }
-                    HStack {
-                        Text("Port")
-                        Spacer()
-                        TextField("8788", text: $portText)
-                            .multilineTextAlignment(.trailing)
-                            .keyboardType(.numberPad)
-                            .onChange(of: portText) { _, new in
-                                if let v = Int(new) { mac.port = v }
-                            }
-                    }
-                    LabeledContent("Mac", value: mac.reachable ? "verbunden" : "getrennt")
-                    LabeledContent("Gesendet", value: "\(mac.sentBatches) ok · \(mac.failedBatches) Fehler")
-                    if !mac.lastError.isEmpty {
-                        Text(mac.lastError)
-                            .font(.footnote)
-                            .foregroundStyle(.red)
-                    }
-                    Button("Verbindung testen") { mac.ping() }
                 }
             }
 
