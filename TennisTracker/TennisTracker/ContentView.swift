@@ -175,12 +175,56 @@ struct ContentView: View {
 
                 Section {
                     Toggle("Auch ans Mac-Dashboard senden", isOn: $bridge.alsoSendToMac)
+                        .onChange(of: bridge.alsoSendToMac) { _, on in
+                            if on { mac.startDiscovery() } else { mac.stopDiscovery() }
+                        }
                 } footer: {
                     Text("Optional: zusätzlich die Rohdaten ans Mac senden (Vergleich/Backup). Die Schlagerkennung läuft unabhängig davon direkt auf dem iPhone.")
                 }
 
                 if bridge.alsoSendToMac {
-                    Section("Mac-Dashboard (WLAN)") {
+                    Section("Mac automatisch finden") {
+                        if mac.discovering && mac.discovered.isEmpty {
+                            HStack(spacing: 10) {
+                                ProgressView()
+                                Text("Suche Mac im Netzwerk / Hotspot…")
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                        ForEach(mac.discovered) { found in
+                            Button {
+                                mac.apply(found)
+                            } label: {
+                                HStack {
+                                    Image(systemName: "desktopcomputer")
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        Text(found.name)
+                                        Text("\(found.host):\(found.port)")
+                                            .font(.caption)
+                                            .foregroundStyle(.secondary)
+                                    }
+                                    Spacer()
+                                    if mac.host == found.host && mac.port == found.port {
+                                        Image(systemName: "checkmark.circle.fill")
+                                            .foregroundStyle(.green)
+                                    }
+                                }
+                            }
+                            .buttonStyle(.plain)
+                        }
+                        if mac.discovered.isEmpty && !mac.discovering {
+                            Text("Kein Mac gefunden. Läuft das TennisTracker-Dashboard auf dem Mac?")
+                                .font(.footnote)
+                                .foregroundStyle(.secondary)
+                        }
+                        Button {
+                            mac.startDiscovery()
+                        } label: {
+                            Label("Erneut suchen", systemImage: "arrow.clockwise")
+                        }
+                    }
+
+                    Section("Mac-Dashboard (manuell)") {
                         HStack {
                             Text("IP")
                             Spacer()
