@@ -494,7 +494,7 @@ def app_html() -> str:
 <body>
   <header>
     <h1>Tennis Prediction Dashboard</h1>
-    <div id="modelState">Model: models/v_r_v1.pkl</div>
+    <div id="modelState">Model: models/v_r_v1_eval/output/v_r_v1.pkl</div>
   </header>
   <main>
     <aside>

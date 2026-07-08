@@ -22,13 +22,17 @@ class BaselineConfig:
     window_after_s: float = 0.5
     min_window_rows: int = 25
     labels: list[str] | None = None
+    label_aliases: dict[str, str] = field(default_factory=dict)
     excluded_labels: list[str] = field(default_factory=lambda: ["Unsicher"])
     min_samples_per_label: int = 10
     min_sessions_per_label: int = 2
     random_state: int = 42
     n_estimators: int = 400
     max_depth: int | None = None
+    min_samples_split: int = 2
     min_samples_leaf: int = 2
+    max_features: str | float | int | None = "sqrt"
+    criterion: str = "gini"
     class_weight: str | None = "balanced_subsample"
 
     @classmethod
@@ -66,7 +70,10 @@ class BaselineConfig:
         return {
             "n_estimators": self.n_estimators,
             "max_depth": self.max_depth,
+            "min_samples_split": self.min_samples_split,
             "min_samples_leaf": self.min_samples_leaf,
+            "max_features": self.max_features,
+            "criterion": self.criterion,
             "class_weight": self.class_weight,
             "random_state": self.random_state,
             "n_jobs": -1,

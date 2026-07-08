@@ -1,0 +1,66 @@
+{
+  "best_params": {
+    "n_estimators": 600,
+    "max_depth": 12,
+    "min_samples_split": 10,
+    "min_samples_leaf": 3,
+    "max_features": "log2",
+    "criterion": "entropy",
+    "class_weight": "balanced_subsample"
+  },
+  "best_metrics": {
+    "accuracy": 0.9575596816976127,
+    "balanced_accuracy": 0.9521211614090871,
+    "macro_precision": 0.9559417911629887,
+    "macro_recall": 0.9521211614090871,
+    "macro_f1": 0.9530656251878663,
+    "weighted_f1": 0.9577718903274515,
+    "event_count": 377.0,
+    "feature_count": 164.0,
+    "session_count": 3.0
+  },
+  "search_space": {
+    "n_estimators": [
+      200,
+      300,
+      400,
+      600,
+      800
+    ],
+    "max_depth": [
+      null,
+      8,
+      12,
+      16,
+      24
+    ],
+    "min_samples_split": [
+      2,
+      4,
+      6,
+      10
+    ],
+    "min_samples_leaf": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "max_features": [
+      "sqrt",
+      "log2",
+      0.5,
+      0.75
+    ],
+    "criterion": [
+      "gini",
+      "entropy"
+    ],
+    "class_weight": [
+      "balanced",
+      "balanced_subsample",
+      null
+    ]
+  },
+  "n_iter": 16
+}

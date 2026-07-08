@@ -1,0 +1,5 @@
+events_csv,source_csv,event_count,accuracy,macro_precision,macro_recall,macro_f1,avg_abs_time_shift_s
+Jule_1_events.csv,Jule_1.csv,61,1.0,1.0,1.0,1.0,0.04786065573770491
+fritz_1_events.csv,fritz_1.csv,105,1.0,1.0,1.0,1.0,0.03128761904761905
+fritz_2_events.csv,fritz_2.csv,79,1.0,1.0,1.0,1.0,0.03346582278481013
+fritz_3_events.csv,fritz_3.csv,81,1.0,1.0,1.0,1.0,0.03758888888888889

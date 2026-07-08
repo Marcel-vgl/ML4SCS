@@ -71,7 +71,7 @@ src/predict.py
 - The trained Vorhand/Rueckhand model artifact was added:
 
 ```text
-models/v_r_v1.pkl
+models/v_r_v1_eval/output/v_r_v1.pkl
 ```
 
 ### 3. TennisTracker App Work
@@ -151,7 +151,7 @@ docs/assets/team.jpg
 | Experiment | Change Made | Result | Interpretation |
 |-----------|-------------|--------|----------------|
 | Random-Forest baseline | Built event windows around labeled strokes and extracted statistical features | Accuracy: `0.886`, weighted F1: `0.887`, macro F1: `0.737` | The baseline works well for frequent classes, but weaker classes still need more data |
-| Vorhand/Rueckhand model | Trained a separate model filtered to only `Vorhand` and `Rueckhand` | Saved as `models/v_r_v1.pkl` and connected to `src/predict.py` plus the live dashboard | A binary model is more practical for the current live demo because these two classes have the strongest label base |
+| Vorhand/Rueckhand model | Trained a separate model filtered to only `Vorhand` and `Rueckhand` | Saved as `models/v_r_v1_eval/output/v_r_v1.pkl` and connected to `src/predict.py` plus the live dashboard | A binary model is more practical for the current live demo because these two classes have the strongest label base |
 
 ## Results
 - A first complete baseline model was created using 377 labeled events and 164
@@ -172,7 +172,7 @@ weighted F1:       0.887
   - Aufschlag von unten F1: `0.973`
 - `Kein Schlag / Other` was not recognized well yet, most likely because this
   class is less consistent and underrepresented.
-- A separate Vorhand/Rueckhand model (`models/v_r_v1.pkl`) was added for the
+- A separate Vorhand/Rueckhand model (`models/v_r_v1_eval/output/v_r_v1.pkl`) was added for the
   live prediction workflow. It only predicts `Vorhand` and `Rueckhand`, which
   makes it better suited for the current app/dashboard demonstration than the
   broader multi-class baseline.

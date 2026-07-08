@@ -24,7 +24,17 @@ def add_common_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--min-sessions-per-label", type=int, help="Minimum session count for auto selection.")
     parser.add_argument("--n-estimators", type=int, help="Number of Random-Forest trees.")
     parser.add_argument("--max-depth", type=int, help="Optional maximum tree depth.")
+    parser.add_argument("--min-samples-split", type=int, help="Minimum samples required to split a node.")
     parser.add_argument("--min-samples-leaf", type=int, help="Minimum samples per leaf node.")
+    parser.add_argument(
+        "--max-features",
+        help="Random-Forest max_features value. Use sqrt, log2, none, or a numeric value such as 0.5.",
+    )
+    parser.add_argument("--criterion", help="Split criterion, for example gini or entropy.")
+    parser.add_argument(
+        "--class-weight",
+        help="Class weight setting. Use balanced, balanced_subsample, or none.",
+    )
     parser.add_argument("--random-state", type=int, help="Random seed.")
 
 
@@ -43,10 +53,37 @@ def config_from_args(args: argparse.Namespace) -> BaselineConfig:
         "min_sessions_per_label": args.min_sessions_per_label,
         "n_estimators": args.n_estimators,
         "max_depth": args.max_depth,
+        "min_samples_split": args.min_samples_split,
         "min_samples_leaf": args.min_samples_leaf,
+        "max_features": _parse_maybe_numeric(getattr(args, "max_features", None)),
+        "criterion": getattr(args, "criterion", None),
+        "class_weight": _parse_optional_string(getattr(args, "class_weight", None)),
         "random_state": args.random_state,
     }
     for key, value in overrides.items():
         if value is not None:
             setattr(config, key, value)
     return config
+
+
+def _parse_optional_string(value: str | None) -> str | None:
+    """Parse sentinel strings such as 'none' into Python None."""
+    if value is None:
+        return None
+    lowered = value.strip().lower()
+    if lowered in {"none", "null"}:
+        return None
+    return value
+
+
+def _parse_maybe_numeric(value: str | None) -> str | float | int | None:
+    """Parse CLI strings into floats/ints when appropriate."""
+    parsed = _parse_optional_string(value)
+    if parsed is None:
+        return None
+    try:
+        if "." in parsed:
+            return float(parsed)
+        return int(parsed)
+    except ValueError:
+        return parsed

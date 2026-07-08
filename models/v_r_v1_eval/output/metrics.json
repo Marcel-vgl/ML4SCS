@@ -1,0 +1,35 @@
+{
+  "config": {
+    "model_path": "models/v_r_v1_eval/output/v_r_v1.pkl",
+    "data_dir": "Daten",
+    "label_dir": "labels",
+    "output_dir": "models/v_r_v1_eval/output",
+    "supported_labels": [
+      "Rueckhand",
+      "Vorhand"
+    ],
+    "peak_min_spacing_s": 0.45,
+    "max_peak_distance_s": 0.5
+  },
+  "overall_metrics": {
+    "event_count": 326,
+    "session_count": 4,
+    "accuracy": 1.0,
+    "macro_precision": 1.0,
+    "macro_recall": 1.0,
+    "macro_f1": 1.0,
+    "weighted_f1": 1.0,
+    "avg_abs_time_shift_s": 0.03648220858895706,
+    "predicted_class_counts": {
+      "Vorhand": 209,
+      "Rueckhand": 117
+    },
+    "true_class_counts": {
+      "Vorhand": 209,
+      "Rueckhand": 117
+    },
+    "model_training_samples": 326,
+    "matches_model_training_sample_count": true,
+    "matches_model_class_counts": true
+  }
+}

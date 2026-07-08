@@ -4,7 +4,7 @@ Stand: 2026-06-07 · Branch: `TennisTracker-implementierung`
 
 TennisTracker = Apple-Watch-/iPhone-Apps + Mac-Dashboard, um Tennis-Schläge mit der
 Apple Watch aufzuzeichnen und (live oder offline) auszuwerten. Teil des
-ML4SCS-Projekts (gleiche CSV-Spalten, gleiches Modell `models/v_r_v1.pkl`).
+ML4SCS-Projekts (gleiche CSV-Spalten, gleiches Modell `models/v_r_v1_eval/output/v_r_v1.pkl`).
 
 ## Zwei Modi (im iPhone-App-Picker wählbar)
 
@@ -331,7 +331,7 @@ Alles, was nötig ist, um hier ohne Vorwissen weiterzuarbeiten.
     `load_model(path)`, `extract_features`, Konstanten `IMU_COLUMNS`.
   - `predict.py`: CLI (`--scan`, `--events-csv`, `--times`).
   - `preprocessing.py`, `train.py`, `evaluate.py`.
-- **Modell**: `models/v_r_v1.pkl` (joblib dict). Klassen **`['Rueckhand','Vorhand']`**,
+- **Modell**: `models/v_r_v1_eval/output/v_r_v1.pkl` (joblib dict). Klassen **`['Rueckhand','Vorhand']`**,
   `window_before_s=0.45`, `window_after_s=0.35`, 15 `signal_names`:
   `accelerometerAcceleration{X,Y,Z}(G)`, `motion{Pitch,Roll,Yaw}(rad)`,
   `motionRotationRate{X,Y,Z}(rad/s)`, `motionUserAcceleration{X,Y,Z}(G)`,

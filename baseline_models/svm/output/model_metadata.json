@@ -1,0 +1,19 @@
+{
+  "model_type": "SVC",
+  "kernel": "linear",
+  "classes": [
+    "Aufschlag von unten",
+    "Kein Schlag / Other",
+    "Rueckhand",
+    "Schlaeger drehen",
+    "Vorhand"
+  ],
+  "support_vector_count": 111,
+  "support_vectors_per_class": {
+    "Aufschlag von unten": 16,
+    "Kein Schlag / Other": 19,
+    "Rueckhand": 16,
+    "Schlaeger drehen": 31,
+    "Vorhand": 29
+  }
+}

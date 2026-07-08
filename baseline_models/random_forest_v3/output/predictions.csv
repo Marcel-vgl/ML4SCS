@@ -1,0 +1,378 @@
+session_name,event_index,event_time_s,window_start_s,window_end_s,window_rows,label_name,y_true,y_pred,fold
+fritz_1_Labeled.csv,11534,116.21925670833298,115.71925670833298,116.71925670833298,99,Rueckhand,Rueckhand,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,11832,119.22200645833254,118.72200645833254,119.72200645833254,99,Rueckhand,Rueckhand,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,12133,122.25498695833267,121.75498695833267,122.75498695833267,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,12499,125.9429264583332,125.4429264583332,126.4429264583332,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,12805,129.02628149999964,128.52628149999964,129.52628149999964,99,Vorhand,Vorhand,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,13354,134.55817620833295,134.05817620833295,135.05817620833295,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,13714,138.18564420833263,137.68564420833263,138.68564420833263,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,14025,141.31937308333272,140.81937308333272,141.81937308333272,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,14307,144.16089775,143.66089775,144.66089775,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,14618,147.29463837499952,146.79463837499952,147.79463837499952,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,15070,151.84914383333216,151.34914383333216,152.34914383333216,99,Rueckhand,Rueckhand,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,15384,155.0131129583333,154.5131129583333,155.5131129583333,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,15716,158.358452833334,157.858452833334,158.858452833334,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,16020,161.42164112499995,160.92164112499995,161.92164112499995,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,16336,164.60572533333288,164.10572533333288,165.10572533333288,99,Rueckhand,Rueckhand,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,16653,167.79987683333275,167.29987683333275,168.29987683333275,99,Rueckhand,Rueckhand,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,16984,171.13508833333253,170.63508833333253,171.63508833333253,99,Rueckhand,Rueckhand,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,17377,175.09501962499962,174.59501962499962,175.59501962499962,99,Rueckhand,Rueckhand,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,19122,192.67790808333302,192.17790808333302,193.17790808333302,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,19655,198.0484881249995,197.5484881249995,198.5484881249995,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,19956,201.0814030833326,200.5814030833326,201.5814030833326,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,20307,204.6181247083332,204.1181247083332,205.1181247083332,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,20965,211.24821833333317,210.74821833333317,211.74821833333317,99,Rueckhand,Rueckhand,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,21243,214.04938333333303,213.54938333333303,214.54938333333303,99,Rueckhand,Rueckhand,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,21660,218.25112724999963,217.75112724999963,218.75112724999963,99,Rueckhand,Rueckhand,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,21872,220.38726645833322,219.88726645833322,220.88726645833322,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,22017,221.8483033333332,221.3483033333332,222.3483033333332,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,22619,227.91412620833216,227.41412620833216,228.41412620833216,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,22818,229.91927170833333,229.41927170833333,230.41927170833333,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,23175,233.51644258333272,233.01644258333272,234.01644258333272,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,23463,236.41836008333303,235.91836008333303,236.91836008333303,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,23814,239.95507183333302,239.45507183333302,240.45507183333302,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,24171,243.55223420833318,243.05223420833318,244.05223420833318,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,24515,247.01840487499976,246.51840487499976,247.51840487499976,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,24908,250.97829895833274,250.47829895833274,251.47829895833274,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,1
+fritz_1_Labeled.csv,25242,254.3437039999999,253.8437039999999,254.8437039999999,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,25778,259.74447558333213,259.24447558333213,260.24447558333213,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,26387,265.88079449999987,265.38079449999987,266.38079449999987,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,27650,278.6068291249994,278.1068291249994,279.1068291249994,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,27994,282.0729901249997,281.5729901249997,282.5729901249997,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,28127,283.41310545833403,282.91310545833403,283.91310545833403,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,28256,284.71291570833273,284.21291570833273,285.21291570833273,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,28805,290.2446694999999,289.7446694999999,290.7446694999999,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,29159,293.81159383333215,293.31159383333215,294.31159383333215,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,29480,297.0460053333327,296.5460053333327,297.5460053333327,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,29797,300.2401083333325,299.7401083333325,300.7401083333325,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,30164,303.93800933333296,303.43800933333296,304.43800933333296,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,30459,306.9104302083333,306.4104302083333,307.4104302083333,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,30786,310.2052838749996,309.7052838749996,310.7052838749996,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,31276,315.14251612499993,314.64251612499993,315.64251612499993,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,32474,327.21350637499927,326.71350637499927,327.71350637499927,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,1
+fritz_1_Labeled.csv,32847,330.9718260833333,330.4718260833333,331.4718260833333,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,33172,334.24650283333267,333.74650283333267,334.74650283333267,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,33579,338.34740687499925,337.84740687499925,338.84740687499925,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,33962,342.20648383333264,341.70648383333264,342.70648383333264,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,34435,346.9723867499997,346.4723867499997,347.4723867499997,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,34746,350.10598883333296,349.60598883333296,350.60598883333296,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,35560,358.30776333333324,357.80776333333324,358.80776333333324,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,35884,361.5723860833332,361.0723860833332,362.0723860833332,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,36503,367.80944670833287,367.30944670833287,368.30944670833287,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,39235,395.3368917083326,394.8368917083326,395.8368917083326,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,39563,398.64178300000003,398.14178300000003,399.14178300000003,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,39857,401.60409183333286,401.10409183333286,402.10409183333286,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,40125,404.3044264583332,403.8044264583332,404.8044264583332,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,41101,414.1384608749995,413.6384608749995,414.6384608749995,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,41415,417.30227874999946,416.80227874999946,417.80227874999946,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,43535,438.66308820833274,438.16308820833274,439.16308820833274,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,1
+fritz_1_Labeled.csv,44035,443.7010318749999,443.2010318749999,444.2010318749999,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,1
+fritz_1_Labeled.csv,44379,447.1671418333326,446.6671418333326,447.6671418333326,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,44739,450.7944687083327,450.2944687083327,451.2944687083327,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,45017,453.5955720833326,453.0955720833326,454.0955720833326,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,1
+fritz_1_Labeled.csv,45401,457.464721833333,456.964721833333,457.964721833333,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,45709,460.5680998333328,460.0680998333328,461.0680998333328,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,46264,466.16022449999946,465.66022449999946,466.66022449999946,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,47250,476.0950549999998,475.5950549999998,476.5950549999998,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,1
+fritz_1_Labeled.csv,47618,479.8029857083329,479.3029857083329,480.3029857083329,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,48580,489.49598870833324,488.99598870833324,489.99598870833324,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,48921,492.9318582083333,492.4318582083333,493.4318582083333,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,49596,499.73305595833335,499.23305595833335,500.23305595833335,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,1
+fritz_1_Labeled.csv,49966,503.46111370833296,502.96111370833296,503.96111370833296,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,50711,510.96760087499933,510.46760087499933,511.46760087499933,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,51022,514.1011781249999,513.6011781249999,514.6011781249999,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,51349,517.3959689583326,516.8959689583326,517.8959689583326,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,54006,544.1674272083328,543.6674272083328,544.6674272083328,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,1
+fritz_1_Labeled.csv,55074,554.9284335833327,554.4284335833327,555.4284335833327,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,1
+fritz_1_Labeled.csv,55424,558.4549797083328,557.9549797083328,558.9549797083328,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,55752,561.7598569583333,561.2598569583333,562.2598569583333,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,56093,565.1957212083325,564.6957212083325,565.6957212083325,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,56665,570.9590990833321,570.4590990833321,571.4590990833321,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,1
+fritz_1_Labeled.csv,57019,574.5259433749998,574.0259433749998,575.0259433749998,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,57806,582.4556073333333,581.9556073333333,582.9556073333333,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,58961,594.0931568749993,593.5931568749993,594.5931568749993,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,1
+fritz_1_Labeled.csv,59322,597.7305222499999,597.2305222499999,598.2305222499999,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,60013,604.6929024583333,604.1929024583333,605.1929024583333,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,60348,608.0682982083326,607.5682982083326,608.5682982083326,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,61483,619.5043225,619.0043225,620.0043225,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,61860,623.3028935833327,622.8028935833327,623.8028935833327,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,62204,626.7689638333331,626.2689638333331,627.2689638333331,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,62766,632.4315497499992,631.9315497499992,632.9315497499992,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,1
+fritz_1_Labeled.csv,63124,636.0386788333326,635.5386788333326,636.5386788333326,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,63431,639.1319484583328,638.6319484583328,639.6319484583328,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,63739,642.2352939583325,641.7352939583325,642.7352939583325,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,64056,645.4293277499992,644.9293277499992,645.9293277499992,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,64351,648.4017003749996,647.9017003749996,648.9017003749996,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,64645,651.3639868749997,650.8639868749997,651.8639868749997,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,66455,669.6011898333327,669.1011898333327,670.1011898333327,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,1
+fritz_1_Labeled.csv,66796,673.0370443333331,672.5370443333331,673.5370443333331,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,67110,676.2008527083326,675.7008527083326,676.7008527083326,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,67451,679.6367163333325,679.1367163333325,680.1367163333325,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,68910,694.3374823749991,693.8374823749991,694.8374823749991,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,69393,699.2041390833328,698.7041390833328,699.7041390833328,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,69889,704.2017825833327,703.7017825833327,704.7017825833327,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,70193,707.2648565,706.7648565,707.7648565,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,70620,711.5672628749999,711.0672628749999,712.0672628749999,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,72440,729.9053733749997,729.4053733749997,730.4053733749997,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,72641,731.9306568749998,731.4306568749998,732.4306568749998,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,72929,734.8325627083332,734.3325627083332,735.3325627083332,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,73244,738.0065203333334,737.5065203333334,738.5065203333334,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,73925,744.868307083334,744.368307083334,745.368307083334,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,74630,751.9719065833333,751.4719065833333,752.4719065833333,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,74881,754.5009874583329,754.0009874583329,755.0009874583329,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,76396,769.7662155833332,769.2662155833332,770.2662155833332,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,76631,772.1340954999996,771.6340954999996,772.6340954999996,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,76942,775.2677562083327,774.7677562083327,775.7677562083327,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,77263,778.5021835833331,778.0021835833331,779.0021835833331,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,1
+fritz_1_Labeled.csv,77620,782.0993490833325,781.5993490833325,782.5993490833325,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,78007,785.9988020833325,785.4988020833325,786.4988020833325,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,78352,789.475057083333,788.975057083333,789.975057083333,99,Vorhand,Vorhand,Vorhand,1
+fritz_1_Labeled.csv,79656,802.6142768749996,802.1142768749996,803.1142768749996,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,79791,803.9745456249993,803.4745456249993,804.4745456249993,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,80185,807.9445154583327,807.4445154583327,808.4445154583327,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,81134,817.506688458333,817.006688458333,818.006688458333,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,81693,823.139192083333,822.639192083333,823.639192083333,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,1
+fritz_1_Labeled.csv,82059,826.8270203333332,826.3270203333332,827.3270203333332,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,82374,830.0009710833328,829.5009710833328,830.5009710833328,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,85504,861.5389887083329,861.0389887083329,862.0389887083329,99,Aufschlag von unten,Aufschlag von unten,Vorhand,1
+fritz_1_Labeled.csv,86103,867.5745382083333,867.0745382083333,868.0745382083333,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,86453,871.1011498333328,870.6011498333328,871.6011498333328,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,86774,874.3355530833333,873.8355530833333,874.8355530833333,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,87102,877.6404863333328,877.1404863333328,878.1404863333328,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,87529,881.9429384999994,881.4429384999994,882.4429384999994,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,87889,885.5702934999999,885.0702934999999,886.0702934999999,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,88425,890.971017375,890.471017375,891.471017375,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,1
+fritz_1_Labeled.csv,90877,915.6773215833327,915.1773215833327,916.1773215833327,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,1
+fritz_1_Labeled.csv,91667,923.6372859583325,923.1372859583325,924.1372859583325,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,92240,929.410762333333,928.910762333333,929.910762333333,99,Rueckhand,Rueckhand,Rueckhand,1
+fritz_1_Labeled.csv,93305,940.1415425833329,939.6415425833329,940.6415425833329,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,1
+fritz_2_Labeled.csv,3810,38.38961087499956,37.88961087499956,38.88961087499956,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,4848,48.84842791666597,48.34842791666597,49.34842791666597,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,5566,56.08293099999992,55.58293099999992,56.58293099999992,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,5900,59.44828024999879,58.94828024999879,59.94828024999879,99,Rueckhand,Rueckhand,Rueckhand,2
+fritz_2_Labeled.csv,6290,63.377877916665966,62.877877916665966,63.877877916665966,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,6606,66.5618561249994,66.0618561249994,67.0618561249994,99,Rueckhand,Rueckhand,Rueckhand,2
+fritz_2_Labeled.csv,6907,69.59469554166662,69.09469554166662,70.09469554166662,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,7475,75.31778062499961,74.81778062499961,75.81778062499961,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,8149,82.10889787499946,81.60889787499946,82.60889787499946,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,8512,85.76642599999923,85.26642599999923,86.26642599999923,99,Rueckhand,Rueckhand,Rueckhand,2
+fritz_2_Labeled.csv,8888,89.55493999999999,89.05493999999999,90.05493999999999,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,9191,92.60791749999953,92.10791749999953,93.10791749999953,99,Rueckhand,Rueckhand,Rueckhand,2
+fritz_2_Labeled.csv,9624,96.9707515,96.4707515,97.4707515,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,10359,104.37648587499916,103.87648587499916,104.87648587499916,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,12566,126.61385074999998,126.11385074999998,127.11385074999998,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,2
+fritz_2_Labeled.csv,14310,144.1862902916664,143.6862902916664,144.6862902916664,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,14610,147.20907649999936,146.70907649999936,147.70907649999936,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,2
+fritz_2_Labeled.csv,14867,149.7985867916659,149.2985867916659,150.2985867916659,99,Rueckhand,Rueckhand,Rueckhand,2
+fritz_2_Labeled.csv,15259,153.74834187499982,153.24834187499982,154.24834187499982,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,15576,156.94240016666663,156.44240016666663,157.44240016666663,99,Rueckhand,Rueckhand,Rueckhand,2
+fritz_2_Labeled.csv,15986,161.07351062499947,160.57351062499947,161.57351062499947,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,16759,168.86214537499927,168.36214537499927,169.36214537499927,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,17195,173.25520874999984,172.75520874999984,173.75520874999984,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,20019,201.70937979166592,201.20937979166592,202.20937979166592,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,20435,205.90093716666615,205.40093716666615,206.40093716666615,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,20729,208.8632379999999,208.3632379999999,209.3632379999999,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,2
+fritz_2_Labeled.csv,21000,211.5937947499997,211.0937947499997,212.0937947499997,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,21360,215.22110129166595,214.72110129166595,215.72110129166595,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,24161,243.44357900000068,242.94357900000068,243.94357900000068,99,Rueckhand,Rueckhand,Rueckhand,2
+fritz_2_Labeled.csv,24626,248.12885412499963,247.62885412499963,248.62885412499963,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,25011,252.00805862499965,251.50805862499965,252.50805862499965,99,Rueckhand,Rueckhand,Rueckhand,2
+fritz_2_Labeled.csv,25292,254.83937574999982,254.33937574999982,255.33937574999982,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,2
+fritz_2_Labeled.csv,25542,257.3583380416667,256.8583380416667,257.8583380416667,99,Rueckhand,Rueckhand,Rueckhand,2
+fritz_2_Labeled.csv,25706,259.0107782916666,258.5107782916666,259.5107782916666,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,2
+fritz_2_Labeled.csv,26355,265.5500052916659,265.0500052916659,266.0500052916659,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,27580,277.89293416666624,277.39293416666624,278.39293416666624,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,27930,281.4194850416661,280.9194850416661,281.9194850416661,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,28299,285.13747799999965,284.63747799999965,285.63747799999965,99,Rueckhand,Rueckhand,Rueckhand,2
+fritz_2_Labeled.csv,28659,288.7647877916661,288.2647877916661,289.2647877916661,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,28976,291.95883524999954,291.45883524999954,292.45883524999954,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,29317,295.3947037499993,294.8947037499993,295.8947037499993,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,30035,302.62916979166584,302.12916979166584,303.12916979166584,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,30316,305.4604879999988,304.9604879999988,305.9604879999988,99,Rueckhand,Rueckhand,Rueckhand,2
+fritz_2_Labeled.csv,30653,308.85605424999994,308.35605424999994,309.35605424999994,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,31649,318.8916118749994,318.3916118749994,319.3916118749994,99,Rueckhand,Rueckhand,Rueckhand,2
+fritz_2_Labeled.csv,32097,323.40560362499946,322.90560362499946,323.90560362499946,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,32408,326.5391992499999,326.0391992499999,327.0391992499999,99,Rueckhand,Rueckhand,Rueckhand,2
+fritz_2_Labeled.csv,34975,352.4039665,351.9039665,352.9039665,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,36286,365.61343549999947,365.11343549999947,366.11343549999947,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,36616,368.9384689999988,368.4384689999988,369.4384689999988,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,38448,387.39744687499933,386.89744687499933,387.89744687499933,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,38773,390.67210887500005,390.17210887500005,391.17210887500005,99,Rueckhand,Rueckhand,Rueckhand,2
+fritz_2_Labeled.csv,39166,394.6319319999993,394.1319319999993,395.1319319999993,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,39468,397.674851625,397.174851625,398.174851625,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,40174,404.7884269999995,404.2884269999995,405.2884269999995,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,40506,408.1336208749999,407.6336208749999,408.6336208749999,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,40832,411.4183586249992,410.9183586249992,411.9183586249992,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,41666,419.8216432916661,419.3216432916661,420.3216432916661,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,44611,449.495296541666,448.995296541666,449.995296541666,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,44970,453.1125745416666,452.6125745416666,453.6125745416666,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,2
+fritz_2_Labeled.csv,45303,456.4678754166662,455.9678754166662,456.9678754166662,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,45619,459.65188316666627,459.15188316666627,460.15188316666627,99,Rueckhand,Rueckhand,Rueckhand,2
+fritz_2_Labeled.csv,46964,473.204051875,472.704051875,473.704051875,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,49629,500.0565147916659,499.5565147916659,500.5565147916659,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,50227,506.0819474166665,505.5819474166665,506.5819474166665,99,Rueckhand,Rueckhand,Rueckhand,2
+fritz_2_Labeled.csv,50728,511.1300053749992,510.6300053749992,511.6300053749992,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,51054,514.4147727499994,513.9147727499994,514.9147727499994,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,51360,517.4980165416664,516.9980165416664,517.9980165416664,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,53306,537.1058235,536.6058235,537.6058235,99,Rueckhand,Rueckhand,Rueckhand,2
+fritz_2_Labeled.csv,55267,556.8647377916659,556.3647377916659,557.3647377916659,99,Rueckhand,Rueckhand,Rueckhand,2
+fritz_2_Labeled.csv,55682,561.0462522499993,560.5462522499993,561.5462522499993,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,58856,593.027215416666,592.527215416666,593.527215416666,99,Rueckhand,Rueckhand,Rueckhand,2
+fritz_2_Labeled.csv,60426,608.8464047916659,608.3464047916659,609.3464047916659,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,60760,612.21175675,611.71175675,612.71175675,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,61757,622.2574192499997,621.7574192499997,622.7574192499997,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,62497,629.713565,629.213565,630.213565,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,65225,657.2005611666664,656.7005611666664,657.7005611666664,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,65528,660.253560416666,659.753560416666,660.753560416666,99,Rueckhand,Rueckhand,Rueckhand,2
+fritz_2_Labeled.csv,66865,673.7250332499998,673.2250332499998,674.2250332499998,99,Rueckhand,Rueckhand,Rueckhand,2
+fritz_2_Labeled.csv,69186,697.1111752500001,696.6111752500001,697.6111752500001,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,69868,703.9829352916677,703.4829352916677,704.4829352916677,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,70134,706.6631228749993,706.1631228749993,707.1631228749993,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,71392,719.3386049166666,718.8386049166666,719.8386049166666,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,72079,726.2607691249996,725.7607691249996,726.7607691249996,99,Vorhand,Vorhand,Vorhand,2
+fritz_2_Labeled.csv,72835,733.8781951249994,733.3781951249994,734.3781951249994,99,Vorhand,Vorhand,Vorhand,2
+fritz_3_Labeled.csv,1275,12.846726708334245,12.346726708334245,13.346726708334245,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,1484,14.952592333333996,14.452592333333996,15.452592333333996,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,1752,17.65292325000064,17.15292325000064,18.15292325000064,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,2135,21.511964208333666,21.011964208333666,22.011964208333666,99,Rueckhand,Rueckhand,Rueckhand,3
+fritz_3_Labeled.csv,3287,33.11928333333344,32.61928333333344,33.61928333333344,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,3637,36.645813375000216,36.145813375000216,37.145813375000216,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,3945,39.74916270833364,39.24916270833364,40.24916270833364,99,Rueckhand,Rueckhand,Rueckhand,3
+fritz_3_Labeled.csv,4279,43.11448237500008,42.61448237500008,43.61448237500008,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,4636,46.711544500000855,46.211544500000855,47.211544500000855,99,Rueckhand,Rueckhand,Rueckhand,3
+fritz_3_Labeled.csv,4923,49.603305458334034,49.103305458334034,50.103305458334034,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,5409,54.50015583333425,54.00015583333425,55.00015583333425,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Vorhand,3
+fritz_3_Labeled.csv,6395,64.43493345833485,63.934933458334854,64.93493345833485,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,6704,67.54837045833301,67.04837045833301,68.04837045833301,99,Rueckhand,Rueckhand,Rueckhand,3
+fritz_3_Labeled.csv,7174,72.28402325000025,71.78402325000025,72.78402325000025,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,3
+fritz_3_Labeled.csv,7508,75.64936120833408,75.14936120833408,76.14936120833408,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,9288,93.58444420833348,93.08444420833348,94.08444420833348,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,3
+fritz_3_Labeled.csv,10040,101.16153695833418,100.66153695833418,101.66153695833418,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,10738,108.19453283333405,107.69453283333405,108.69453283333405,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,10864,109.46409983333342,108.96409983333342,109.96409983333342,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,11274,113.59523687500041,113.09523687500041,114.09523687500041,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,11955,120.4569645833335,119.9569645833335,120.9569645833335,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,12359,124.52765770833412,124.02765770833412,125.02765770833412,99,Rueckhand,Rueckhand,Rueckhand,3
+fritz_3_Labeled.csv,13054,131.5304607500002,131.0304607500002,132.0304607500002,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,3
+fritz_3_Labeled.csv,13404,135.05705945833415,134.55705945833415,135.55705945833415,99,Rueckhand,Rueckhand,Rueckhand,3
+fritz_3_Labeled.csv,14307,144.15570158333412,143.65570158333412,144.65570158333412,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,14625,147.35991195833412,146.85991195833412,147.85991195833412,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,14953,150.66490087500188,150.16490087500188,151.16490087500188,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,15250,153.6575210000001,153.1575210000001,154.1575210000001,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,16064,161.85950045833488,161.35950045833488,162.35950045833488,99,Rueckhand,Rueckhand,Rueckhand,3
+fritz_3_Labeled.csv,16633,167.59287870833487,167.09287870833487,168.09287870833487,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,3
+fritz_3_Labeled.csv,19749,198.99027358333387,198.49027358333387,199.49027358333387,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,20358,205.12664120833415,204.62664120833415,205.62664120833415,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,20586,207.42399883333383,206.92399883333383,207.92399883333383,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,20795,209.52990950000185,209.02990950000185,210.02990950000185,99,Rueckhand,Rueckhand,Rueckhand,3
+fritz_3_Labeled.csv,22571,227.42508433333387,226.92508433333387,227.92508433333387,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,3
+fritz_3_Labeled.csv,23266,234.427986208334,233.927986208334,234.927986208334,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,3
+fritz_3_Labeled.csv,23623,238.0251657083336,237.5251657083336,238.5251657083336,99,Rueckhand,Rueckhand,Rueckhand,3
+fritz_3_Labeled.csv,25582,257.7643164583342,257.2643164583342,258.2643164583342,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,25969,261.66379333333407,261.16379333333407,262.16379333333407,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,26283,264.82774450000034,264.32774450000034,265.32774450000034,99,Rueckhand,Rueckhand,Rueckhand,3
+fritz_3_Labeled.csv,26617,268.1932273750008,267.6932273750008,268.6932273750008,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,26885,270.89367425,270.39367425,271.39367425,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,27140,273.46312125000077,272.96312125000077,273.96312125000077,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,27646,278.5617237500019,278.0617237500019,279.0617237500019,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,31904,321.4669005000005,320.9669005000005,321.9669005000005,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,3
+fritz_3_Labeled.csv,32198,324.4294105833342,323.9294105833342,324.9294105833342,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,32479,327.26092600000084,326.76092600000084,327.76092600000084,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,32797,330.4652583333336,329.9652583333336,330.9652583333336,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,33756,340.1285611250005,339.6285611250005,340.6285611250005,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,34358,346.19456358333355,345.69456358333355,346.69456358333355,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,3
+fritz_3_Labeled.csv,34775,350.3964374583338,349.8964374583338,350.8964374583338,99,Rueckhand,Rueckhand,Rueckhand,3
+fritz_3_Labeled.csv,35139,354.06425475000015,353.56425475000015,354.56425475000015,99,Rueckhand,Rueckhand,Rueckhand,3
+fritz_3_Labeled.csv,36429,367.06281425,366.56281425,367.56281425,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,37302,375.8595004583349,375.3595004583349,376.3595004583349,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,3
+fritz_3_Labeled.csv,37723,380.1016663750006,379.6016663750006,380.6016663750006,99,Rueckhand,Rueckhand,Rueckhand,3
+fritz_3_Labeled.csv,38235,385.2607853750005,384.7607853750005,385.7607853750005,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,39258,395.56891200000064,395.06891200000064,396.06891200000064,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,3
+fritz_3_Labeled.csv,39628,399.2971410833343,398.7971410833343,399.7971410833343,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,40372,406.7939177500002,406.2939177500002,407.2939177500002,99,Rueckhand,Rueckhand,Rueckhand,3
+fritz_3_Labeled.csv,40716,410.26018170833413,409.76018170833413,410.76018170833413,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,41060,413.72644437500185,413.22644437500185,414.22644437500185,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,41719,420.3667395000002,419.8667395000002,420.8667395000002,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,42016,423.3593818750005,422.8593818750005,423.8593818750005,99,Rueckhand,Rueckhand,Rueckhand,3
+fritz_3_Labeled.csv,43055,433.828634708334,433.328634708334,434.328634708334,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,3
+fritz_3_Labeled.csv,43409,437.3956506250006,436.8956506250006,437.8956506250006,99,Rueckhand,Rueckhand,Rueckhand,3
+fritz_3_Labeled.csv,43670,440.0255684583335,439.5255684583335,440.5255684583335,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,43942,442.766323750001,442.266323750001,443.266323750001,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,44259,445.96051333333344,445.46051333333344,446.46051333333344,99,Rueckhand,Rueckhand,Rueckhand,3
+fritz_3_Labeled.csv,44699,450.3940917083337,449.8940917083337,450.8940917083337,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,3
+fritz_3_Labeled.csv,45758,461.0649362083341,460.5649362083341,461.5649362083341,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,47289,476.49184308333406,475.99184308333406,476.99184308333406,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,48305,486.72938045833416,486.22938045833416,487.22938045833416,99,Rueckhand,Rueckhand,Rueckhand,3
+fritz_3_Labeled.csv,48692,490.6288873333342,490.1288873333342,491.1288873333342,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,49238,496.1305054583336,495.6305054583336,496.6305054583336,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,49512,498.8913920833338,498.3913920833338,499.3913920833338,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,49790,501.69260833333374,501.19260833333374,502.19260833333374,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,49929,503.0932192500004,502.5932192500004,503.5932192500004,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,50045,504.26207608333425,503.76207608333425,504.76207608333425,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,50530,509.14910345833414,508.64910345833414,509.64910345833414,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,50865,512.524678083334,512.024678083334,513.024678083334,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,51166,515.5576577083339,515.0576577083339,516.0576577083339,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,51547,519.3967480000001,518.8967480000001,519.8967480000001,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,51788,521.8251493750004,521.3251493750004,522.3251493750004,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,3
+fritz_3_Labeled.csv,52463,528.6266852083336,528.1266852083336,529.1266852083336,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,52857,532.5967640000008,532.0967640000008,533.0967640000008,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,53145,535.4987515833336,534.9987515833336,535.9987515833336,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,53436,538.4309651250005,537.9309651250005,538.9309651250005,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Vorhand,3
+fritz_3_Labeled.csv,53757,541.66544875,541.16544875,542.16544875,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,54097,545.0913677083336,544.5913677083336,545.5913677083336,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,54690,551.0665603333337,550.5665603333337,551.5665603333337,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,54938,553.5654613333336,553.0654613333336,554.0654613333336,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,57478,579.1591552500004,578.6591552500004,579.6591552500004,99,Rueckhand,Rueckhand,Rueckhand,3
+fritz_3_Labeled.csv,57716,581.5573318333336,581.0573318333336,582.0573318333336,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,58100,585.4266550833336,584.9266550833336,585.9266550833336,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,58424,588.6913940833338,588.1913940833338,589.1913940833338,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,58765,592.1274372500002,591.6274372500002,592.6274372500002,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,59066,595.1604219583342,594.6604219583342,595.6604219583342,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,59213,596.6416470833337,596.1416470833337,597.1416470833337,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,59941,603.9772137500004,603.4772137500004,604.4772137500004,99,Rueckhand,Rueckhand,Rueckhand,3
+fritz_3_Labeled.csv,60685,611.4739362500004,610.9739362500004,611.9739362500004,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,62207,626.8099264583343,626.3099264583343,627.3099264583343,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,63186,636.6745260833341,636.1745260833341,637.1745260833341,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,63312,637.9441298750007,637.4441298750007,638.4441298750007,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,63619,641.0375272500005,640.5375272500005,641.5375272500005,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,63907,643.9394773333343,643.4394773333343,644.4394773333343,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,64185,646.7406653333337,646.2406653333337,647.2406653333337,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,64595,650.8719093333339,650.3719093333339,651.3719093333339,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,64744,652.373263708334,651.873263708334,652.873263708334,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,65105,656.0107737500002,655.5107737500002,656.5107737500002,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,65528,660.2730068750006,659.7730068750006,660.7730068750006,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,66180,666.842688208334,666.342688208334,667.342688208334,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Rueckhand,3
+fritz_3_Labeled.csv,66392,668.9788438750002,668.4788438750002,669.4788438750002,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,66557,670.641416833334,670.141416833334,671.141416833334,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,3
+fritz_3_Labeled.csv,66994,675.0447159583337,674.5447159583337,675.5447159583337,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,68267,687.8717005000008,687.3717005000008,688.3717005000008,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,3
+fritz_3_Labeled.csv,68611,691.3379040833343,690.8379040833343,691.8379040833343,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,68919,694.4413642083337,693.9413642083337,694.9413642083337,99,Rueckhand,Rueckhand,Rueckhand,3
+fritz_3_Labeled.csv,69395,699.2376136250004,698.7376136250004,699.7376136250004,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,70596,711.3390417083338,710.8390417083338,711.8390417083338,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,3
+fritz_3_Labeled.csv,70911,714.5130178750005,714.0130178750005,715.0130178750005,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,71218,717.6063867083349,717.1063867083349,718.1063867083349,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,71552,720.9718112083337,720.4718112083337,721.4718112083337,99,Rueckhand,Rueckhand,Rueckhand,3
+fritz_3_Labeled.csv,73693,742.5447548333341,742.0447548333341,743.0447548333341,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,3
+fritz_3_Labeled.csv,74077,746.4139757083349,745.9139757083349,746.9139757083349,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,74282,748.4795737500008,747.9795737500008,748.9795737500008,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,74910,754.8073577500008,754.3073577500008,755.3073577500008,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,3
+fritz_3_Labeled.csv,75274,758.4750533333336,757.9750533333336,758.9750533333336,99,Rueckhand,Rueckhand,Rueckhand,3
+fritz_3_Labeled.csv,76210,767.9062667083335,767.4062667083335,768.4062667083335,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Rueckhand,3
+fritz_3_Labeled.csv,76442,770.2439163750005,769.7439163750005,770.7439163750005,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,78159,787.5445302083335,787.0445302083335,788.0445302083335,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,3
+fritz_3_Labeled.csv,78506,791.0409243750019,790.5409243750019,791.5409243750019,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,78946,795.4743918750019,794.9743918750019,795.9743918750019,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,3
+fritz_3_Labeled.csv,79307,799.1118489583341,798.6118489583341,799.6118489583341,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,79608,802.1447428750007,801.6447428750007,802.6447428750007,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,79836,804.4420841250003,803.9420841250003,804.9420841250003,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,81695,823.1734766250001,822.6734766250001,823.6734766250001,99,Aufschlag von unten,Aufschlag von unten,Aufschlag von unten,3
+fritz_3_Labeled.csv,82039,826.6396438750007,826.1396438750007,827.1396438750007,99,Rueckhand,Rueckhand,Rueckhand,3
+fritz_3_Labeled.csv,82430,830.5793862083337,830.0793862083337,831.0793862083337,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,82787,834.1765401250004,833.6765401250004,834.6765401250004,99,Rueckhand,Rueckhand,Rueckhand,3
+fritz_3_Labeled.csv,83210,838.4387128750004,837.9387128750004,838.9387128750004,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,83303,839.3757853333336,838.8757853333336,839.8757853333336,99,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,Kein Schlag / Schlaeger drehen,3
+fritz_3_Labeled.csv,83548,841.8444175833338,841.3444175833338,842.3444175833338,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,83862,845.0082971250004,844.5082971250004,845.5082971250004,99,Vorhand,Vorhand,Vorhand,3
+fritz_3_Labeled.csv,84206,848.4744559583341,847.9744559583341,848.9744559583341,99,Rueckhand,Rueckhand,Rueckhand,3
+fritz_3_Labeled.csv,84537,851.8096244583348,851.3096244583348,852.3096244583348,99,Rueckhand,Rueckhand,Rueckhand,3

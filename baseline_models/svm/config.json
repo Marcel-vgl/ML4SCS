@@ -1,0 +1,28 @@
+{
+  "data_dir": "Daten/Daten_Labeled",
+  "output_dir": "baseline_models/svm/output",
+  "model_output_path": "baseline_models/svm/output/svm_model.pkl",
+  "window_before_s": 0.5,
+  "window_after_s": 0.5,
+  "min_window_rows": 25,
+  "labels": [
+    "Vorhand",
+    "Rueckhand",
+    "Schlaeger drehen",
+    "Aufschlag von unten",
+    "Kein Schlag / Other"
+  ],
+  "excluded_labels": [
+    "Unsicher"
+  ],
+  "min_samples_per_label": 10,
+  "min_sessions_per_label": 2,
+  "random_state": 42,
+  "kernel": "linear",
+  "c_value": 0.5,
+  "gamma": "scale",
+  "degree": 3,
+  "coef0": 0.0,
+  "class_weight": "balanced",
+  "probability": true
+}

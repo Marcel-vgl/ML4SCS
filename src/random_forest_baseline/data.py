@@ -62,6 +62,7 @@ def prepare_dataset(config: BaselineConfig) -> PreparedDataset:
     """Load labeled sessions, build event windows, and summarize them as features."""
     sessions = load_sessions(config.resolved_data_dir)
     raw_events = collect_raw_events(sessions)
+    raw_events = remap_event_labels(raw_events, config.label_aliases)
     label_summary = summarize_label_availability(raw_events)
     selected_labels = choose_labels(label_summary, config)
     selected_events = raw_events[raw_events["label_name"].isin(selected_labels)].copy()
@@ -215,6 +216,17 @@ def collect_raw_events(sessions: dict[str, SessionData]) -> pd.DataFrame:
         raise ValueError("No labeled events found in the configured CSV files.")
     events = events[events["label_name"].ne("")]
     return events.sort_values(["session_name", "event_time_s"]).reset_index(drop=True)
+
+
+def remap_event_labels(events: pd.DataFrame, label_aliases: dict[str, str]) -> pd.DataFrame:
+    """Collapse or rename raw labels before label selection and feature extraction."""
+    if not label_aliases:
+        return events
+
+    remapped = events.copy()
+    remapped["label_name"] = remapped["label_name"].map(lambda value: label_aliases.get(str(value), str(value)))
+    remapped = remapped[remapped["label_name"].astype(str).str.strip().ne("")]
+    return remapped.reset_index(drop=True)
 
 
 def summarize_label_availability(events: pd.DataFrame) -> pd.DataFrame:

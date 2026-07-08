@@ -1,0 +1,12 @@
+{
+  "model_path": "models/v_r_v1_eval/output/v_r_v1.pkl",
+  "data_dir": "Daten",
+  "label_dir": "labels",
+  "output_dir": "models/v_r_v1_eval/output",
+  "supported_labels": [
+    "Rueckhand",
+    "Vorhand"
+  ],
+  "peak_min_spacing_s": 0.45,
+  "max_peak_distance_s": 0.5
+}
