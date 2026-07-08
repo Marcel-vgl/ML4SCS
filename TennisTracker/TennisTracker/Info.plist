@@ -30,7 +30,11 @@
 	<key>NSCameraUsageDescription</key>
 	<string>TennisTracker nimmt im Label-Modus ein Video auf, das mit den Sensordaten synchronisiert wird.</string>
 	<key>NSLocalNetworkUsageDescription</key>
-	<string>TennisTracker sendet Sensordaten an dein Mac-Dashboard im lokalen Netzwerk.</string>
+	<string>TennisTracker sendet Sensordaten an dein Mac-Dashboard im lokalen Netzwerk und findet es automatisch (auch im iPhone-Hotspot).</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_tennistracker._tcp</string>
+	</array>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>TennisTracker nimmt im Label-Modus Video mit Ton auf.</string>
 	<key>UIFileSharingEnabled</key>

@@ -17,6 +17,10 @@ struct WatchContentView: View {
                           text: controller.workout.active ? "aktiv" : "aus")
                 statusRow("Workout", ok: controller.workout.authorized,
                           text: controller.workout.authorized ? "bereit" : "Berechtigung")
+                statusRow("Live", ok: controller.link.sentBatches > 0,
+                          text: "\(controller.link.sentBatches) direkt")
+                statusRow("Queue", ok: controller.link.queuedBatches == 0,
+                          text: "\(controller.link.queuedBatches) Hintergrund")
 
                 VStack(spacing: 2) {
                     Text("\(Int(controller.sampler.rateHz.rounded())) Hz")
@@ -46,6 +50,11 @@ struct WatchContentView: View {
                     .foregroundStyle(.secondary)
                 if !controller.workout.lastError.isEmpty {
                     Text(controller.workout.lastError)
+                        .font(.system(size: 10))
+                        .foregroundStyle(.red)
+                }
+                if controller.link.failedBatches > 0 {
+                    Text("\(controller.link.failedBatches) Live-Fehler")
                         .font(.system(size: 10))
                         .foregroundStyle(.red)
                 }

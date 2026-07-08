@@ -1,9 +1,19 @@
 import Foundation
 import Combine
+import Network
 
 /// Sendet Sensor-Batches per HTTP POST an das Mac-Dashboard (`/api/ingest`).
-/// Host und Port werden in den UserDefaults gespeichert.
+/// Host und Port werden in den UserDefaults gespeichert. Findet das Dashboard
+/// zusätzlich automatisch per Bonjour – funktioniert im WLAN und im iPhone-Hotspot.
 final class MacHTTPClient: ObservableObject {
+    /// Ein automatisch gefundenes Mac-Dashboard.
+    struct DiscoveredMac: Identifiable, Equatable {
+        let id: String      // Bonjour-Servicename
+        let name: String
+        let host: String
+        let port: Int
+    }
+
     @Published var host: String {
         didSet { UserDefaults.standard.set(host, forKey: "mac_host") }
     }
@@ -15,6 +25,13 @@ final class MacHTTPClient: ObservableObject {
     @Published var sentBatches = 0
     @Published var failedBatches = 0
     @Published var lastError = ""
+
+    @Published var discovered: [DiscoveredMac] = []
+    @Published var discovering = false
+
+    private let bonjourType = "_tennistracker._tcp"
+    private var browser: NWBrowser?
+    private var resolvers: [NWConnection] = []
 
     private let session: URLSession = {
         let config = URLSessionConfiguration.default
@@ -68,5 +85,102 @@ final class MacHTTPClient: ObservableObject {
     /// Einfacher Verbindungstest (leerer Batch).
     func ping() {
         send(SensorBatch(source: "iphone_bridge", session_id: "ping", samples: []))
+    }
+
+    // MARK: - Automatische Suche (Bonjour)
+
+    /// Startet die Suche nach Mac-Dashboards im lokalen Netz / Hotspot.
+    func startDiscovery() {
+        stopDiscovery()
+        DispatchQueue.main.async {
+            self.discovered = []
+            self.discovering = true
+        }
+        let params = NWParameters.tcp
+        params.includePeerToPeer = true
+        let browser = NWBrowser(for: .bonjour(type: bonjourType, domain: nil), using: params)
+        self.browser = browser
+        browser.browseResultsChangedHandler = { [weak self] results, _ in
+            self?.resolvers.forEach { $0.cancel() }
+            self?.resolvers = []
+            for result in results { self?.resolve(result) }
+        }
+        browser.stateUpdateHandler = { [weak self] state in
+            switch state {
+            case .failed, .cancelled:
+                DispatchQueue.main.async { self?.discovering = false }
+            default:
+                break
+            }
+        }
+        browser.start(queue: .main)
+    }
+
+    /// Beendet die Suche (z. B. wenn die Mac-Option ausgeschaltet wird).
+    func stopDiscovery() {
+        browser?.cancel()
+        browser = nil
+        resolvers.forEach { $0.cancel() }
+        resolvers = []
+        DispatchQueue.main.async { self.discovering = false }
+    }
+
+    /// Übernimmt ein gefundenes Dashboard als aktuelles Ziel.
+    func apply(_ mac: DiscoveredMac) {
+        host = mac.host
+        port = mac.port
+    }
+
+    private func resolve(_ result: NWBrowser.Result) {
+        let serviceName: String
+        if case let .service(name, _, _, _) = result.endpoint {
+            serviceName = name
+        } else {
+            serviceName = "Mac"
+        }
+        // Kurz verbinden, um die echte IP+Port aufzulösen, dann sofort schließen.
+        let connection = NWConnection(to: result.endpoint, using: .tcp)
+        resolvers.append(connection)
+        connection.stateUpdateHandler = { [weak self, weak connection] state in
+            guard let self, let connection else { return }
+            switch state {
+            case .ready:
+                if let endpoint = connection.currentPath?.remoteEndpoint,
+                   case let .hostPort(host, port) = endpoint,
+                   let ip = Self.ipv4String(host) {
+                    let found = DiscoveredMac(id: serviceName, name: serviceName, host: ip, port: Int(port.rawValue))
+                    DispatchQueue.main.async { self.addDiscovered(found) }
+                }
+                connection.cancel()
+            case .failed, .cancelled:
+                connection.cancel()
+            default:
+                break
+            }
+        }
+        connection.start(queue: .global())
+    }
+
+    private func addDiscovered(_ mac: DiscoveredMac) {
+        if let index = discovered.firstIndex(where: { $0.id == mac.id }) {
+            discovered[index] = mac
+        } else {
+            discovered.append(mac)
+        }
+        // Genau ein Mac gefunden → automatisch übernehmen (kein Tippen nötig).
+        if discovered.count == 1 {
+            apply(mac)
+        }
+    }
+
+    private static func ipv4String(_ host: NWEndpoint.Host) -> String? {
+        switch host {
+        case .ipv4(let address):
+            return "\(address)"
+        case .name(let name, _):
+            return name
+        default:
+            return nil   // IPv6 hier ignorieren (HTTP-URL-Aufbau umständlich)
+        }
     }
 }

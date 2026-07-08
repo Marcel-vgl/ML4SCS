@@ -27,6 +27,11 @@
 		D78872487D30419933D1D8B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5C83C41FCFD0533402B5980 /* Assets.xcassets */; };
 		D86AE7C07F34EB1F6F749B39 /* RecordingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011F08E6132A554232CC9EAA /* RecordingStore.swift */; };
 		DFA77941B5085ED399988F95 /* CanonicalCSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3413A32146737EDA81CD2D5 /* CanonicalCSV.swift */; };
+		FF00000000000000000000B1 /* StrokeForest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000000A1 /* StrokeForest.swift */; };
+		FF00000000000000000000B2 /* StrokeDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000000A2 /* StrokeDetection.swift */; };
+		FF00000000000000000000B3 /* OnDeviceStrokeEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000000A3 /* OnDeviceStrokeEngine.swift */; };
+		FF00000000000000000000B4 /* PredictDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000000A4 /* PredictDashboardView.swift */; };
+		FF00000000000000000000B5 /* StrokeForest.json in Resources */ = {isa = PBXBuildFile; fileRef = FF00000000000000000000A5 /* StrokeForest.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +81,11 @@
 		D3413A32146737EDA81CD2D5 /* CanonicalCSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanonicalCSV.swift; sourceTree = "<group>"; };
 		E1FC037935693578EFA1965A /* PhoneWatchBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneWatchBridge.swift; sourceTree = "<group>"; };
 		E5C83C41FCFD0533402B5980 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FF00000000000000000000A1 /* StrokeForest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeForest.swift; sourceTree = "<group>"; };
+		FF00000000000000000000A2 /* StrokeDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeDetection.swift; sourceTree = "<group>"; };
+		FF00000000000000000000A3 /* OnDeviceStrokeEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnDeviceStrokeEngine.swift; sourceTree = "<group>"; };
+		FF00000000000000000000A4 /* PredictDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictDashboardView.swift; sourceTree = "<group>"; };
+		FF00000000000000000000A5 /* StrokeForest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = StrokeForest.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -109,6 +119,11 @@
 				E1FC037935693578EFA1965A /* PhoneWatchBridge.swift */,
 				011F08E6132A554232CC9EAA /* RecordingStore.swift */,
 				63ED978C9982686B27AECED3 /* TennisTrackerApp.swift */,
+				FF00000000000000000000A3 /* OnDeviceStrokeEngine.swift */,
+				FF00000000000000000000A4 /* PredictDashboardView.swift */,
+				FF00000000000000000000A2 /* StrokeDetection.swift */,
+				FF00000000000000000000A1 /* StrokeForest.swift */,
+				FF00000000000000000000A5 /* StrokeForest.json */,
 			);
 			path = TennisTracker;
 			sourceTree = "<group>";
@@ -233,6 +248,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D78872487D30419933D1D8B5 /* Assets.xcassets in Resources */,
+				FF00000000000000000000B5 /* StrokeForest.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +267,10 @@
 				D86AE7C07F34EB1F6F749B39 /* RecordingStore.swift in Sources */,
 				BF9F6EE49AD9DDF57E15CA21 /* SensorModels.swift in Sources */,
 				3EFF29F64E82749968F034D0 /* TennisTrackerApp.swift in Sources */,
+				FF00000000000000000000B1 /* StrokeForest.swift in Sources */,
+				FF00000000000000000000B2 /* StrokeDetection.swift in Sources */,
+				FF00000000000000000000B3 /* OnDeviceStrokeEngine.swift in Sources */,
+				FF00000000000000000000B4 /* PredictDashboardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -3,13 +3,16 @@ import WatchConnectivity
 
 /// WatchConnectivity-Verbindung der Uhr:
 /// - empfängt Start/Stop-Befehle (mit Session-Name) vom iPhone,
-/// - überträgt Live-Batches per `transferUserInfo` (Hintergrund-fähig, Bluetooth),
+/// - überträgt Live-Batches live per `sendMessageData`, mit `transferUserInfo`
+///   als Hintergrund-Fallback,
 /// - schickt am Ende die komplette CSV-Datei per `transferFile` ans iPhone.
 final class WatchConnectivitySender: NSObject, ObservableObject, WCSessionDelegate {
     static let shared = WatchConnectivitySender()
 
     @Published var phoneReachable = false
     @Published var sentBatches = 0
+    @Published var queuedBatches = 0
+    @Published var failedBatches = 0
 
     /// Befehl vom iPhone: ("start"/"stop", sessionName, geplanter Startzeitpunkt, Modus).
     var onCommand: ((String, String, Double?, String?) -> Void)?
@@ -32,10 +35,24 @@ final class WatchConnectivitySender: NSObject, ObservableObject, WCSessionDelega
         let session = WCSession.default
         guard session.activationState == .activated else { return }
         guard let data = try? JSONEncoder().encode(batch) else { return }
-        session.transferUserInfo(["batch": data])
+        if session.isReachable {
+            session.sendMessageData(data, replyHandler: nil) { [weak self] _ in
+                self?.queue(batchData: data)
+            }
+            DispatchQueue.main.async {
+                self.sentBatches += 1
+                self.phoneReachable = true
+            }
+            return
+        }
+        queue(batchData: data)
+    }
+
+    private func queue(batchData data: Data) {
+        WCSession.default.transferUserInfo(["batch": data])
         DispatchQueue.main.async {
-            self.sentBatches += 1
-            self.phoneReachable = session.isReachable
+            self.queuedBatches += 1
+            self.phoneReachable = WCSession.default.isReachable
         }
     }
 
