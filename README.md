@@ -58,9 +58,11 @@ review, live dashboarding, and simulated sensor streams.
 
 ## Screenshots
 Screenshot from the iPhone App
+
 <img src="docs/assets/IMG_0702.jpg" alt="Screenshot showing the iPhone App" width="420">
 
 Screenshot from the Live Dashboard
+
 <img src="docs/assets/Bildschirmfoto 2026-09-15 um 23.34.42.png" alt="Screenshot showing the Live Prediction Dashboard" width="1280">
 
 ## Team
